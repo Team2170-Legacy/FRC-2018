@@ -48,11 +48,13 @@ void Arm::Periodic() {
 // here. Call these from Commands.
 
 bool Arm::readLimitSwitchFront() {
-	return armLimitSwitchFront->Get();
+	return !armLimitSwitchFront->Get();
+	// Inversed due to Digital Output voltage pull-up (5V)
 }
 
 bool Arm::readLimitSwitchBack() {
-	return armLimitSwitchBack->Get();
+	return !armLimitSwitchBack->Get();
+	// Inversed due to Digital Output voltage pull-up (5V)
 }
 
 int Arm::readArmEncoder() {

@@ -69,8 +69,15 @@ void Robot::TeleopInit() {
 }
 
 void Robot::TeleopPeriodic() {
-	frc::Scheduler::GetInstance()->Run();
+	//frc::Scheduler::GetInstance()->Run();
+	bool limitSwitchValueF = Robot::arm->readLimitSwitchFront();
+	std::printf("TeleOp Periodic!!!\n");
+	if (limitSwitchValueF == false) {
+		std::printf("false\n");
+	}
+	else {
+		std::printf("true\n");
+	}
 }
 
 START_ROBOT_CLASS(Robot);
-
