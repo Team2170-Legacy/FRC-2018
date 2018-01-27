@@ -28,7 +28,18 @@ void ArmPickup::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ArmPickup::Execute() {
+	// NOTE: This command only move the arm down to position. No intake motors are being used
 
+	// Hit front limit Switch
+	bool limitSwitchFront = Robot::arm->readLimitSwitchFront();
+	while (limitSwitchFront == false) {
+		Robot::arm->setArmMotorSpeed(100);
+	}
+	Robot::arm->stopArmMotor();
+
+	// If limit switches can't be used
+	// Calculate the number of encoder counts that need to be traveled to pick position (right before limit switch)
+	// Then set motots to travel that encoder count duration
 }
 
 // Make this return true when this Command no longer needs to run execute()

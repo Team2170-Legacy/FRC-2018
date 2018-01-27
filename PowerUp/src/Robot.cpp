@@ -57,6 +57,9 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
+	std::string switchScalePositions = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+	char switchPosition = switchScalePositions[0];
+
 	autonomousCommand = chooser.GetSelected();
 	if (autonomousCommand != nullptr)
 		autonomousCommand->Start();

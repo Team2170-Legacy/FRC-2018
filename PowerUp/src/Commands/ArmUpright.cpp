@@ -34,28 +34,22 @@ void ArmUpright::Execute() {
 	int kArmSpeed = 100;							// Verify and possibly change this value
 	int middleCount = 0;
 
-	if (limitSwitchFrontValue == 1 || limitSwitchBackValue == 1) {
-			Robot::arm->stopArmMotor();
-	}
-
-	else {
+	if (limitSwitchFrontValue != true && limitSwitchBackValue != true) {
 			// if arm is forward of center arm axis, move arm backwards until centered
 			int encoderCounts = Robot::arm->readArmEncoder();
 
-			if (encoderCounts < middleCount) {
-				// move arm backwards until centered
-				while (encoderCounts != middleCount) {
-					Robot::arm->setArmMotorSpeed(kArmSpeed);
-				}
-				Robot::arm->stopArmMotor();
+			// Encoder +: Arm closer to front
+			// Encoder -: Arm closer to back
+			while (encoderCounts < 0) {
+				Robot::arm->setArmMotorSpeed(kArmSpeed);
+				encoderCounts = Robot::arm->readArmEncoder();
 			}
-			else if (encoderCounts > middleCount){
-				while (encoderCounts != middleCount) {
-					Robot::arm->setArmMotorSpeed(-kArmSpeed);
-				}
-				Robot::arm->stopArmMotor();
-			}
+			Robot::arm->stopArmMotor();
 
+			while (encoderCounts > 0) {
+				Robot::arm->setArmMotorSpeed(-kArmSpeed);
+			}
+			Robot::arm->stopArmMotor();
 			// if arm is backward of center arm axis, move arm forwards until centered
 	}
 }
