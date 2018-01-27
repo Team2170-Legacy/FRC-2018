@@ -13,6 +13,7 @@
 #define ARM_H
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
+#include "ctre/Phoenix.h"
 
 /**
  *
