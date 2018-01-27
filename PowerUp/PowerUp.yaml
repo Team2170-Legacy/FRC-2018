@@ -97,7 +97,7 @@ Children:
         validators: null
         value: []
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: None}
+        name: Default Command, type: Command, validators: null, value: Teleop Tank Drive}
       Constants: !!robotbuilder.data.properties.ConstantsProperty
         default: []
         name: Constants
@@ -188,7 +188,27 @@ Children:
   Properties: {}
   Base: Subsystems
   Name: Subsystems
-- Children: []
+- Children:
+  - Children: []
+    Properties:
+      Number: !!robotbuilder.data.properties.ChoicesProperty
+        choices: &id006 ['0', '1', '2', '3', '4', '5']
+        default: 1
+        name: Number
+        validators: &id007 [Joystick]
+        value: '0'
+    Base: Joystick
+    Name: Joystick Driver Left
+  - Children: []
+    Properties:
+      Number: !!robotbuilder.data.properties.ChoicesProperty
+        choices: *id006
+        default: 1
+        name: Number
+        validators: *id007
+        value: '1'
+    Base: Joystick
+    Name: Joystick Driver Right
   Properties: {}
   Base: OI
   Name: Operator Interface
