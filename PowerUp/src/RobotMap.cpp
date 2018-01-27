@@ -50,10 +50,10 @@ void RobotMap::init() {
     driveTrainTalonSRXSlaveLeft1.reset(new WPI_TalonSRX(3));
     
     
-    driveTrainTalonSRXSlaveLeft2.reset(new WPI_TalonSRX(4));
+    driveTrainTalonSRXSlaveLeft2.reset(new WPI_TalonSRX(5));
     
     
-    driveTrainTalonSRXSlaveRight1.reset(new WPI_TalonSRX(5));
+    driveTrainTalonSRXSlaveRight1.reset(new WPI_TalonSRX(4));
     
     
     driveTrainTalonSRXSlaveRight2.reset(new WPI_TalonSRX(6));

@@ -65,7 +65,7 @@ Children:
           default: '2'
           name: CAN ID
           validators: *id002
-          value: '4'
+          value: '5'
       Base: Talon SRX
       Name: Talon SRX SlaveLeft2
     - Children: []
@@ -75,7 +75,7 @@ Children:
           default: '2'
           name: CAN ID
           validators: *id002
-          value: '5'
+          value: '4'
       Base: Talon SRX
       Name: Talon SRX SlaveRight1
     - Children: []
