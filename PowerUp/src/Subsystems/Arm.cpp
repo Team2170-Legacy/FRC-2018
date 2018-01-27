@@ -48,3 +48,39 @@ void Arm::Periodic() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
+bool Arm::readLimitSwitchFront() {
+	return !limitSwitchFront->Get();
+	// Inversed due to Digital Output voltage pull-up (5V)
+}
+
+bool Arm::readLimitSwitchBack() {
+	return !limitSwitchBack->Get();
+	// Inversed due to Digital Output voltage pull-up (5V)
+}
+
+int Arm::readArmEncoder() {
+	int pidIndex = 0;
+	talonSRXArmMotor->ConfigSelectedFeedbackSensor(FeedbackDevice::Analog, pidIndex, 0);
+	return talonSRXArmMotor->GetSelectedSensorPosition(pidIndex);
+	// *** Check this!!! ***
+}
+
+bool Arm::readArmOpticalFlagSensor() {
+	return opticalFlagSensor->Get();
+}
+
+void Arm::stopArmMotor() {
+	talonSRXArmMotor->StopMotor();
+}
+
+void Arm::setArmMotorSpeed(double speed) {
+	talonSRXArmMotor->Set(speed);
+}
+
+void Arm::resetArmEncoder() {
+	int pidIndex = 0;
+	int resetValue = 0;
+	talonSRXArmMotor->SetSelectedSensorPosition(resetValue, pidIndex, 0);
+	//talonSRXArmMotor->ConfigSelectedFeedbackSensor(FeedbackDevice::Analog, pidIndex, 0);
+}
+
