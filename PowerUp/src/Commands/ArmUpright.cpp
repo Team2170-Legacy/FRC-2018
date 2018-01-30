@@ -40,13 +40,13 @@ void ArmUpright::Execute() {
 
 			// Encoder +: Arm closer to front
 			// Encoder -: Arm closer to back
-			while (encoderCounts < 0) {
+			while (encoderCounts < middleCount) {
 				Robot::arm->setArmMotorSpeed(kArmSpeed);
 				encoderCounts = Robot::arm->readArmEncoder();
 			}
 			Robot::arm->stopArmMotor();
 
-			while (encoderCounts > 0) {
+			while (encoderCounts > middleCount) {
 				Robot::arm->setArmMotorSpeed(-kArmSpeed);
 			}
 			Robot::arm->stopArmMotor();
