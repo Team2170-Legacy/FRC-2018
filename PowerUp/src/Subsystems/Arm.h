@@ -14,7 +14,10 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "ctre/Phoenix.h"
+#include <math.h>
 
+#define PI 3.141592653589793238462643383279502884
+#define DEG PI/180
 /**
  *
  *
@@ -41,6 +44,10 @@ public:
 
 	int readArmEncoder();
 	void resetArmEncoder();
+
+
+	double getArmPosition();
+
 	bool readArmOpticalFlagSensor();
 
 	void stopArmMotor();

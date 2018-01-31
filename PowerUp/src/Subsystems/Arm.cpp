@@ -73,6 +73,13 @@ void Arm::stopArmMotor() {
 	talonSRXArmMotor->StopMotor();
 }
 
+double Arm::getArmPosition() {
+	int encoderCounts = readArmEncoder();
+	int kEncoder90Deg = 76725;
+	double angleDeg = (encoderCounts/kEncoder90Deg)*90;
+	return angleDeg * DEG;
+}
+
 void Arm::setArmMotorSpeed(double speed) {
 	talonSRXArmMotor->Set(speed);
 }
