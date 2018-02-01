@@ -81,6 +81,89 @@ void DriveTrain::TankDrive(double leftSpeed, double rightSpeed) {
 
 	differentialDrive1->TankDrive(leftSpeed, rightSpeed, true);
 }
+
+void DriveTrain::FillProfileBuffer(
+		std::shared_ptr<const ProfileData> LeftWheel) {
+	size_t i;
+	TrajectoryPoint pt;
+
+	pt.zeroPos = true;
+	pt.isLastPoint = false;
+	pt.profileSlotSelect0 = 0;
+
+	talonSRXMasterRight->Set(SetValueMotionProfile::Disable);
+	talonSRXMasterRight->Set(SetValueMotionProfile::Disable);
+	talonSRXMasterLeft->ClearMotionProfileTrajectories();
+	talonSRXMasterLeft->ClearMotionProfileHasUnderrun(0);
+	talonSRXMasterRight->ClearMotionProfileTrajectories();
+	talonSRXMasterRight->ClearMotionProfileHasUnderrun(0);
+
+	for (i = 0; i < LeftWheel->size(); i++) {
+		// check if this is the last point
+		if ((i + 1) == LeftWheel->size()) {
+			pt.isLastPoint = true;
+		}
+
+		pt.position = LeftWheel->at(i).at(0);
+		pt.velocity = LeftWheel->at(i).at(1);
+		pt.timeDur = (TrajectoryDuration)LeftWheel->at(i).at(2);
+		if (!talonSRXMasterLeft->PushMotionProfileTrajectory(pt)) {
+			printf("left can push failed\n");
+		}
+
+		// Negative position and velocity for right side
+		pt.position = -pt.position;
+		pt.velocity = -pt.velocity;
+		if (!talonSRXMasterRight->PushMotionProfileTrajectory(pt)) {
+			printf("right can push failed\n");
+		}
+		pt.zeroPos = false;
+	}
+
+}
+
+void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
+		std::shared_ptr<const ProfileData> RightWheel) {
+	size_t i;
+	TrajectoryPoint pt;
+
+	pt.zeroPos = true;
+	pt.isLastPoint = false;
+	pt.profileSlotSelect0 = 0;
+
+	talonSRXMasterRight->Set(SetValueMotionProfile::Disable);
+	talonSRXMasterRight->Set(SetValueMotionProfile::Disable);
+	talonSRXMasterRight->ClearMotionProfileTrajectories();
+	talonSRXMasterRight->ClearMotionProfileHasUnderrun(0);
+	talonSRXMasterRight->ClearMotionProfileTrajectories();
+	talonSRXMasterRight->ClearMotionProfileHasUnderrun(0);
+
+	for (i = 0; i < LeftWheel->size(); i++) {
+		// check if this is the last point
+		if ((i + 1) == LeftWheel->size()) {
+			pt.isLastPoint = true;
+		}
+
+		pt.position = LeftWheel->at(i).at(0);
+		pt.velocity = LeftWheel->at(i).at(1);
+		pt.timeDur = (TrajectoryDuration)LeftWheel->at(i).at(2);
+		talonSRXMasterLeft->PushMotionProfileTrajectory(pt);
+
+		// Use right wheel profile for right side
+		pt.position = -RightWheel->at(i).at(0);
+		pt.velocity = -RightWheel->at(i).at(1);
+		pt.timeDur = (TrajectoryDuration)RightWheel->at(i).at(2);
+		talonSRXMasterRight->PushMotionProfileTrajectory(pt);
+		pt.zeroPos = false;
+	}
+}
+
+void DriveTrain::ServiceMotionProfile() {
+	talonSRXMasterLeft->ProcessMotionProfileBuffer();
+	talonSRXMasterRight->ProcessMotionProfileBuffer();
+}
+
+
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
