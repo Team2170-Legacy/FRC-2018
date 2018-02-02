@@ -18,6 +18,8 @@
 #include "Commands/ArmPickup.h"
 #include "Commands/ArmUpright.h"
 #include "Commands/AutonomousCommand.h"
+#include "Commands/AutonomousMotionProfile.h"
+#include "Commands/AutonomousVelocityProfile.h"
 #include "Commands/TeleopTankDrive.h"
 
 
@@ -32,6 +34,8 @@ OI::OI() {
     
 
     // SmartDashboard Buttons
+    frc::SmartDashboard::PutData("Autonomous Velocity Profile", new AutonomousVelocityProfile());
+    frc::SmartDashboard::PutData("Autonomous Motion Profile", new AutonomousMotionProfile());
     frc::SmartDashboard::PutData("Arm Dump", new ArmDump());
     frc::SmartDashboard::PutData("Arm Pickup", new ArmPickup());
     frc::SmartDashboard::PutData("Arm Upright", new ArmUpright());
