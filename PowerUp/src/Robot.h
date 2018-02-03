@@ -46,5 +46,6 @@ public:
 	void AutonomousPeriodic() override;
 	void TeleopInit() override;
 	void TeleopPeriodic() override;
+	void UpdateSmartDash();
 };
 #endif

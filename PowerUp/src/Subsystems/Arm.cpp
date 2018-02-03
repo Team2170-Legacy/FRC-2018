@@ -60,8 +60,8 @@ bool Arm::readLimitSwitchBack() {
 
 int Arm::readArmEncoder() {
 	int pidIndex = 0;
-	talonSRXArmMotor->ConfigSelectedFeedbackSensor(FeedbackDevice::Analog, pidIndex, 0);
-	return talonSRXArmMotor->GetSelectedSensorPosition(pidIndex);
+	talonSRXArmMotor->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, pidIndex, 0);
+	return -talonSRXArmMotor->GetSelectedSensorPosition(pidIndex);
 	// *** Check this!!! ***
 }
 
@@ -75,8 +75,10 @@ void Arm::stopArmMotor() {
 
 double Arm::getArmPosition() {
 	int encoderCounts = readArmEncoder();
-	int kEncoder90Deg = 76725;
-	double angleDeg = (encoderCounts/kEncoder90Deg)*90;
+	//int kEncoder90Deg = 76725;			// real value on 2018
+	double kEncoder90Deg = 5000.0;				// test value
+	double angleDeg = (encoderCounts/kEncoder90Deg) * 90;
+	//double angleDeg = encoderCounts;		//test
 	return angleDeg * DEG;
 }
 
@@ -91,3 +93,6 @@ void Arm::resetArmEncoder() {
 	//talonSRXArmMotor->ConfigSelectedFeedbackSensor(FeedbackDevice::Analog, pidIndex, 0);
 }
 
+double Arm::getArmMotorTemp() {
+	return talonSRXArmMotor->GetTemperature();
+}

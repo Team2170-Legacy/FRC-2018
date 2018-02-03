@@ -37,6 +37,10 @@ void ArmPickup::Execute() {
 	}
 	Robot::arm->stopArmMotor();
 
+
+	double kPGain = 0.3;
+
+
 	// If limit switches can't be used
 	// Calculate the number of encoder counts that need to be traveled to pick position (right before limit switch)
 	// Then set motots to travel that encoder count duration
