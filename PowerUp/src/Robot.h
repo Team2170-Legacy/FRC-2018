@@ -46,5 +46,8 @@ public:
 	void AutonomousPeriodic() override;
 	void TeleopInit() override;
 	void TeleopPeriodic() override;
+
+	static std::shared_ptr<frc::Timer> BlendTimer;
+
 };
 #endif

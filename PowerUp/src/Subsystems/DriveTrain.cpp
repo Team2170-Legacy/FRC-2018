@@ -174,8 +174,6 @@ void DriveTrain::SetChassisMode(ControlMode mode) {
 	case ControlMode::Velocity:
 		SetVelocityMode();
 		break;
-	case ControlMode::MotionMagic:
-		break;
 	case ControlMode::PercentOutput:
 	default:
 		SetVoltagePercentMode();
@@ -184,20 +182,17 @@ void DriveTrain::SetChassisMode(ControlMode mode) {
 }
 
 void DriveTrain::SetVelocityMode() {
-	//SetMotorGains(1); ***
+	SetMotorGains(1, 0);
 	talonSRXMasterLeft->Set(ControlMode::Velocity,0.0);
 	talonSRXMasterLeft->Set(0.0);
 	talonSRXMasterRight->Set(ControlMode::Velocity,0.0);
 	talonSRXMasterRight->Set(0.0);
-	//LeftLog->StartSession(); ***
-	//RightLog->StartSession(); ***
+
 }
 
 void DriveTrain::SetClosedLoopMode() {
 	talonSRXMasterLeft->Set(ControlMode::Position,0.0);
 	talonSRXMasterRight->Set(ControlMode::Position,0.0);
-
-	//SetRampRate(0.0); ***
 
 	talonSRXMasterLeft->Set(0.0);
 
@@ -205,37 +200,79 @@ void DriveTrain::SetClosedLoopMode() {
 }
 
 void DriveTrain::SetMotionProfileMode() {
-	SetMotorGains(0);
+	SetMotorGains(0, 0);
 	talonSRXMasterLeft->Set(ControlMode::MotionProfile, 0.0);
-	//talonSRXMasterLeft->SetPosition(0.0);
 	talonSRXMasterLeft->Set(SetValueMotionProfile::Disable);
 
 	talonSRXMasterRight->Set(ControlMode::MotionProfile, 0.0);
-	//talonSRXMasterRight->SetPosition(0.0);
 	talonSRXMasterRight->Set(SetValueMotionProfile::Disable);
-
-	LeftLog->StartSession();
-	RightLog->StartSession();
-	SetRampRate(0.0);
 }
 
-void DriveTrain::SetRampRate(double ramp) {
-
-	//talonSRXMasterLeft->SetVoltageRampRate(ramp);
-	//talonSRXSlaveLeft1->SetVoltageRampRate(ramp);
-	//talonSRXSlaveLeft2->SetVoltageRampRate(ramp);
-//	talonSRXMasterRight->SetVoltageRampRate(ramp);
-//	talonSRXSlaveRight1->SetVoltageRampRate(ramp);
-//	talonSRXSlaveRight2->
-//	SetVoltageRampRate(ramp);
+void DriveTrain::SetMotorGains(int idx, int pidIdx) {
+	talonSRXMasterLeft->SelectProfileSlot(idx, pidIdx);
+	talonSRXMasterRight->SelectProfileSlot(idx, pidIdx);
 }
 
-void DriveTrain::SetMotorGains(int idx) {
-	talonSRXMasterLeft->SelectProfileSlot(idx);
-	talonSRXMasterRight->SelectProfileSlot(idx);
+void DriveTrain::SetVoltagePercentMode(){
+	talonSRXMasterLeft->Set(ControlMode::PercentOutput, 0.0);
+	talonSRXMasterRight->Set(ControlMode::PercentOutput, 0.0);
 }
 
+void DriveTrain::ResetChassisYaw() {
+//	if (gyro->IsConnected()) {
+//		gyro->Reset();
+//	}
+}
 
+void DriveTrain::SetMotionProfileState(ControlMode mode) {
+	if (talonSRXMasterLeft->GetControlMode()
+			== ControlMode::MotionProfile) {
+		talonSRXMasterLeft->Set(mode, 0.0);
+	}
+	if (talonSRXMasterRight->GetControlMode()
+			== ControlMode::MotionProfile) {
+		talonSRXMasterRight->Set(mode, 0.0);
+	}
+}
+void DriveTrain::SetChassisWheelVelocity(double left, double right) {
+	if ((talonSRXMasterLeft->GetControlMode()
+			== ControlMode::Velocity)
+			&& (talonSRXMasterRight->GetControlMode()
+					== ControlMode::Velocity)) {
+		talonSRXMasterLeft->Set(left);
+		talonSRXMasterRight->Set(-right);
+	}
+}
+
+bool DriveTrain::MotionProfileComplete() {
+//	bool Complete = false;
+//
+//	talonSRXMasterLeft->GetMotionProfileStatus(LeftStatus);
+//	talonSRXMasterRight->GetMotionProfileStatus(RightStatus);
+//
+//#ifdef DEBUG_TALON
+//	printf("Remaining top buffer points:  %d\n", LeftStatus.topBufferRem);
+//	printf("Bottom buffer count:  %d\n", LeftStatus.btmBufferCnt);
+//	printf("IsUnderrun status:  %d\n", LeftStatus.isUnderrun);
+//#endif
+//
+//	// Start motion profile processing after 5 points are in talon buffer
+//	if ((!mMotionProcessingActive) && (LeftStatus.btmBufferCnt > 5)) {
+//		SetMotionProfileState(
+//				CANTalon::SetValueMotionProfile::SetValueMotionProfileEnable);
+//		mMotionProcessingActive = true;
+//	}
+//
+//	if ((LeftStatus.activePointValid && LeftStatus.activePoint.isLastPoint)
+//			&& (RightStatus.activePointValid
+//					&& RightStatus.activePoint.isLastPoint)) {
+//		Complete = true;
+//		mMotionProcessingActive = false;
+//	}
+//
+//	return Complete;
+	return false;
+}
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
