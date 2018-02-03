@@ -52,7 +52,6 @@ void Robot::RobotInit() {
  * You can use it to reset subsystems before shutting down.
  */
 void Robot::DisabledInit(){
-
 }
 
 void Robot::DisabledPeriodic() {
@@ -81,6 +80,7 @@ void Robot::TeleopInit() {
 		autonomousCommand->Cancel();
 	m_timer.Start();
 	m_timer.Reset();
+	Robot::arm->resetArmEncoder();
 }
 
 void Robot::TeleopPeriodic() {
@@ -89,12 +89,23 @@ void Robot::TeleopPeriodic() {
 	int encoderCount = Robot::arm->readArmEncoder();
 	//std::cout << armPosRad << std::endl;
 	UpdateSmartDash();
-	if (m_timer.Get() < 2.0) {
-		Robot::arm->setArmMotorSpeed(0.3);
+
+	//std::cout << m_timer.GetFPGATimestamp() << std::endl;
+	double FPGA = m_timer.GetFPGATimestamp();
+	double alphaDesired;
+	if ((int)FPGA % 2 == 0) {
+		alphaDesired = 0.3;
 	}
 	else {
-		Robot:arm->stopArmMotor();
+		alphaDesired = 0.0;
 	}
+	Robot::arm->setArmPosition(0);
+//	if (m_timer.Get() < 2.0) {
+//		Robot::arm->setArmMotorSpeed(0.3);
+//	}
+//	else {
+//		Robot:arm->stopArmMotor();
+//	}
 }
 
 START_ROBOT_CLASS(Robot);
@@ -105,7 +116,7 @@ void Robot::UpdateSmartDash() {
 	SmartDashboard::PutNumber("Arm Motor Temp degC", Robot::arm->getArmMotorTemp());
 	SmartDashboard::PutNumber("Arm Encoder Count", Robot::arm->readArmEncoder());
 	SmartDashboard::PutNumber("Arm Position [radians]", Robot::arm->getArmPosition());
-
+	//SmartDashboard::PutNumber("Arm Alpha", Robot::arm->getArmPosition());
 
 }
 

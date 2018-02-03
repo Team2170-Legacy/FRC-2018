@@ -28,6 +28,8 @@ void ArmUpright::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ArmUpright::Execute() {
+	// Encoder: 1440 counts per revolution
+
 	bool limitSwitchFrontValue = Robot::arm->readLimitSwitchFront();
 	bool limitSwitchBackValue = Robot::arm->readLimitSwitchBack();
 
