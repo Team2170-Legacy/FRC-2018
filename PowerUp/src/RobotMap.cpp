@@ -24,6 +24,11 @@ std::shared_ptr<WPI_TalonSRX> RobotMap::driveTrainTalonSRXSlaveLeft1;
 std::shared_ptr<WPI_TalonSRX> RobotMap::driveTrainTalonSRXSlaveLeft2;
 std::shared_ptr<WPI_TalonSRX> RobotMap::driveTrainTalonSRXSlaveRight1;
 std::shared_ptr<WPI_TalonSRX> RobotMap::driveTrainTalonSRXSlaveRight2;
+std::shared_ptr<frc::PowerDistributionPanel> RobotMap::driveTrainPowerDistributionPanel;
+std::shared_ptr<frc::SpeedController> RobotMap::intakeLeftIntakeWheel;
+std::shared_ptr<frc::SpeedController> RobotMap::intakeRightIntakeWheel;
+std::shared_ptr<frc::DoubleSolenoid> RobotMap::intakeIntakeDoubleSolenoid;
+std::shared_ptr<frc::Compressor> RobotMap::intakeCompressor;
 std::shared_ptr<frc::DigitalInput> RobotMap::armLimitSwitchFront;
 std::shared_ptr<frc::DigitalInput> RobotMap::armLimitSwitchBack;
 std::shared_ptr<frc::DigitalInput> RobotMap::armOpticalFlagSensor;
@@ -59,6 +64,21 @@ void RobotMap::init() {
     driveTrainTalonSRXSlaveRight2.reset(new WPI_TalonSRX(6));
     
     
+    driveTrainPowerDistributionPanel.reset(new frc::PowerDistributionPanel(0));
+    lw->AddSensor("DriveTrain", "PowerDistributionPanel", driveTrainPowerDistributionPanel);
+    
+    intakeLeftIntakeWheel.reset(new frc::Spark(0));
+    lw->AddActuator("Intake", "Left Intake Wheel", std::static_pointer_cast<frc::Spark>(intakeLeftIntakeWheel));
+    
+    intakeRightIntakeWheel.reset(new frc::Spark(1));
+    lw->AddActuator("Intake", "Right Intake Wheel", std::static_pointer_cast<frc::Spark>(intakeRightIntakeWheel));
+    
+    intakeIntakeDoubleSolenoid.reset(new frc::DoubleSolenoid(20, 0, 1));
+    lw->AddActuator("Intake", "Intake Double Solenoid", intakeIntakeDoubleSolenoid);
+    
+    intakeCompressor.reset(new frc::Compressor(20));
+    lw->AddActuator("Intake", "Compressor", intakeCompressor);
+    
     armLimitSwitchFront.reset(new frc::DigitalInput(0));
     lw->AddSensor("Arm", "Limit Switch Front", armLimitSwitchFront);
     
@@ -68,7 +88,7 @@ void RobotMap::init() {
     armOpticalFlagSensor.reset(new frc::DigitalInput(2));
     lw->AddSensor("Arm", "Optical Flag Sensor", armOpticalFlagSensor);
     
-    armTalonSRXArmMotor.reset(new WPI_TalonSRX(0));
+    armTalonSRXArmMotor.reset(new WPI_TalonSRX(7));
     
     
 
