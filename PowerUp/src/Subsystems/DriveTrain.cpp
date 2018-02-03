@@ -163,6 +163,79 @@ void DriveTrain::ServiceMotionProfile() {
 	talonSRXMasterRight->ProcessMotionProfileBuffer();
 }
 
+void DriveTrain::SetChassisMode(ControlMode mode) {
+	switch (mode) {
+	case ControlMode::MotionProfile:
+		SetMotionProfileMode();
+		break;
+	case ControlMode::Position:
+		SetClosedLoopMode();
+		break;
+	case ControlMode::Velocity:
+		SetVelocityMode();
+		break;
+	case ControlMode::MotionMagic:
+		break;
+	case ControlMode::PercentOutput:
+	default:
+		SetVoltagePercentMode();
+		break;
+	}
+}
+
+void DriveTrain::SetVelocityMode() {
+	//SetMotorGains(1); ***
+	talonSRXMasterLeft->Set(ControlMode::Velocity,0.0);
+	talonSRXMasterLeft->Set(0.0);
+	talonSRXMasterRight->Set(ControlMode::Velocity,0.0);
+	talonSRXMasterRight->Set(0.0);
+	//LeftLog->StartSession(); ***
+	//RightLog->StartSession(); ***
+}
+
+void DriveTrain::SetClosedLoopMode() {
+	talonSRXMasterLeft->Set(ControlMode::Position,0.0);
+	talonSRXMasterRight->Set(ControlMode::Position,0.0);
+
+	//SetRampRate(0.0); ***
+
+	talonSRXMasterLeft->Set(0.0);
+
+	talonSRXMasterRight->Set(0.0);
+}
+
+void DriveTrain::SetMotionProfileMode() {
+	SetMotorGains(0);
+	talonSRXMasterLeft->Set(ControlMode::MotionProfile, 0.0);
+	//talonSRXMasterLeft->SetPosition(0.0);
+	talonSRXMasterLeft->Set(SetValueMotionProfile::Disable);
+
+	talonSRXMasterRight->Set(ControlMode::MotionProfile, 0.0);
+	//talonSRXMasterRight->SetPosition(0.0);
+	talonSRXMasterRight->Set(SetValueMotionProfile::Disable);
+
+	LeftLog->StartSession();
+	RightLog->StartSession();
+	SetRampRate(0.0);
+}
+
+void DriveTrain::SetRampRate(double ramp) {
+
+	//talonSRXMasterLeft->SetVoltageRampRate(ramp);
+	//talonSRXSlaveLeft1->SetVoltageRampRate(ramp);
+	//talonSRXSlaveLeft2->SetVoltageRampRate(ramp);
+//	talonSRXMasterRight->SetVoltageRampRate(ramp);
+//	talonSRXSlaveRight1->SetVoltageRampRate(ramp);
+//	talonSRXSlaveRight2->
+//	SetVoltageRampRate(ramp);
+}
+
+void DriveTrain::SetMotorGains(int idx) {
+	talonSRXMasterLeft->SelectProfileSlot(idx);
+	talonSRXMasterRight->SelectProfileSlot(idx);
+}
+
+
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
