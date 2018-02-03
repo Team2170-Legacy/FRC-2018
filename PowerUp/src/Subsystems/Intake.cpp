@@ -46,9 +46,11 @@ void Intake::Periodic() {
 }
 
 void Intake::OpenIntake() {
+	intakeDoubleSolenoid->Set(DoubleSolenoid::Value::kForward);
 }
 
 void Intake::CloseIntake() {
+	intakeDoubleSolenoid->Set(DoubleSolenoid::Value::kReverse);
 }
 
 bool Intake::IntakeIsClosed() {
