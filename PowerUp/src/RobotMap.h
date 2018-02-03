@@ -34,6 +34,10 @@ public:
 	static std::shared_ptr<WPI_TalonSRX> driveTrainTalonSRXSlaveLeft2;
 	static std::shared_ptr<WPI_TalonSRX> driveTrainTalonSRXSlaveRight1;
 	static std::shared_ptr<WPI_TalonSRX> driveTrainTalonSRXSlaveRight2;
+	static std::shared_ptr<frc::SpeedController> intakeLeftIntakeWheel;
+	static std::shared_ptr<frc::SpeedController> intakeRightIntakeWheel;
+	static std::shared_ptr<frc::DoubleSolenoid> intakeIntakeDoubleSolenoid;
+	static std::shared_ptr<frc::Compressor> intakeCompressor;
 	static std::shared_ptr<frc::DigitalInput> armLimitSwitchFront;
 	static std::shared_ptr<frc::DigitalInput> armLimitSwitchBack;
 	static std::shared_ptr<frc::DigitalInput> armOpticalFlagSensor;
