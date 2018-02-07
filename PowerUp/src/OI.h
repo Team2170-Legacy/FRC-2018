@@ -33,6 +33,7 @@ private:
 	
 	
 	
+	
 	std::shared_ptr<frc::Joystick> joystickOperator;
 	std::shared_ptr<frc::JoystickButton> joystickButtonBumperRight;
 	std::shared_ptr<frc::JoystickButton> joystickButtonBumperLeft;

@@ -275,6 +275,81 @@ bool DriveTrain::MotionProfileComplete() {
 	return false;
 }
 
+void DriveTrain::TankDriveWithTriggers(double Left, double Right, double Trigger) {
+//	double newLeft = 0.0;
+//	double newRight = 0.0;   WORK IN PROGRESS
+//	double ProcessedLeft = Left;
+//	double ProcessedRight = Right;
+//	double fExponent = 1.0;
+//
+//	ProcessedLeft = DEADBAND(AxisPower(ProcessedLeft, fExponent), 0.07);
+//
+//	ProcessedRight = DEADBAND(AxisPower(ProcessedRight, fExponent), 0.07);
+//
+//	ProcessedLeft = MapStick(ProcessedLeft);
+//	ProcessedRight = MapStick(ProcessedRight);
+//
+//	newLeft = fmax(fmin(ProcessedLeft + (Trigger * .8), 1.0), -1.0);
+//	newRight = fmax(fmin(ProcessedRight + (Trigger * .8), 1.0), -1.0);
+//
+//	// Select velocity mode or throttle mode
+//	if (kDriveVelocityMode) {
+//		SetChassisMode(ControlMode::Velocity);
+//	} else {
+//		SetChassisMode(ControlMode::PercentOutput);
+//	}
+//
+//	// Determine if we are using gyro corrected straight movement
+//	if ((ProcessedLeft == 0.0) && (ProcessedRight == 0.0)) {
+//		if (DEADBAND(Trigger, 0.10) == 0.0) {
+//			ResetChassisYaw();
+//			bDriveStraight = true;
+//		}
+//	} else {
+//		bDriveStraight = false;
+//	}
+//
+//	if (bDriveStraight) {
+//		if (kDriveVelocityMode) {
+//			Trigger *= kDriveMaxVelocity;
+//			printf("Speed: %f    Error:  %d\n", Trigger,
+//					talonSRXMasterLeft->GetClosedLoopError());
+//		}
+//		DriveStraight(Trigger * 0.8f);
+//	} else {
+//		if (kDriveVelocityMode) {
+//			newLeft *= kDriveMaxVelocity;
+//			newRight *= kDriveMaxVelocity;
+//			printf("Speed: %f    Error:  %d\n", newLeft,
+//					talonSRXMasterLeft->GetClosedLoopError());
+//		}
+//		if (!mReverseDrive) {
+//			robotDrive->TankDrive(newLeft, newRight, false);
+//		} else {
+//			robotDrive->TankDrive(-newRight, -newLeft, false);
+//		}
+//	}
+//	//cANTalonSlaveRight->Set(2);
+//	//cANTalonSlaveLeft->Set(1);
+}
+
+//double DriveTrain::MapStick(double stick) {
+//	double NewStick = fabs(stick);
+//
+//	if (NewStick < kStickBreak) {
+//		NewStick = (NewStick / kStickBreak) * kThrottleBreak;
+//	} else {
+//		NewStick = kThrottleBreak
+//				+ ((1 - NewStick) / (1 - kStickBreak)) * (1 - kThrottleBreak);
+//	}
+//
+//	if (stick < 0.0) {
+//		NewStick = -NewStick;
+//	}
+//
+//	return NewStick;
+//}
+
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
