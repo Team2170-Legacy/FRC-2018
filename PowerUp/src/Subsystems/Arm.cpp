@@ -48,7 +48,6 @@ void Arm::Periodic() {
 
 }
 
-
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
@@ -122,15 +121,16 @@ double Arm::setArmPosition(double alphaDesiredRad) {
 	}
 
 	double alphaDesired_CAN_TALON = currentAlpha + (w * Ts);		// [radians]
-	std::cout << alphaDesired_CAN_TALON << std::endl;
+	//std::cout << alphaDesired_CAN_TALON << std::endl;
 
 	// Now have CAN TALON go to that position
 	//double calculatedPosition = alphaDesired_CAN_TALON
 
 	// native units for encoder angle are: counts (??)
 	double alphaDesired_CAN_TALON_native = alphaDesired_CAN_TALON / (2*PI) * ENCODER_COUNTS_PER_REV;
+	std::cout << alphaDesired_CAN_TALON_native << std::endl;
 
-	talonSRXArmMotor->Set(ControlMode::Position, alphaDesired_CAN_TALON_native);
+	//talonSRXArmMotor->Set(ControlMode::Position, alphaDesired_CAN_TALON_native);
 	return currentAlpha;
 }
 
@@ -141,7 +141,24 @@ double Arm::encoderCountsToDeg(int encoderCounts) {
 double Arm::degToEncoderCounts(double degrees) {
 	return (degrees / ROTATION_DEG) * ENCODER_COUNTS_PER_REV;
 }
-double RadSecToNativeUnits(double radSec) {
+double Arm::RadSecToNativeUnits(double radSec) {
 	// From calculations, 1 native unit is 0.043633 rad/sec, which is 22.918 native units per rad/sec
 	return radSec * 22.918433;
+}
+
+double Arm::getArmMotorVelocity() {
+	int encoderCount = readArmEncoder();
+	frc::Timer m_timer;
+//	while (m_timer.Get() < 0.01) {
+//		// wait
+//	}
+	return talonSRXArmMotor->GetSelectedSensorVelocity(0);
+//	double radSec = 0;
+//	if (m_timer.HasPeriodPassed(0.01)) {
+//		encoderCount = (readArmEncoder() - encoderCount) * 100;		// [encoder counts / sec]
+//		double rotationsSec = encoderCount / ENCODER_COUNTS_PER_REV;
+//		radSec = rotationsSec * (2*PI);
+//	}
+
+//	return radSec;
 }

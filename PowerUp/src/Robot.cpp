@@ -85,27 +85,33 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 	frc::Scheduler::GetInstance()->Run();
-	double armPosRad = Robot::arm->getArmPosition();
-	int encoderCount = Robot::arm->readArmEncoder();
+//	double armPosRad = Robot::arm->getArmPosition();
+//	int encoderCount = Robot::arm->readArmEncoder();
 	//std::cout << armPosRad << std::endl;
-	UpdateSmartDash();
 
 	//std::cout << m_timer.GetFPGATimestamp() << std::endl;
 	double FPGA = m_timer.GetFPGATimestamp();
-	double alphaDesired;
-	if ((int)FPGA % 2 == 0) {
-		alphaDesired = 0.3;
-	}
-	else {
-		alphaDesired = 0.0;
-	}
-	Robot::arm->setArmPosition(0);
+//	while (true) {
+//		Robot::arm->setArmPosition(0.0);
+//	}
+//	double alphaDesired;
+//	if ((int)FPGA % 2 == 0) {
+//		alphaDesired = 0.3;
+//	}
+//	else {
+//		alphaDesired = 0.0;
+//	}
+//	Robot::arm->setArmPosition(0);
 //	if (m_timer.Get() < 2.0) {
 //		Robot::arm->setArmMotorSpeed(0.3);
 //	}
 //	else {
 //		Robot:arm->stopArmMotor();
 //	}
+	while (true) {
+		Robot::arm->setArmMotorSpeed(-0.2);
+		UpdateSmartDash();
+	}
 }
 
 START_ROBOT_CLASS(Robot);
@@ -116,6 +122,7 @@ void Robot::UpdateSmartDash() {
 	SmartDashboard::PutNumber("Arm Motor Temp degC", Robot::arm->getArmMotorTemp());
 	SmartDashboard::PutNumber("Arm Encoder Count", Robot::arm->readArmEncoder());
 	SmartDashboard::PutNumber("Arm Position [radians]", Robot::arm->getArmPosition());
+	SmartDashboard::PutNumber("Arm Speed", Robot::arm->getArmMotorVelocity());
 	//SmartDashboard::PutNumber("Arm Alpha", Robot::arm->getArmPosition());
 
 }
