@@ -14,7 +14,7 @@ Children:
             default: '2'
             name: CAN ID
             validators: &id002 [CANID]
-            value: '1'
+            value: '4'
         Base: Talon SRX
         Name: Talon SRX MasterLeft
       - Children: []
@@ -24,7 +24,7 @@ Children:
             default: '2'
             name: CAN ID
             validators: *id002
-            value: '2'
+            value: '1'
         Base: Talon SRX
         Name: Talon SRX MasterRight
       Properties:
@@ -55,7 +55,7 @@ Children:
           default: '2'
           name: CAN ID
           validators: *id002
-          value: '3'
+          value: '5'
       Base: Talon SRX
       Name: Talon SRX SlaveLeft1
     - Children: []
@@ -65,7 +65,7 @@ Children:
           default: '2'
           name: CAN ID
           validators: *id002
-          value: '5'
+          value: '6'
       Base: Talon SRX
       Name: Talon SRX SlaveLeft2
     - Children: []
@@ -75,7 +75,7 @@ Children:
           default: '2'
           name: CAN ID
           validators: *id002
-          value: '4'
+          value: '2'
       Base: Talon SRX
       Name: Talon SRX SlaveRight1
     - Children: []
@@ -85,7 +85,7 @@ Children:
           default: '2'
           name: CAN ID
           validators: *id002
-          value: '6'
+          value: '3'
       Base: Talon SRX
       Name: Talon SRX SlaveRight2
     - Children: []
@@ -877,15 +877,15 @@ Children:
       Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Run When Disabled, validators: null, value: false}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id014 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id014
+        value: []
       Commands: !!robotbuilder.data.properties.ListProperty
-        default: &id015 []
+        default: []
         name: Commands
         validators: [List]
-        value: *id015
+        value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command Group
@@ -894,8 +894,9 @@ Children:
   Base: Commands
   Name: Commands
 Properties:
-  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\nollchr\workspace',
-    extension: null, folder: true, name: Eclipse Workspace, validators: null, value: 'D:\git\FRC-2018'}
+  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\GEH-Magnet
+      School 1\workspace', extension: null, folder: true, name: Eclipse Workspace,
+    validators: null, value: 'C:\Users\GEH-Magnet School 1\git\FRC-2018'}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
   Autonomous command parameters: !!robotbuilder.data.properties.ParametersProperty
@@ -913,9 +914,9 @@ Properties:
     name: Export Subsystems, validators: null, value: true}
   Simulation World File: !!robotbuilder.data.properties.StringProperty {default: /usr/share/frcsim/worlds/GearsBotDemo.world,
     name: Simulation World File, validators: null, value: /usr/share/frcsim/worlds/GearsBotDemo.world}
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\nollchr\',
-    extension: null, folder: true, name: Wiring file location, validators: null, value: 'C:\Users\GEH-Magnet
-      School 1\'}
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\GEH-Magnet
+      School 1\', extension: null, folder: true, name: Wiring file location, validators: null,
+    value: 'C:\Users\GEH-Magnet School 1\'}
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Autonomous Command}
 Base: Robot
