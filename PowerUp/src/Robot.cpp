@@ -101,14 +101,20 @@ void Robot::TeleopPeriodic() {
 //	std::cout << "test\n" << std::endl;
 //	Robot::arm->setArmPosition(30.0);
 //	UpdateSmartDash();
-	double alphaDesired;
-	if ((int)FPGA % 2 == 0) {
-		alphaDesired = 30.0*DEG;
-	}
-	else {
-		alphaDesired = 0.0*DEG;
-	}
-	Robot::arm->setArmPosition(alphaDesired);
+
+//	double alphaDesired;
+//	int sqWavePeriod = 10;
+//	double *intPart;
+//	double fractPart = modf(FPGA / sqWavePeriod, intPart);
+//	if (fractPart < 0.5) {
+//		alphaDesired = 180.0*DEG;
+//	}
+//	else {
+//		alphaDesired = 0.0*DEG;
+//	}
+//	Robot::arm->setArmPosition(alphaDesired);
+	Robot::arm->testMode(2);
+	//std::cout << << std::endl;
 //	if (m_timer.Get() < 2.0) {
 //		Robot::arm->setArmMotorSpeed(0.3);
 //	}
@@ -126,6 +132,7 @@ START_ROBOT_CLASS(Robot);
 void Robot::UpdateSmartDash() {
 	double velocity = Robot::arm->getArmMotorVelocity();
 	double velocityRadSec = Robot::arm->NativeUnitsToRadSec(velocity);
+	//std::cout << "V: " << velocity << "\t" << "V[rad/sec]: " << velocityRadSec << std::endl;
 	SmartDashboard::PutNumber("Arm Speed [rad/sec]", velocityRadSec);
 	SmartDashboard::PutBoolean("Limit Switch Front", Robot::arm->readLimitSwitchFront());
 	SmartDashboard::PutBoolean("Limit Switch Back", Robot::arm->readLimitSwitchBack());
