@@ -81,6 +81,7 @@ void Robot::TeleopInit() {
 	m_timer.Start();
 	m_timer.Reset();
 	Robot::arm->resetArmEncoder();
+	UpdateSmartDash();
 }
 
 void Robot::TeleopPeriodic() {
@@ -92,37 +93,46 @@ void Robot::TeleopPeriodic() {
 	//std::cout << m_timer.GetFPGATimestamp() << std::endl;
 	double FPGA = m_timer.GetFPGATimestamp();
 //	while (true) {
-//		Robot::arm->setArmPosition(0.0);
+//		Robot::arm->setArmMotorSpeed(-0.2);
+		//std::cout << Robot::arm->NativeUnitsToRadSec(Robot::arm->getArmMotorVelocity()) << std::endl;
+		//Robot::arm->setArmPosition(30.0);
+		UpdateSmartDash();
 //	}
-//	double alphaDesired;
-//	if ((int)FPGA % 2 == 0) {
-//		alphaDesired = 0.3;
-//	}
-//	else {
-//		alphaDesired = 0.0;
-//	}
-//	Robot::arm->setArmPosition(0);
+//	std::cout << "test\n" << std::endl;
+//	Robot::arm->setArmPosition(30.0);
+//	UpdateSmartDash();
+	double alphaDesired;
+	if ((int)FPGA % 2 == 0) {
+		alphaDesired = 30.0*DEG;
+	}
+	else {
+		alphaDesired = 0.0*DEG;
+	}
+	Robot::arm->setArmPosition(alphaDesired);
 //	if (m_timer.Get() < 2.0) {
 //		Robot::arm->setArmMotorSpeed(0.3);
 //	}
 //	else {
 //		Robot:arm->stopArmMotor();
 //	}
-	while (true) {
-		Robot::arm->setArmMotorSpeed(-0.2);
-		UpdateSmartDash();
-	}
+//	while (true) {
+//		Robot::arm->setArmMotorSpeed(-0.2);
+//		UpdateSmartDash();
+//	}
 }
 
 START_ROBOT_CLASS(Robot);
 
 void Robot::UpdateSmartDash() {
+	double velocity = Robot::arm->getArmMotorVelocity();
+	double velocityRadSec = Robot::arm->NativeUnitsToRadSec(velocity);
+	SmartDashboard::PutNumber("Arm Speed [rad/sec]", velocityRadSec);
 	SmartDashboard::PutBoolean("Limit Switch Front", Robot::arm->readLimitSwitchFront());
 	SmartDashboard::PutBoolean("Limit Switch Back", Robot::arm->readLimitSwitchBack());
 	SmartDashboard::PutNumber("Arm Motor Temp degC", Robot::arm->getArmMotorTemp());
 	SmartDashboard::PutNumber("Arm Encoder Count", Robot::arm->readArmEncoder());
 	SmartDashboard::PutNumber("Arm Position [radians]", Robot::arm->getArmPosition());
-	SmartDashboard::PutNumber("Arm Speed", Robot::arm->getArmMotorVelocity());
+	//SmartDashboard::PutNumber("Arm Speed", Robot::arm->getArmMotorVelocity());
 	//SmartDashboard::PutNumber("Arm Alpha", Robot::arm->getArmPosition());
 
 }

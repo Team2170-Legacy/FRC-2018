@@ -105,14 +105,14 @@ double Arm::setArmPosition(double alphaDesiredRad) {
 	//talonSRXArmMotor->Set(ControlMode::Position, armEncoder);
 
 	// Perform calculations
-	double kP_w = 0.1;			// Omega gain
+	double kP_w = 1;			// Omega gain
 	double wMax = 5.0;
 	double Ts = 0.02;			// 50 Hz loop time
 
 	double currentAlpha = getArmPosition();						// [radians]
 	double e_alpha = alphaDesiredRad - currentAlpha; 			// [radians]
 	double w = kP_w * e_alpha;									// [rad/sec]
-	std::cout << w << "\t" << std::endl;
+	std::cout << alphaDesiredRad << "\t" << currentAlpha << "\t" << w;
 	if (w > wMax) {
 		w = wMax;
 	}
@@ -121,16 +121,17 @@ double Arm::setArmPosition(double alphaDesiredRad) {
 	}
 
 	double alphaDesired_CAN_TALON = currentAlpha + (w * Ts);		// [radians]
-	//std::cout << alphaDesired_CAN_TALON << std::endl;
+	//double alphaDesired_CAN_TALON = alphaDesiredRad;				// [radians]
+	std::cout << "\t" << alphaDesired_CAN_TALON << std::endl;
 
 	// Now have CAN TALON go to that position
 	//double calculatedPosition = alphaDesired_CAN_TALON
 
 	// native units for encoder angle are: counts (??)
 	double alphaDesired_CAN_TALON_native = alphaDesired_CAN_TALON / (2*PI) * ENCODER_COUNTS_PER_REV;
-	std::cout << alphaDesired_CAN_TALON_native << std::endl;
+	//std::cout << alphaDesired_CAN_TALON_native << std::endl;
 
-	//talonSRXArmMotor->Set(ControlMode::Position, alphaDesired_CAN_TALON_native);
+	talonSRXArmMotor->Set(ControlMode::Position, alphaDesired_CAN_TALON_native);
 	return currentAlpha;
 }
 
@@ -152,7 +153,7 @@ double Arm::getArmMotorVelocity() {
 //	while (m_timer.Get() < 0.01) {
 //		// wait
 //	}
-	return talonSRXArmMotor->GetSelectedSensorVelocity(0);
+	return talonSRXArmMotor->GetSelectedSensorVelocity(0);			// [
 //	double radSec = 0;
 //	if (m_timer.HasPeriodPassed(0.01)) {
 //		encoderCount = (readArmEncoder() - encoderCount) * 100;		// [encoder counts / sec]
@@ -161,4 +162,11 @@ double Arm::getArmMotorVelocity() {
 //	}
 
 //	return radSec;
+}
+
+double Arm::NativeUnitsToRadSec(double nativeUnits) {
+	double nativeUnitsPerSec = nativeUnits * 10.0;
+	double rotationsPerSec = nativeUnitsPerSec / ENCODER_COUNTS_PER_REV;
+
+	return rotationsPerSec * (2*PI);
 }
