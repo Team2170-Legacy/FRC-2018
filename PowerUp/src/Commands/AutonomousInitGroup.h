@@ -12,12 +12,11 @@
 #include "../ProfileData.h"
 
 
-class AutonomousInitGroup: public CommandGroup {
+class AutonomousInitGroup: public frc::CommandGroup {
 public:
 	AutonomousInitGroup();
 	AutonomousInitGroup(frc::Command* cmd);
 	AutonomousInitGroup(const ProfileData* array);
-	AutonomousInitGroup(const ProfileData* Left, const ProfileData* Right, double time);
 };
 
 #endif /* SRC_COMMANDS_AUTONOMOUSINITGROUP_H_ */

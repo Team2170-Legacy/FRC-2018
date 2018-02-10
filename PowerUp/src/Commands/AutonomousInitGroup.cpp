@@ -17,8 +17,7 @@ AutonomousInitGroup::AutonomousInitGroup(frc::Command* cmd) {
 	AddSequential(cmd);
 }
 
-AutonomousInitGroup::AutonomousInitGroup(const ProfileData* Left, const ProfileData* Right, double time) {
-	//AddSequential(new AutonomousMotionProfile(array));
-	AddSequential(new AutonomousMotionProfile(Left, Right, false, true, time));
+AutonomousInitGroup::AutonomousInitGroup(const ProfileData* array) {
+	AddSequential(new AutonomousMotionProfile(array));
 
 }
