@@ -58,11 +58,17 @@ bool Intake::IntakeIsClosed() {
 }
 
 void Intake::IntakeFwd() {
+	leftIntakeWheel->Set(kIntakeSpeed);
+	rightIntakeWheel->Set(-kIntakeSpeed);
 }
 
 void Intake::IntakeRev() {
+	leftIntakeWheel->Set(kOuttakeSpeed);
+	rightIntakeWheel->Set(-kOuttakeSpeed);
 }
 
 void Intake::IntakeOff() {
+	leftIntakeWheel->Set(0.0);
+	rightIntakeWheel->Set(0.0);
 }
 

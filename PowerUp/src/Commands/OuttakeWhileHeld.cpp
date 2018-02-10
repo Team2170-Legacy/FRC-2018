@@ -29,7 +29,7 @@ void OuttakeWhileHeld::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void OuttakeWhileHeld::Execute() {
-
+	Robot::intake->IntakeRev();
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -39,7 +39,7 @@ bool OuttakeWhileHeld::IsFinished() {
 
 // Called once after isFinished returns true
 void OuttakeWhileHeld::End() {
-
+	Robot::intake->IntakeOff();
 }
 
 // Called when another command which requires one or more of the same
