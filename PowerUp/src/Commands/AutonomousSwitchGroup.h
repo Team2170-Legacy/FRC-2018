@@ -14,7 +14,16 @@
 
 class AutonomousSwitchGroup: public frc::CommandGroup {
 public:
-	AutonomousSwitchGroup();
+	enum SwitchLocation {
+			kBlueMiddleRight, //starts blue middle, goes to the right switch
+			kBlueMiddleLeft,
+			kRedMiddleRight,
+			kRedMiddleLeft
+		};
+
+	AutonomousSwitchGroup(SwitchLocation loc);
+
+
 
 private:
 
