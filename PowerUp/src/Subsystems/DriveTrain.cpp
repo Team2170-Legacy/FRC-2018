@@ -54,10 +54,10 @@ void DriveTrain::Periodic() {
 
 void DriveTrain::InitMotors() {
 	//Initialize slave motors to follower mode
-	talonSRXSlaveLeft1->Set(ControlMode::Follower, 1.0);
-	//talonSRXSlaveLeft2->Set(ControlMode::Follower, 1.0);
-	talonSRXSlaveRight1->Set(ControlMode::Follower, 2.0);
-	//talonSRXSlaveRight2->Set(ControlMode::Follower, 2.0);
+	talonSRXSlaveLeft1->Set(ControlMode::Follower, 4.0);
+	talonSRXSlaveLeft2->Set(ControlMode::Follower, 4.0);
+	talonSRXSlaveRight1->Set(ControlMode::Follower, 1.0);
+	talonSRXSlaveRight2->Set(ControlMode::Follower, 1.0);
 
 
 	talonSRXMasterLeft->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, 0);
