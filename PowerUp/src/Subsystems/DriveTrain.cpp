@@ -225,14 +225,14 @@ void DriveTrain::ResetChassisYaw() {
 //	}
 }
 
-void DriveTrain::SetMotionProfileState(ControlMode mode) {
+void DriveTrain::SetMotionProfileState(SetValueMotionProfile mode) {
 	if (talonSRXMasterLeft->GetControlMode()
 			== ControlMode::MotionProfile) {
-		talonSRXMasterLeft->Set(mode, 0.0);
+		talonSRXMasterLeft->Set(ControlMode::MotionProfile, mode);
 	}
 	if (talonSRXMasterRight->GetControlMode()
 			== ControlMode::MotionProfile) {
-		talonSRXMasterRight->Set(mode, 0.0);
+		talonSRXMasterRight->Set(ControlMode::MotionProfile, mode);
 	}
 }
 void DriveTrain::SetChassisWheelVelocity(double left, double right) {
@@ -246,10 +246,11 @@ void DriveTrain::SetChassisWheelVelocity(double left, double right) {
 }
 
 bool DriveTrain::MotionProfileComplete() {
-//	bool Complete = false;
-//
-//	talonSRXMasterLeft->GetMotionProfileStatus(LeftStatus);
-//	talonSRXMasterRight->GetMotionProfileStatus(RightStatus);
+	bool Complete = false;
+	MotionProfileStatus LeftStatus, RightStatus;
+
+	talonSRXMasterLeft->GetMotionProfileStatus(LeftStatus);
+	talonSRXMasterRight->GetMotionProfileStatus(RightStatus);
 //
 //#ifdef DEBUG_TALON
 //	printf("Remaining top buffer points:  %d\n", LeftStatus.topBufferRem);
@@ -257,22 +258,20 @@ bool DriveTrain::MotionProfileComplete() {
 //	printf("IsUnderrun status:  %d\n", LeftStatus.isUnderrun);
 //#endif
 //
-//	// Start motion profile processing after 5 points are in talon buffer
-//	if ((!mMotionProcessingActive) && (LeftStatus.btmBufferCnt > 5)) {
-//		SetMotionProfileState(
-//				CANTalon::SetValueMotionProfile::SetValueMotionProfileEnable);
-//		mMotionProcessingActive = true;
-//	}
-//
-//	if ((LeftStatus.activePointValid && LeftStatus.activePoint.isLastPoint)
-//			&& (RightStatus.activePointValid
-//					&& RightStatus.activePoint.isLastPoint)) {
-//		Complete = true;
-//		mMotionProcessingActive = false;
-//	}
-//
-//	return Complete;
-	return false;
+	// Start motion profile processing after 5 points are in talon buffer
+	if ((!mMotionProcessingActive) && (LeftStatus.btmBufferCnt > 5)) {
+		SetMotionProfileState(SetValueMotionProfile::Enable);
+		mMotionProcessingActive = true;
+	}
+
+	if ((LeftStatus.activePointValid && LeftStatus.isLast)
+			&& (RightStatus.activePointValid
+					&& RightStatus.isLast)) {
+		Complete = true;
+		mMotionProcessingActive = false;
+	}
+
+	return Complete;
 }
 
 void DriveTrain::TankDriveWithTriggers(double Left, double Right, double Trigger) {

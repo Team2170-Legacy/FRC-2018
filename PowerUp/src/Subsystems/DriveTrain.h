@@ -42,6 +42,7 @@ private:
 	bool bDriveStraight = false;
 	const bool kDriveVelocityMode = false;
 	const double kDriveMaxVelocity = 1.0;
+	bool mMotionProcessingActive = false;
 	bool mReverseDrive = false;
 
 
@@ -72,7 +73,7 @@ public:
 	bool MotionProfileComplete();
 	void SetChassisMode(ControlMode mode);
 	void ResetChassisYaw();
-	void SetMotionProfileState(ControlMode mode);
+	void SetMotionProfileState(SetValueMotionProfile mode);
 	void SetChassisWheelVelocity(double left, double right);
 	void TankDriveWithTriggers(double Left, double Right, double Trigger);
 
