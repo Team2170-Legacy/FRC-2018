@@ -29,7 +29,8 @@ void TeleopTankDrive::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void TeleopTankDrive::Execute() {
-
+	Robot::driveTrain->TankDrive(-Robot::oi->getJoystickDriverLeft()->GetY(),
+			-Robot::oi->getJoystickDriverRight()->GetY());
 }
 
 // Make this return true when this Command no longer needs to run execute()
