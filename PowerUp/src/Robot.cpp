@@ -73,6 +73,7 @@ void Robot::DisabledInit(){
 
 void Robot::DisabledPeriodic() {
 	frc::Scheduler::GetInstance()->Run();
+	UpdateSmartDash();
 }
 
 void Robot::AutonomousInit() {
@@ -130,7 +131,9 @@ void Robot::TeleopPeriodic() {
 //		alphaDesired = 0.0*DEG;
 //	}
 //	Robot::arm->setArmPosition(alphaDesired);
-	Robot::arm->testMode(2);
+
+	Robot::arm->testMode(3);
+
 	//std::cout << << std::endl;
 //	if (m_timer.Get() < 2.0) {
 //		Robot::arm->setArmMotorSpeed(0.3);

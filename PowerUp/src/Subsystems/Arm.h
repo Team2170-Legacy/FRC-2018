@@ -17,9 +17,9 @@
 #include <math.h>
 #include <Timer.h>
 
-#define PI 3.141592653589793238462643383279502884
+#define PI 3.14159265358979324
 #define DEG PI/180
-#define ENCODER_COUNTS_PER_REV 1440
+#define ENCODER_COUNTS_PER_REV 4096 * 3			// Native encoder counts * gearing ratio
 #define ROTATION_DEG 360
 
 /**
@@ -48,7 +48,6 @@ public:
 
 	int readArmEncoder();
 	void resetArmEncoder();
-
 
 	double getArmPosition();
 
