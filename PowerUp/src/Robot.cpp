@@ -104,47 +104,6 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 	frc::Scheduler::GetInstance()->Run();
-//	double armPosRad = Robot::arm->getArmPosition();
-//	int encoderCount = Robot::arm->readArmEncoder();
-	//std::cout << armPosRad << std::endl;
-
-	//std::cout << m_timer.GetFPGATimestamp() << std::endl;
-	double FPGA = m_timer.GetFPGATimestamp();
-//	while (true) {
-//		Robot::arm->setArmMotorSpeed(-0.2);
-		//std::cout << Robot::arm->NativeUnitsToRadSec(Robot::arm->getArmMotorVelocity()) << std::endl;
-		//Robot::arm->setArmPosition(30.0);
-		UpdateSmartDash();
-//	}
-//	std::cout << "test\n" << std::endl;
-//	Robot::arm->setArmPosition(30.0);
-//	UpdateSmartDash();
-
-//	double alphaDesired;
-//	int sqWavePeriod = 10;
-//	double *intPart;
-//	double fractPart = modf(FPGA / sqWavePeriod, intPart);
-//	if (fractPart < 0.5) {
-//		alphaDesired = 180.0*DEG;
-//	}
-//	else {
-//		alphaDesired = 0.0*DEG;
-//	}
-//	Robot::arm->setArmPosition(alphaDesired);
-
-	Robot::arm->testMode(3);
-
-	//std::cout << << std::endl;
-//	if (m_timer.Get() < 2.0) {
-//		Robot::arm->setArmMotorSpeed(0.3);
-//	}
-//	else {
-//		Robot:arm->stopArmMotor();
-//	}
-//	while (true) {
-//		Robot::arm->setArmMotorSpeed(-0.2);
-//		UpdateSmartDash();
-//	}
 }
 
 START_ROBOT_CLASS(Robot);
