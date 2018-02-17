@@ -59,6 +59,7 @@ void Robot::RobotInit() {
 //				new AutonomousSwitchGroup(AutonomousGearGroup::kRightPegRed));
 //		chooser.AddObject("Red Right Peg",
 //						new AutonomousSwitchGroup(AutonomousGearGroup::kRightPegRed));
+
 }
 
 /**

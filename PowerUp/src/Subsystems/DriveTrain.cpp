@@ -83,6 +83,18 @@ void DriveTrain::TankDrive(double leftSpeed, double rightSpeed) {
 	differentialDrive1->TankDrive(leftSpeed, rightSpeed, true);
 }
 
+void DriveTrain::CurvatureDrive(double xSpeed, double zRotation, bool isQuickTurn){
+
+	differentialDrive1->CurvatureDrive(xSpeed, zRotation, isQuickTurn);
+}
+
+void DriveTrain::ArcadeDrive(double xSpeed, double zRotation, bool squaredInputs){
+
+	differentialDrive1->ArcadeDrive(xSpeed, zRotation,squaredInputs);
+}
+
+
+
 void DriveTrain::FillProfileBuffer(
 		std::shared_ptr<const ProfileData> LeftWheel) {
 	size_t i;
@@ -276,7 +288,7 @@ bool DriveTrain::MotionProfileComplete() {
 
 void DriveTrain::TankDriveWithTriggers(double Left, double Right, double Trigger) {
 //	double newLeft = 0.0;
-//	double newRight = 0.0;   WORK IN PROGRESS
+//	double newRight = 0.0;
 //	double ProcessedLeft = Left;
 //	double ProcessedRight = Right;
 //	double fExponent = 1.0;
@@ -311,16 +323,14 @@ void DriveTrain::TankDriveWithTriggers(double Left, double Right, double Trigger
 //	if (bDriveStraight) {
 //		if (kDriveVelocityMode) {
 //			Trigger *= kDriveMaxVelocity;
-//			printf("Speed: %f    Error:  %d\n", Trigger,
-//					talonSRXMasterLeft->GetClosedLoopError());
+//
 //		}
 //		DriveStraight(Trigger * 0.8f);
 //	} else {
 //		if (kDriveVelocityMode) {
 //			newLeft *= kDriveMaxVelocity;
 //			newRight *= kDriveMaxVelocity;
-//			printf("Speed: %f    Error:  %d\n", newLeft,
-//					talonSRXMasterLeft->GetClosedLoopError());
+//
 //		}
 //		if (!mReverseDrive) {
 //			robotDrive->TankDrive(newLeft, newRight, false);
@@ -328,9 +338,36 @@ void DriveTrain::TankDriveWithTriggers(double Left, double Right, double Trigger
 //			robotDrive->TankDrive(-newRight, -newLeft, false);
 //		}
 //	}
-//	//cANTalonSlaveRight->Set(2);
-//	//cANTalonSlaveLeft->Set(1);
+	//cANTalonSlaveRight->Set(2);
+	//cANTalonSlaveLeft->Set(1);
 }
+
+void DriveTrain::DriveStraight(bool Backwards) {
+//	if (Backwards) {
+//		DriveStraight(-mAutoVelocity);
+//	} else {
+//		DriveStraight(mAutoVelocity);
+//	}
+}
+
+void DriveTrain::DriveStraight(double magnitude) {
+
+//	//double ChassisAngle = ReadChassisYaw();
+//	double ChassisAngle = 0.0;
+//	double kYawGain = 0.0;
+//
+//
+//	if (mReverseDrive) {
+//		magnitude = -magnitude;
+//	}
+//	if (magnitude > 0.0) {
+//		robotDrive->Drive(magnitude, kYawGain * ChassisAngle);
+//	} else {
+//		robotDrive->Drive(magnitude, -kYawGain * ChassisAngle);
+//	}
+}
+
+
 
 //double DriveTrain::MapStick(double stick) {
 //	double NewStick = fabs(stick);
