@@ -14,6 +14,7 @@
 
 
 #include "Commands/Subsystem.h"
+#include "../RobotMap.h"
 #include "../Robot.h"
 
 /**

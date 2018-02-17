@@ -17,7 +17,7 @@
 #include <cmath>
 #include <Timer.h>
 
-#define PI 3.14159265358979324
+#define PI 3.14159265358979323
 #define DEG PI/180
 #define ENCODER_COUNTS_PER_REV 4096 * 3			// Native encoder counts * gearing ratio
 #define ROTATION_DEG 360
@@ -41,7 +41,7 @@ private:
 	double mArmTargetPosition;
 	const double kSlewSpeed;
 	const double kP_w;			// Omega gain
-	const double wMax;
+	const double wMax;			// OLD: 5 rad/sec		NEW: 2 rad/sec
 	const double Ts = 0.02;			// 50 Hz loop time
 
 public:
