@@ -28,20 +28,22 @@ AutonomousSwitchGroup::AutonomousSwitchGroup(SwitchLocation loc) {
 	//This switch is CURRENTLY EMPTY as there are currently no trajectories
 	switch (loc) {
 	case kBlueMiddleRight:
-		//AddSequential(new AutonomousBlendedMove(&AutoMove_BSMR_L,
-				//&AutoMove_BSMR_R, t_auto_end_BSMR, &VisionProcessing::));
+		AddSequential(new AutonomousMotionProfile(&AutoMove_BSMR_L,
+				&AutoMove_BSMR_R, t_auto_end_BSMR));
 		break;
 	case kBlueMiddleLeft:
-		AddSequential(new AutonomousBlendedMove());
+		AddSequential(new AutonomousMotionProfile(&AutoMove_BSML_L,
+				&AutoMove_BSML_R, t_auto_end_BSMR));
 		break;
 	case kRedMiddleRight:
-		AddSequential(new AutonomousBlendedMove());
+		AddSequential(new AutonomousMotionProfile(&AutoMove_RSMR_L,
+				&AutoMove_RSMR_R, t_auto_end_RSMR));
 		break;
 	case kRedMiddleLeft:
-		AddSequential(new AutonomousBlendedMove());
+		AddSequential(new AutonomousMotionProfile(&AutoMove_RSML_L,
+				&AutoMove_RSML_R, t_auto_end_RSML));
 		break;
 	default:
-
 		break;
 	}
 
