@@ -67,6 +67,7 @@ public:
 	double getArmMotorTemp();
 
 	double setArmPosition(double alphaFinalRad);
+	void setArmTargetPosition(double value);
 	void SlewArmPos(void);
 	void SlewArmNeg(void);
 	void SlewArmHold(void);

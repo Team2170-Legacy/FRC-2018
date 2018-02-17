@@ -5,47 +5,50 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "ArmJoystickSlew.h"
-#include <iostream>
+#include "IntakeWithLS.h"
+#include "../Subsystems/Intake.h"
 
-ArmJoystickSlew::ArmJoystickSlew() {
+IntakeWithLS::IntakeWithLS() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(Robot::arm.get());
+	Requires(Robot::intake.get());
 }
 
 // Called just before this Command runs the first time
-void ArmJoystickSlew::Initialize() {
+void IntakeWithLS::Initialize() {
+
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ArmJoystickSlew::Execute() {
-	double yChannel = -Robot::oi->getJoystickOperator()->GetY();
-	std::cout << "Joystick Y: " << yChannel << std::endl;
-	if ((fabs(yChannel) < 0.07)) {
-		if (!motorStopped) {
-			Robot::arm->SlewArmHold();
-		}
-		motorStopped = true;
-	}
-	else {
-		Robot::arm->SlewArm(yChannel);
-		motorStopped = false;
-	}
+void IntakeWithLS::Execute() {
+	bool lsL = Robot::intake->getIntakeLSLeft();
+	bool lsR = Robot::intake->getIntakeLSRight();
+
+	if (!lsL && !lsR)
+		Robot::intake->IntakeFwd(intakeModeType::both, 0.6);
+	else if (!lsL && lsR)
+		Robot::intake->IntakeFwd(intakeModeType::left, 0.6);
+	else if (lsL && !lsR)
+		Robot::intake->IntakeFwd(intakeModeType::right, 0.6);
+	else
+		Robot::intake->IntakeOff(intakeModeType::both);
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ArmJoystickSlew::IsFinished() {
-	return false;
+bool IntakeWithLS::IsFinished() {
+	bool lsL = Robot::intake->getIntakeLSLeft();
+	bool lsR = Robot::intake->getIntakeLSRight();
+
+	return lsL && lsR;
 }
 
 // Called once after isFinished returns true
-void ArmJoystickSlew::End() {
-
+void IntakeWithLS::End() {
+	Robot::intake->IntakeOff();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ArmJoystickSlew::Interrupted() {
+void IntakeWithLS::Interrupted() {
 
 }

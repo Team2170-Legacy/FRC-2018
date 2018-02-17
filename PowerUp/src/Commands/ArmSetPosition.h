@@ -8,20 +8,15 @@
 #pragma once
 
 #include <Commands/Command.h>
-
-#define DEADBAND(val, limit)	((fabs(val) < limit) ? 0.0 : val)
 #include "../Robot.h"
 
-class ArmJoystickSlew : public frc::Command {
-private:
-	bool motorStopped = false;
+class ArmSetPosition : public frc::Command {
 public:
-	ArmJoystickSlew();
+	ArmSetPosition(double positionRad);
 	void Initialize() override;
 	void Execute() override;
 	bool IsFinished() override;
 	void End() override;
 	void Interrupted() override;
 };
-
 

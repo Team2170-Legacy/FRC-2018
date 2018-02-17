@@ -7,21 +7,10 @@
 
 #pragma once
 
-#include <Commands/Command.h>
+#include <Commands/CommandGroup.h>
 
-#define DEADBAND(val, limit)	((fabs(val) < limit) ? 0.0 : val)
-#include "../Robot.h"
-
-class ArmJoystickSlew : public frc::Command {
-private:
-	bool motorStopped = false;
+class ArmIntakeAuto : public frc::CommandGroup {
 public:
-	ArmJoystickSlew();
-	void Initialize() override;
-	void Execute() override;
-	bool IsFinished() override;
-	void End() override;
-	void Interrupted() override;
+	ArmIntakeAuto();
 };
-
 

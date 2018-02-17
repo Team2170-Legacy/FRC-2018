@@ -29,6 +29,8 @@ std::shared_ptr<frc::SpeedController> RobotMap::intakeLeftIntakeWheel;
 std::shared_ptr<frc::SpeedController> RobotMap::intakeRightIntakeWheel;
 std::shared_ptr<frc::DoubleSolenoid> RobotMap::intakeIntakeDoubleSolenoid;
 std::shared_ptr<frc::Compressor> RobotMap::intakeCompressor;
+std::shared_ptr<frc::DigitalInput> RobotMap::intakeLSLeft;
+std::shared_ptr<frc::DigitalInput> RobotMap::intakeLSRight;
 std::shared_ptr<frc::DigitalInput> RobotMap::armLimitSwitchFront;
 std::shared_ptr<frc::DigitalInput> RobotMap::armLimitSwitchBack;
 std::shared_ptr<frc::DigitalInput> RobotMap::armOpticalFlagSensor;
@@ -79,13 +81,19 @@ void RobotMap::init() {
     intakeCompressor.reset(new frc::Compressor(20));
     lw->AddActuator("Intake", "Compressor", intakeCompressor);
     
+    intakeLSLeft.reset(new frc::DigitalInput(3));
+    lw->AddSensor("Intake", "LS Left", intakeLSLeft);
+    
+    intakeLSRight.reset(new frc::DigitalInput(4));
+    lw->AddSensor("Intake", "LS Right", intakeLSRight);
+    
     armLimitSwitchFront.reset(new frc::DigitalInput(0));
     lw->AddSensor("Arm", "Limit Switch Front", armLimitSwitchFront);
     
     armLimitSwitchBack.reset(new frc::DigitalInput(1));
     lw->AddSensor("Arm", "Limit Switch Back", armLimitSwitchBack);
     
-    armOpticalFlagSensor.reset(new frc::DigitalInput(2));
+    armOpticalFlagSensor.reset(new frc::DigitalInput(5));
     lw->AddSensor("Arm", "Optical Flag Sensor", armOpticalFlagSensor);
     
     armTalonSRXArmMotor.reset(new WPI_TalonSRX(7));

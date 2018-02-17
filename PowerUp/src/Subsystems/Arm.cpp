@@ -119,6 +119,14 @@ double Arm::setArmPosition(double alphaDesiredRad) {
 	frc::Timer m_timer;
 	lastFPGATime = m_timer.GetFPGATimestamp();
 
+	double alphaDesiredMaxRad = 45*DEG;
+	double alphaDesiredMinRad = -45*DEG;
+	if (alphaDesiredRad > alphaDesiredMaxRad) {
+		alphaDesiredRad = alphaDesiredMaxRad;
+	}
+	else if (alphaDesiredRad < alphaDesiredMinRad){
+		alphaDesiredRad = alphaDesiredMinRad;
+	}
 
 	double currentAlpha = getArmPosition();						// [radians]
 	double e_alpha = alphaDesiredRad - currentAlpha; 			// [radians]
@@ -164,7 +172,7 @@ double Arm::setArmPosition(double alphaDesiredRad) {
 	bool stopFlag = (alphaDesiredRad > currentAlpha && limitSwitchF) || (alphaDesiredRad < currentAlpha && limitSwitchR);
 
 	if (stopFlag)
-		Robot::arm->stopArmMotor();
+		Robot::arm->SlewArmHold();
 	else
 		talonSRXArmMotor->Set(ControlMode::Position, alphaDesired_CAN_TALON_native);
 
@@ -217,6 +225,10 @@ void Arm::SlewArmNeg(void) {
 
 void Arm::SlewArmHold(void) {
 	mArmTargetPosition = getArmPosition();
+}
+
+void Arm::setArmTargetPosition(double value) {
+	mArmTargetPosition = value;
 }
 
 void Arm::testMode(int Idx) {

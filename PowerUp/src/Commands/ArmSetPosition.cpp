@@ -5,47 +5,44 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "ArmJoystickSlew.h"
-#include <iostream>
+#include "ArmSetPosition.h"
 
-ArmJoystickSlew::ArmJoystickSlew() {
+static double armTargetPosition;
+
+
+ArmSetPosition::ArmSetPosition(double positionRad) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Robot::arm.get());
+	armTargetPosition = positionRad;
 }
 
 // Called just before this Command runs the first time
-void ArmJoystickSlew::Initialize() {
+void ArmSetPosition::Initialize() {
+
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ArmJoystickSlew::Execute() {
-	double yChannel = -Robot::oi->getJoystickOperator()->GetY();
-	std::cout << "Joystick Y: " << yChannel << std::endl;
-	if ((fabs(yChannel) < 0.07)) {
-		if (!motorStopped) {
-			Robot::arm->SlewArmHold();
-		}
-		motorStopped = true;
-	}
-	else {
-		Robot::arm->SlewArm(yChannel);
-		motorStopped = false;
-	}
+void ArmSetPosition::Execute() {
+	Robot::arm->setArmPosition(armTargetPosition);
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ArmJoystickSlew::IsFinished() {
-	return false;
+bool ArmSetPosition::IsFinished() {
+	double currentAlpha = Robot::arm->getArmPosition();
+	double tolerance = 2*DEG;
+	bool isFinishedFlag = fabs(currentAlpha - armTargetPosition) < tolerance;
+
+	return isFinishedFlag;
 }
 
 // Called once after isFinished returns true
-void ArmJoystickSlew::End() {
-
+void ArmSetPosition::End() {
+	Robot::arm->SlewArmHold();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ArmJoystickSlew::Interrupted() {
-
+void ArmSetPosition::Interrupted() {
+	Robot::arm->SlewArmHold();
 }
