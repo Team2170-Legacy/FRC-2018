@@ -70,8 +70,8 @@ void DriveTrain::InitMotors() {
 	talonSRXMasterLeft->SetSensorPhase(false);
 
 	//Master left and master right set control modes
-	talonSRXMasterLeft->Set(ControlMode::PercentOutput, 0.0);
-	talonSRXMasterRight->Set(ControlMode::PercentOutput, 0.0);
+	talonSRXMasterLeft->Set(ControlMode::Velocity, 0.0);
+	talonSRXMasterRight->Set(ControlMode::Velocity, 0.0);
 
 
 
@@ -197,9 +197,9 @@ void DriveTrain::SetChassisMode(ControlMode mode) {
 void DriveTrain::SetVelocityMode() {
 	SetMotorGains(1, 0);
 	talonSRXMasterLeft->Set(ControlMode::Velocity,0.0);
-	talonSRXMasterLeft->Set(0.0);
+//	talonSRXMasterLeft->Set(0.0);
 	talonSRXMasterRight->Set(ControlMode::Velocity,0.0);
-	talonSRXMasterRight->Set(0.0);
+//	talonSRXMasterRight->Set(0.0);
 
 }
 
@@ -367,6 +367,12 @@ void DriveTrain::DriveStraight(double magnitude) {
 //	}
 }
 
+void DriveTrain::SetVelocity(double velocity) {
+
+	talonSRXMasterLeft->Set(ControlMode::Velocity,velocity, 0.0);
+	talonSRXMasterRight->Set(ControlMode::Velocity,-velocity, 0.0);
+
+}
 
 
 //double DriveTrain::MapStick(double stick) {
