@@ -29,6 +29,7 @@ AutonomousMotionProfile::AutonomousMotionProfile(): frc::Command(),
 
 // Called just before this Command runs the first time
 void AutonomousMotionProfile::Initialize() {
+	printf("MotionProfile");
 	Robot::driveTrain->SetChassisMode(ControlMode::MotionProfile);
 	AutonomousMotionProfile::Notifier_counter = 0;
 	if (bResetGyro) {

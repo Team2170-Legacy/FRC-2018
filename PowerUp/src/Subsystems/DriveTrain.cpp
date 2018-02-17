@@ -104,8 +104,8 @@ void DriveTrain::FillProfileBuffer(
 	pt.isLastPoint = false;
 	pt.profileSlotSelect0 = 0;
 
-	talonSRXMasterRight->Set(SetValueMotionProfile::Disable);
-	talonSRXMasterRight->Set(SetValueMotionProfile::Disable);
+	talonSRXMasterRight->Set(ControlMode::MotionProfile, SetValueMotionProfile::Disable);
+	talonSRXMasterRight->Set(ControlMode::MotionProfile, SetValueMotionProfile::Disable);
 	talonSRXMasterLeft->ClearMotionProfileTrajectories();
 	talonSRXMasterLeft->ClearMotionProfileHasUnderrun(0);
 	talonSRXMasterRight->ClearMotionProfileTrajectories();
@@ -144,8 +144,8 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
 	pt.isLastPoint = false;
 	pt.profileSlotSelect0 = 0;
 
-	talonSRXMasterRight->Set(SetValueMotionProfile::Disable);
-	talonSRXMasterRight->Set(SetValueMotionProfile::Disable);
+	talonSRXMasterRight->Set(ControlMode::MotionProfile, SetValueMotionProfile::Disable);
+	talonSRXMasterRight->Set(ControlMode::MotionProfile, SetValueMotionProfile::Disable);
 	talonSRXMasterRight->ClearMotionProfileTrajectories();
 	talonSRXMasterRight->ClearMotionProfileHasUnderrun(0);
 	talonSRXMasterRight->ClearMotionProfileTrajectories();
@@ -195,7 +195,7 @@ void DriveTrain::SetChassisMode(ControlMode mode) {
 }
 
 void DriveTrain::SetVelocityMode() {
-	SetMotorGains(1, 0);
+	//SetMotorGains(1, 0);
 	talonSRXMasterLeft->Set(ControlMode::Velocity,0.0);
 //	talonSRXMasterLeft->Set(0.0);
 	talonSRXMasterRight->Set(ControlMode::Velocity,0.0);
@@ -214,11 +214,9 @@ void DriveTrain::SetClosedLoopMode() {
 
 void DriveTrain::SetMotionProfileMode() {
 	SetMotorGains(0, 0);
-	talonSRXMasterLeft->Set(ControlMode::MotionProfile, 0.0);
-	talonSRXMasterLeft->Set(SetValueMotionProfile::Disable);
+	talonSRXMasterLeft->Set(ControlMode::MotionProfile, SetValueMotionProfile::Disable);
 
-	talonSRXMasterRight->Set(ControlMode::MotionProfile, 0.0);
-	talonSRXMasterRight->Set(SetValueMotionProfile::Disable);
+	talonSRXMasterRight->Set(ControlMode::MotionProfile, SetValueMotionProfile::Disable);
 }
 
 void DriveTrain::SetMotorGains(int idx, int pidIdx) {
@@ -369,8 +367,8 @@ void DriveTrain::DriveStraight(double magnitude) {
 
 void DriveTrain::SetVelocity(double velocity) {
 
-	talonSRXMasterLeft->Set(ControlMode::Velocity,velocity, 0.0);
-	talonSRXMasterRight->Set(ControlMode::Velocity,-velocity, 0.0);
+	talonSRXMasterLeft->Set(ControlMode::Velocity,velocity);
+	talonSRXMasterRight->Set(ControlMode::Velocity,-velocity);
 
 }
 
