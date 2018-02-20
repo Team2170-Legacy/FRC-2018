@@ -67,7 +67,7 @@ void Intake::IntakeFwd() {
 	rightIntakeWheel->Set(-kIntakeSpeed);
 }
 
-void Intake::IntakeRev() {
+void Intake::IntakeRev() {					// CHECK THIS!!!
 	leftIntakeWheel->Set(kOuttakeSpeed);
 	rightIntakeWheel->Set(-kOuttakeSpeed);
 }
@@ -89,17 +89,39 @@ void Intake::IntakeFwd(intakeModeType intakeMode, double speed) {
 	if (intakeModeType::left || intakeModeType::both) {
 		leftIntakeWheel->Set(speed);
 	}
+
 	if (intakeModeType::right || intakeModeType::both) {
-		rightIntakeWheel->Set(speed);
+		rightIntakeWheel->Set(-speed);
 	}
 }
 
 void Intake::IntakeRev(intakeModeType intakeMode, double speed) {
-	if (intakeModeType::left || intakeModeType::both) {
-		leftIntakeWheel->Set(-speed);
+	frc::Timer m_timer;
+	double startTime = m_timer.GetFPGATimestamp();
+
+	if (intakeModeType::left) {
+		startTime = m_timer.GetFPGATimestamp();
+		while (m_timer.GetFPGATimestamp() < startTime + 1)  {
+			leftIntakeWheel->Set(-speed);
+		}
+		leftIntakeWheel->Set(0.0);
 	}
-	if (intakeModeType::right || intakeModeType::both) {
-		rightIntakeWheel->Set(-speed);
+
+	else if (intakeModeType::right) {
+		startTime = m_timer.GetFPGATimestamp();
+		while (m_timer.GetFPGATimestamp() < startTime + 1)  {
+			rightIntakeWheel->Set(speed);
+		}
+		rightIntakeWheel->Set(0.0);
+	}
+
+	else {
+		startTime = m_timer.GetFPGATimestamp();
+		while (m_timer.GetFPGATimestamp() < startTime + 1)  {
+			leftIntakeWheel->Set(-speed);
+			rightIntakeWheel->Set(speed);
+		}
+		IntakeOff();
 	}
 }
 
