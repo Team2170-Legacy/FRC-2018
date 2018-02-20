@@ -24,26 +24,6 @@ ArmInitialize::ArmInitialize(): frc::Command() {
 
 // Called just before this Command runs the first time
 void ArmInitialize::Initialize() {
-	bool prevOpticalFlag = Robot::arm->readArmOpticalFlagSensor();
-	int speed = 100;
-	if (prevOpticalFlag == true) {		// If optical flag reads light
-		bool currentOpticalFlag = Robot::arm->readArmOpticalFlagSensor();
-		while (currentOpticalFlag == true) {
-			Robot::arm->setArmMotorSpeed(speed);
-			currentOpticalFlag = Robot::arm->readArmOpticalFlagSensor();
-		}
-		Robot::arm->stopArmMotor();
-		Robot::arm->resetArmEncoder();
-	}
-	else {								// If optical flag reads dark
-		bool currentOpticalFlag = Robot::arm->readArmOpticalFlagSensor();
-		while (currentOpticalFlag == false) {
-			Robot::arm->setArmMotorSpeed(-speed);
-			currentOpticalFlag = Robot::arm->readArmOpticalFlagSensor();
-		}
-		Robot::arm->stopArmMotor();
-		Robot::arm->resetArmEncoder();
-	}
 }
 
 // Called repeatedly when this Command is scheduled to run

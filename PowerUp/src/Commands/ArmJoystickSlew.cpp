@@ -21,7 +21,6 @@ void ArmJoystickSlew::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void ArmJoystickSlew::Execute() {
 	double yChannel = -Robot::oi->getJoystickOperator()->GetY();
-	std::cout << "Joystick Y: " << yChannel << std::endl;
 	if ((fabs(yChannel) < 0.07)) {
 		if (!motorStopped) {
 			Robot::arm->SlewArmHold();
@@ -41,11 +40,11 @@ bool ArmJoystickSlew::IsFinished() {
 
 // Called once after isFinished returns true
 void ArmJoystickSlew::End() {
-
+	Robot::arm->SlewArmHold();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ArmJoystickSlew::Interrupted() {
-
+	End();
 }
