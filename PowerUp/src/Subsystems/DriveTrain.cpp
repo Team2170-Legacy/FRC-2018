@@ -75,8 +75,8 @@ void DriveTrain::InitMotors() {
 	talonSRXMasterRight->Set(ControlMode::Velocity, 0.0);
 
 
-
-
+	talonSRXMasterLeft->ChangeMotionControlFramePeriod(5);
+	talonSRXMasterRight->ChangeMotionControlFramePeriod(5);
 }
 
 void DriveTrain::TankDrive(double leftSpeed, double rightSpeed) {
@@ -100,6 +100,7 @@ void DriveTrain::FillProfileBuffer(
 		std::shared_ptr<const ProfileData> LeftWheel) {
 	size_t i;
 	TrajectoryPoint pt;
+	phoenix::ErrorCode error;
 
 	pt.zeroPos = true;
 	pt.isLastPoint = false;
@@ -120,16 +121,17 @@ void DriveTrain::FillProfileBuffer(
 
 		pt.position = LeftWheel->at(i).at(0);
 		pt.velocity = LeftWheel->at(i).at(1);
-		pt.timeDur = (TrajectoryDuration)LeftWheel->at(i).at(2);
-		if (!talonSRXMasterLeft->PushMotionProfileTrajectory(pt)) {
-			printf("left can push failed\n");
+		pt.timeDur = TrajectoryDuration_10ms;
+//		pt.timeDur = (TrajectoryDuration)LeftWheel->at(i).at(2);
+		if ((error = talonSRXMasterLeft->PushMotionProfileTrajectory(pt))) {
+			printf("left %d\n", error);
 		}
 
 		// Negative position and velocity for right side
 		pt.position = -pt.position;
 		pt.velocity = -pt.velocity;
-		if (!talonSRXMasterRight->PushMotionProfileTrajectory(pt)) {
-			printf("right can push failed\n");
+		if ((error = talonSRXMasterRight->PushMotionProfileTrajectory(pt))) {
+			printf("right %d\n", error);
 		}
 		pt.zeroPos = false;
 	}
@@ -160,13 +162,15 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
 
 		pt.position = LeftWheel->at(i).at(0);
 		pt.velocity = LeftWheel->at(i).at(1);
-		pt.timeDur = (TrajectoryDuration)LeftWheel->at(i).at(2);
+//		pt.timeDur = (TrajectoryDuration)LeftWheel->at(i).at(2);
+		pt.timeDur = TrajectoryDuration_10ms;
 		talonSRXMasterLeft->PushMotionProfileTrajectory(pt);
 
 		// Use right wheel profile for right side
 		pt.position = -RightWheel->at(i).at(0);
 		pt.velocity = -RightWheel->at(i).at(1);
-		pt.timeDur = (TrajectoryDuration)RightWheel->at(i).at(2);
+//		pt.timeDur = (TrajectoryDuration)RightWheel->at(i).at(2);
+		pt.timeDur = TrajectoryDuration_10ms;
 		talonSRXMasterRight->PushMotionProfileTrajectory(pt);
 		pt.zeroPos = false;
 	}
@@ -196,28 +200,24 @@ void DriveTrain::SetChassisMode(ControlMode mode) {
 }
 
 void DriveTrain::SetVelocityMode() {
-	//SetMotorGains(1, 0);
 	talonSRXMasterLeft->Set(ControlMode::Velocity,0.0);
-//	talonSRXMasterLeft->Set(0.0);
 	talonSRXMasterRight->Set(ControlMode::Velocity,0.0);
-//	talonSRXMasterRight->Set(0.0);
 
 }
 
 void DriveTrain::SetClosedLoopMode() {
 	talonSRXMasterLeft->Set(ControlMode::Position,0.0);
 	talonSRXMasterRight->Set(ControlMode::Position,0.0);
-
-	talonSRXMasterLeft->Set(0.0);
-
-	talonSRXMasterRight->Set(0.0);
 }
 
 void DriveTrain::SetMotionProfileMode() {
 	SetMotorGains(0, 0);
 	talonSRXMasterLeft->Set(ControlMode::MotionProfile, SetValueMotionProfile::Disable);
-
+	talonSRXMasterLeft->ConfigMotionProfileTrajectoryPeriod(10, 0);
+	talonSRXMasterLeft->SetStatusFramePeriod(StatusFrameEnhanced::Status_10_MotionMagic, 10, 0);
 	talonSRXMasterRight->Set(ControlMode::MotionProfile, SetValueMotionProfile::Disable);
+	talonSRXMasterRight->ConfigMotionProfileTrajectoryPeriod(10, 0);
+	talonSRXMasterRight->SetStatusFramePeriod(StatusFrameEnhanced::Status_10_MotionMagic, 10, 0);
 }
 
 void DriveTrain::SetMotorGains(int idx, int pidIdx) {
@@ -262,16 +262,15 @@ bool DriveTrain::MotionProfileComplete() {
 
 	talonSRXMasterLeft->GetMotionProfileStatus(LeftStatus);
 	talonSRXMasterRight->GetMotionProfileStatus(RightStatus);
-//
-//#ifdef DEBUG_TALON
-//	printf("Remaining top buffer points:  %d\n", LeftStatus.topBufferRem);
-//	printf("Bottom buffer count:  %d\n", LeftStatus.btmBufferCnt);
-//	printf("IsUnderrun status:  %d\n", LeftStatus.isUnderrun);
-//#endif
-//
+
+	printf("Remaining top buffer points:  %d\n", LeftStatus.topBufferRem);
+	printf("Bottom buffer count:  %d\n", LeftStatus.btmBufferCnt);
+	printf("IsUnderrun status:  %d\n", LeftStatus.isUnderrun);
+
 	// Start motion profile processing after 5 points are in talon buffer
 	if ((!mMotionProcessingActive) && (LeftStatus.btmBufferCnt > 5)) {
 		SetMotionProfileState(SetValueMotionProfile::Enable);
+		printf("Enable motion profile\n");
 		mMotionProcessingActive = true;
 	}
 
@@ -280,6 +279,7 @@ bool DriveTrain::MotionProfileComplete() {
 					&& RightStatus.isLast)) {
 		Complete = true;
 		mMotionProcessingActive = false;
+		printf("Motion complete\n");
 	}
 
 	return Complete;

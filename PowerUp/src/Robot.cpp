@@ -52,7 +52,7 @@ void Robot::RobotInit() {
 
 	chooser.AddDefault("A Do Nothing", new NoCommand());
 		chooser.AddObject("B MoveToBaseline",
-				new AutonomousInitGroup(&AutonomousMoveToBaseline));
+				new AutonomousInitGroup(&AutonomousMoveToGearPeg));
 		chooser.AddObject("C Blue Middle Right",
 				new AutonomousSwitchGroup(AutonomousSwitchGroup::kBlueMiddleRight));
 		chooser.AddObject("D Blue Middle Left",
