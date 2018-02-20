@@ -39,6 +39,8 @@ public:
 	static std::shared_ptr<frc::SpeedController> intakeRightIntakeWheel;
 	static std::shared_ptr<frc::DoubleSolenoid> intakeIntakeDoubleSolenoid;
 	static std::shared_ptr<frc::Compressor> intakeCompressor;
+	static std::shared_ptr<frc::DigitalInput> intakeLSLeft;
+	static std::shared_ptr<frc::DigitalInput> intakeLSRight;
 	static std::shared_ptr<frc::DigitalInput> armLimitSwitchFront;
 	static std::shared_ptr<frc::DigitalInput> armLimitSwitchBack;
 	static std::shared_ptr<frc::DigitalInput> armOpticalFlagSensor;
