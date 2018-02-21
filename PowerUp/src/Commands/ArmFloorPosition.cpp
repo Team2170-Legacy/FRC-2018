@@ -6,7 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "ArmFloorPosition.h"
-#include "Robot.h"
+#include "../Robot.h"
 #include "../Commands/ArmIntakeAuto.h"
 
 ArmFloorPosition::ArmFloorPosition() {

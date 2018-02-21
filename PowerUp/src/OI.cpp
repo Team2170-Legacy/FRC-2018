@@ -52,8 +52,8 @@ OI::OI() {
     joystickButtonB.reset(new frc::JoystickButton(joystickOperator.get(), 2));
     joystickButtonB->WhileHeld(new OuttakeWhileHeld());
     joystickButtonA.reset(new frc::JoystickButton(joystickOperator.get(), 1));
-    //joystickButtonA->WhileHeld(new IntakeWhileHeld());
-    joystickButtonA->WhileHeld(new IntakeWithLS());
+    joystickButtonA->WhileHeld(new IntakeWhileHeld());
+    //joystickButtonA->WhileHeld(new IntakeWithLS());
     joystickDriverRight.reset(new frc::Joystick(1));
     
     joystickDriverLeft.reset(new frc::Joystick(0));
