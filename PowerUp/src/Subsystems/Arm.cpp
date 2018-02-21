@@ -41,6 +41,13 @@ Arm::Arm() : frc::Subsystem("Arm"),
 	resetArmEncoder();
 	mArmTargetPosition = getArmPosition();
 	talonSRXArmMotor->Set(ControlMode::Position, mArmTargetPosition);
+
+	// Set up current limit
+	talonSRXArmMotor->ConfigPeakCurrentLimit(15, 10);
+	talonSRXArmMotor->ConfigPeakCurrentDuration(200, 10);
+	talonSRXArmMotor->ConfigContinuousCurrentLimit(15, 10);
+	talonSRXArmMotor->EnableCurrentLimit(true);
+
 }
 
 void Arm::InitDefaultCommand() {
