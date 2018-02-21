@@ -44,6 +44,7 @@ private:
 	const double kDriveMaxVelocity = 1.0;
 	bool mMotionProcessingActive = false;
 	bool mReverseDrive = false;
+	const double kOpenLoopRamp;
 
 
 	void InitMotors();
