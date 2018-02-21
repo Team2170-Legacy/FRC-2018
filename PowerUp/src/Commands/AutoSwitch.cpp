@@ -5,11 +5,11 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "ArmIntakeAuto.h"
-#include "../Commands/IntakeClose.h"
-#include "../Commands/IntakeWithLS.h"
+#include "AutoSwitch.h"
+#include "../Commands/ArmSetPosition.h"
+#include "../Commands/OuttakeWhileHeld.h"
 
-ArmIntakeAuto::ArmIntakeAuto() {
+AutoSwitch::AutoSwitch() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
@@ -27,7 +27,6 @@ ArmIntakeAuto::ArmIntakeAuto() {
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
 
-	AddParallel(new IntakeWithLS());
-	AddSequential(new IntakeClose());
-
+	AddSequential(new ArmSetPosition(45*DEG));
+	AddSequential(new OuttakeWhileHeld());
 }
