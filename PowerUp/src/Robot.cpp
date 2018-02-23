@@ -113,15 +113,13 @@ START_ROBOT_CLASS(Robot);
 void Robot::UpdateSmartDash() {
 	double velocity = Robot::arm->getArmMotorVelocity();
 	double velocityRadSec = Robot::arm->NativeUnitsToRadSec(velocity);
-	//std::cout << "V: " << velocity << "\t" << "V[rad/sec]: " << velocityRadSec << std::endl;
 	SmartDashboard::PutNumber("Arm Speed [rad/sec]", velocityRadSec);
 	SmartDashboard::PutBoolean("Limit Switch Front", Robot::arm->readLimitSwitchFront());
+	SmartDashboard::PutBoolean("Reverse Direction", Robot::driveTrain->isReverseDrive());
 	SmartDashboard::PutBoolean("Limit Switch Back", Robot::arm->readLimitSwitchBack());
 	SmartDashboard::PutNumber("Arm Motor Temp degC", Robot::arm->getArmMotorTemp());
 	SmartDashboard::PutNumber("Arm Encoder Count", Robot::arm->readArmEncoder());
 	SmartDashboard::PutNumber("Arm Position [radians]", Robot::arm->getArmPosition());
-	//SmartDashboard::PutNumber("Arm Speed", Robot::arm->getArmMotorVelocity());
-	//SmartDashboard::PutNumber("Arm Alpha", Robot::arm->getArmPosition());
 
 }
 

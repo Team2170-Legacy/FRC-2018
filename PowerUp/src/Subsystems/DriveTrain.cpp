@@ -86,7 +86,12 @@ void DriveTrain::InitMotors() {
 
 void DriveTrain::TankDrive(double leftSpeed, double rightSpeed) {
 
-	differentialDrive1->TankDrive(leftSpeed, rightSpeed, true);
+
+	if (!mReverseDrive) {
+		differentialDrive1->TankDrive(leftSpeed, rightSpeed, true);
+	} else {
+		differentialDrive1->TankDrive(-rightSpeed, -leftSpeed, true);
+	}
 }
 
 void DriveTrain::CurvatureDrive(double xSpeed, double zRotation, bool isQuickTurn){
