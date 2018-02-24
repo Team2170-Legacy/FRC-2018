@@ -43,6 +43,8 @@ private:
 	const double kP_w;			// Omega gain
 	const double wMax;			// OLD: 5 rad/sec		NEW: 2 rad/sec
 	const double Ts = 0.02;			// 50 Hz loop time
+	const double MaxAngle;
+	const double MaxCurrent;
 
 public:
 	Arm();
