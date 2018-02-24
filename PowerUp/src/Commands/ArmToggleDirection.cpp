@@ -24,6 +24,20 @@ ArmToggleDirection::ArmToggleDirection(): InstantCommand() {
 
 // Called once when this command runs
 void ArmToggleDirection::Initialize() {
+	double armPos = Robot::arm->getArmPosition();
+	double desiredPos = -armPos;					// To reverse arm angle
 
+	if (armPos > desiredPos) {
+		while (armPos > desiredPos) {
+			Robot::arm->setArmPosition(desiredPos*DEG);
+			armPos = Robot::arm->getArmPosition();
+		}
+	}
+	else {
+		while (armPos < desiredPos) {
+			Robot::arm->setArmPosition(desiredPos*DEG);
+			armPos = Robot::arm->getArmPosition();
+		}
+	}
 }
 

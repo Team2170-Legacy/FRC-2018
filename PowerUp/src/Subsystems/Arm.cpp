@@ -49,6 +49,8 @@ Arm::Arm() : frc::Subsystem("Arm"),
 	talonSRXArmMotor->ConfigContinuousCurrentLimit(MaxCurrent, 10);
 	talonSRXArmMotor->EnableCurrentLimit(true);
 
+	// CAN TALON Gains
+	// P: 6 or 8 		I: 0		D: 60
 }
 
 void Arm::InitDefaultCommand() {
