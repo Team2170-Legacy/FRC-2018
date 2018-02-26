@@ -11,9 +11,6 @@
 
 //#include "AutonomousAllianceCmd.h"
 #include "AutonomousBlendedMove.h"
-#include "../AutoMoves/BB_to_F.h"
-//#include "AutonomousStop.h"
-//#include "../Vision/VisionProcessing.h"
 #include "../AutoMoves/BSMR.h"  //blue start middle to right
 #include "../AutoMoves/BSML.h"  //blue start middle to left
 #include "../AutoMoves/RSMR.h"  //red start middle to right

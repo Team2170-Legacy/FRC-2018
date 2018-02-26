@@ -53,7 +53,7 @@ void Robot::RobotInit() {
 	frc::SmartDashboard::PutData("Auto Modes", &chooser);
 
 	chooser.AddDefault("A Do Nothing", new NoCommand());
-	chooser.AddObject("B Auto Test TEMPORARY",
+	chooser.AddObject("ZZ Auto Test TEMPORARY",
 			new AutonomousMotionProfile(&AutoMove_Straight_L));
 		chooser.AddObject("C Blue Middle Right",
 				new AutonomousSwitchGroup(AutonomousSwitchGroup::kBlueMiddleRight));
