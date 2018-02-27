@@ -15,6 +15,7 @@
 #include "Commands/AutonomousInitGroup.h"
 #include "Commands/AutonomousMotionProfile.h"
 #include "Commands/AutonomousSwitchGroup.h"
+#include "Commands/DriveToSwitchScore.h"
 #include "AutoMoves/Straight.h"
 #include <iostream>
 
@@ -55,7 +56,7 @@ void Robot::RobotInit() {
 	chooser.AddDefault("A Do Nothing", new NoCommand());
 	chooser.AddObject("ZZ Auto Test TEMPORARY",
 			new AutonomousMotionProfile(&AutoMove_Straight_L));
-		chooser.AddObject("C Blue Middle Right",
+		chooser.AddObject("B Middle Start Score Switch",
 				new AutonomousSwitchGroup(AutonomousSwitchGroup::kBlueMiddleRight));
 		chooser.AddObject("D Blue Middle Left",
 				new AutonomousSwitchGroup(AutonomousSwitchGroup::kBlueMiddleLeft));
@@ -83,8 +84,6 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
-	std::string switchScalePositions = frc::DriverStation::GetInstance().GetGameSpecificMessage();
-	char switchPosition = switchScalePositions[0];
 	autonomousCommand = chooser.GetSelected();
 
 	if (autonomousCommand != nullptr)
