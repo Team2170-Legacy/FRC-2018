@@ -48,6 +48,7 @@ private:
 	const double ArmEjectAngle = 45*DEG;
 	const double ArmFloorAngle = 40*DEG;
 	const double MaxCurrent;
+	double setArmPosition(double alphaFinalRad);
 
 public:
 	Arm();
@@ -71,10 +72,9 @@ public:
 
 	double getArmMotorTemp();
 
-	double setArmPosition(double alphaFinalRad);
 	void setArmTargetPosition(double value);
 	bool isAtPosition(double positionRad);
-
+	bool isAtPosition();
 	void setArmSwitchDir(bool value);
 	bool getArmSwitchDir();
 

@@ -247,6 +247,9 @@ bool Arm::isAtPosition(double positionRad) {
 	return isFinishedFlag;
 }
 
+bool Arm::isAtPosition() {
+	return (fabs(getArmPosition() - mArmTargetPosition) < (2*DEG));
+}
 void Arm::setArmSwitchDir(bool value) {
 	mArmSwitchDir = value;
 }

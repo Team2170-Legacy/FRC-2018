@@ -7,7 +7,6 @@
 
 #include "ArmSetPosition.h"
 
-static double armTargetPosition;
 
 
 ArmSetPosition::ArmSetPosition(double positionRad) {
@@ -17,25 +16,31 @@ ArmSetPosition::ArmSetPosition(double positionRad) {
 	armTargetPosition = positionRad;
 }
 
+ArmSetPosition::ArmSetPosition(int positionDeg) {
+	Requires(Robot::arm.get());
+	armTargetPosition = positionDeg * DEG;
+}
+
 // Called just before this Command runs the first time
 void ArmSetPosition::Initialize() {
-
+	Robot::arm->setArmTargetPosition(armTargetPosition);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ArmSetPosition::Execute() {
-	Robot::arm->setArmPosition(armTargetPosition);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool ArmSetPosition::IsFinished() {
-	return Robot::arm->isAtPosition(armTargetPosition);
+	return Robot::arm->isAtPosition();
 }
 
 // Called once after isFinished returns true
 void ArmSetPosition::End() {
 	Robot::arm->SlewArmHold();
 }
+
+
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
