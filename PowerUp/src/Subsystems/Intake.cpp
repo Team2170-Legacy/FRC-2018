@@ -68,7 +68,7 @@ void Intake::IntakeFwd() {
 	rightIntakeWheel->Set(-kIntakeSpeed);
 }
 
-void Intake::IntakeRev() {					// CHECK THIS!!!
+void Intake::IntakeRev() {
 	leftIntakeWheel->Set(kOuttakeSpeed);
 	rightIntakeWheel->Set(-kOuttakeSpeed);
 }

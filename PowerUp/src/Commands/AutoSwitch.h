@@ -7,20 +7,10 @@
 
 #pragma once
 
-#include <Commands/Command.h>
-#include "../Robot.h"
+#include <Commands/CommandGroup.h>
 
-class ArmSetPosition : public frc::Command {
+class AutoSwitch : public frc::CommandGroup {
 public:
-	ArmSetPosition(double positionRad);
-	ArmSetPosition(int positionDeg);
-	void Initialize() override;
-	void Execute() override;
-	bool IsFinished() override;
-	void End() override;
-	void Interrupted() override;
-private:
-	double armTargetPosition;
-
+	AutoSwitch();
 };
 

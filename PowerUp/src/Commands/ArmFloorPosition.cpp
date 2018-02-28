@@ -8,6 +8,8 @@
 #include "ArmFloorPosition.h"
 #include "../Robot.h"
 #include "../Commands/ArmIntakeAuto.h"
+#include "../Commands/ArmSetPosition.h"
+#include "../Commands/OuttakeWhileHeld.h"
 
 ArmFloorPosition::ArmFloorPosition() {
 	// Add Commands here:
@@ -27,8 +29,8 @@ ArmFloorPosition::ArmFloorPosition() {
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
 
-	Robot::arm->setArmTargetPosition(40*DEG);
+	AddSequential(new ArmSetPosition(Robot::arm->getArmFloorAngle()));
 	AddSequential(new ArmIntakeAuto());
-	Robot::arm->setArmMotorSpeed(-40*DEG);
-	Robot::intake->IntakeRev(intakeModeType::both, 0.6);
+//	AddSequential(new ArmSetPosition(-40*DEG));
+//	AddSequential(new OuttakeWhileHeld());
 }
