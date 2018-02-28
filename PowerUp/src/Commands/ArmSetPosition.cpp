@@ -29,11 +29,7 @@ void ArmSetPosition::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool ArmSetPosition::IsFinished() {
-	double currentAlpha = Robot::arm->getArmPosition();
-	double tolerance = 2*DEG;
-	bool isFinishedFlag = fabs(currentAlpha - armTargetPosition) < tolerance;
-
-	return isFinishedFlag;
+	return Robot::arm->isAtPosition(armTargetPosition);
 }
 
 // Called once after isFinished returns true

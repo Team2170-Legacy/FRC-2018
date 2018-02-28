@@ -24,30 +24,21 @@ ArmEjectPosition::ArmEjectPosition(): frc::Command() {
 
 // Called just before this Command runs the first time
 void ArmEjectPosition::Initialize() {
-
+	Robot::arm->setArmTargetPosition(Robot::arm->getArmEjectAngle());
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ArmEjectPosition::Execute() {
-	double armPos = Robot::arm->getArmPosition();
-
-	if (armPos >= 0) {
-		while (armPos < 45) {
-			Robot::arm->setArmPosition(45*DEG);
-			armPos = Robot::arm->getArmPosition();
-		}
-	}
-	else {
-		while (armPos > -45) {
-			Robot::arm->setArmPosition(-45*DEG);
-			armPos = Robot::arm->getArmPosition();
-		}
-	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool ArmEjectPosition::IsFinished() {
-    return false;
+	double armPos = Robot::arm->getArmPosition();
+
+	bool isAtPositionPos = Robot::arm->isAtPosition(Robot::arm->getArmEjectAngle());
+	bool isAtPositionNeg = Robot::arm->isAtPosition(-Robot::arm->getArmEjectAngle());
+
+	return isAtPositionPos || isAtPositionNeg;
 }
 
 // Called once after isFinished returns true

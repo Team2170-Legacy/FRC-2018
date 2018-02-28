@@ -29,7 +29,7 @@ ArmFloorPosition::ArmFloorPosition() {
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
 
-	AddSequential(new ArmSetPosition(40*DEG));
+	AddSequential(new ArmSetPosition(Robot::arm->getArmFloorAngle()));
 	AddSequential(new ArmIntakeAuto());
 //	AddSequential(new ArmSetPosition(-40*DEG));
 //	AddSequential(new OuttakeWhileHeld());
