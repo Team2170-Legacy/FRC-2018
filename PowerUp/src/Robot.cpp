@@ -54,21 +54,16 @@ void Robot::RobotInit() {
 	frc::SmartDashboard::PutData("Auto Modes", &chooser);
 
 	chooser.AddDefault("A Do Nothing", new NoCommand());
-	chooser.AddObject("ZZ Auto Test TEMPORARY",
-			new AutonomousMotionProfile(&AutoMove_Straight_L));
+	chooser.AddObject("C Drive Straight",
+			new AutonomousMotionProfile(&AutoMove_Straight_L, &AutoMove_Straight_R));
 		chooser.AddObject("B Middle Start Score Switch",
-				new AutonomousSwitchGroup(AutonomousSwitchGroup::kBlueMiddleRight));
-		chooser.AddObject("D Blue Middle Left",
-				new AutonomousSwitchGroup(AutonomousSwitchGroup::kBlueMiddleLeft));
-		chooser.AddObject("E Red Middle Right",
-				new AutonomousSwitchGroup(AutonomousSwitchGroup::kRedMiddleRight));
-		chooser.AddObject("F Red Middle Left",
-						new AutonomousSwitchGroup(AutonomousSwitchGroup::kRedMiddleLeft));
-		chooser.AddObject("G AutonomousCommand",
+				new DriveToSwitchScore());
+		chooser.AddObject("D AutonomousCommand",
 						new AutonomousCommand());
-
+		SmartDashboard::PutData("Auto Modes", &chooser);
 
 	Robot::arm->resetArmEncoder();
+	LiveWindow::GetInstance()->DisableAllTelemetry();
 }
 
 /**

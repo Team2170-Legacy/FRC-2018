@@ -69,7 +69,7 @@ void DriveTrain::InitMotors() {
 	talonSRXMasterLeft->SetInverted(false);
 	talonSRXMasterRight->SetInverted(false);
 	talonSRXMasterLeft->SetSensorPhase(false);
-	talonSRXMasterLeft->SetSensorPhase(false);
+	talonSRXMasterRight->SetSensorPhase(true);
 
 	//Master left and master right set control modes
 	talonSRXMasterLeft->Set(ControlMode::Velocity, 0.0);
@@ -131,7 +131,7 @@ void DriveTrain::FillProfileBuffer(
 
 		pt.position = LeftWheel->at(i).at(0);
 		pt.velocity = LeftWheel->at(i).at(1);
-		pt.timeDur = TrajectoryDuration_10ms;
+		pt.timeDur = TrajectoryDuration_20ms;
 //		pt.timeDur = (TrajectoryDuration)LeftWheel->at(i).at(2);
 		if ((error = talonSRXMasterLeft->PushMotionProfileTrajectory(pt))) {
 			printf("left %d\n", error);
@@ -173,14 +173,14 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
 		pt.position = LeftWheel->at(i).at(0);
 		pt.velocity = LeftWheel->at(i).at(1);
 //		pt.timeDur = (TrajectoryDuration)LeftWheel->at(i).at(2);
-		pt.timeDur = TrajectoryDuration_10ms;
+		pt.timeDur = TrajectoryDuration_20ms;
 		talonSRXMasterLeft->PushMotionProfileTrajectory(pt);
 
 		// Use right wheel profile for right side
 		pt.position = -RightWheel->at(i).at(0);
 		pt.velocity = -RightWheel->at(i).at(1);
 //		pt.timeDur = (TrajectoryDuration)RightWheel->at(i).at(2);
-		pt.timeDur = TrajectoryDuration_10ms;
+		pt.timeDur = TrajectoryDuration_20ms;
 		talonSRXMasterRight->PushMotionProfileTrajectory(pt);
 		pt.zeroPos = false;
 	}
