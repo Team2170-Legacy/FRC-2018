@@ -6,6 +6,8 @@
 /*----------------------------------------------------------------------------*/
 
 #include "ScoreSwitch.h"
+#include "ArmEjectPosition.h"
+#include "OuttakeOn.h"
 
 ScoreSwitch::ScoreSwitch() {
 	// Add Commands here:
@@ -24,4 +26,6 @@ ScoreSwitch::ScoreSwitch() {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
+	AddSequential(new ArmEjectPosition());
+	AddSequential(new OuttakeOn(1.0));			// Outtake on for 1 second
 }
