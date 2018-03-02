@@ -44,7 +44,8 @@ private:
 				tankDrive,
 				arcadeDrive,
 				curvatureDrive,
-				xboxTankDrive
+				xboxTankDrive,
+				velocityMode
 			};
 
 	XboxController driverXbox;	// Xbox driver always USB 0

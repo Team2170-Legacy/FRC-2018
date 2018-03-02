@@ -104,6 +104,17 @@ void DriveTrain::ArcadeDrive(double xSpeed, double zRotation, bool squaredInputs
 	differentialDrive1->ArcadeDrive(xSpeed, zRotation,squaredInputs);
 }
 
+void DriveTrain::TankDriveVelocity(double left, double right){
+	if (!mReverseDrive) {
+		talonSRXMasterLeft->Set(ControlMode::Velocity, left*900);
+		talonSRXMasterRight->Set(ControlMode::Velocity, -right*900);
+	} else {
+		talonSRXMasterLeft->Set(ControlMode::Velocity, -left*900);
+		talonSRXMasterRight->Set(ControlMode::Velocity,	right*900);
+	}
+
+}
+
 
 
 void DriveTrain::FillProfileBuffer(

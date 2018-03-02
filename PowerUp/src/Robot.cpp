@@ -56,11 +56,11 @@ void Robot::RobotInit() {
 	chooser.AddDefault("A Do Nothing", new NoCommand());
 	chooser.AddObject("C Drive Straight",
 			new AutonomousMotionProfile(&AutoMove_Straight_L, &AutoMove_Straight_R));
-		chooser.AddObject("B Middle Start Score Switch",
-				new DriveToSwitchScore());
-		chooser.AddObject("D AutonomousCommand",
-						new AutonomousCommand());
-		SmartDashboard::PutData("Auto Modes", &chooser);
+	chooser.AddObject("B Middle Start Score Switch",
+			new DriveToSwitchScore());
+	chooser.AddObject("D AutonomousCommand",
+			new AutonomousCommand());
+	SmartDashboard::PutData("Auto Modes", &chooser);
 
 	Robot::arm->resetArmEncoder();
 	LiveWindow::GetInstance()->DisableAllTelemetry();

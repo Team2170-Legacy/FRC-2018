@@ -85,6 +85,7 @@ public:
 	void DriveStraight(bool Backwards);
 	void DriveStraight(double Magnitude);
 	void SetVelocity(double velocity);
+	void TankDriveVelocity(double left, double right);
 
 	bool isReverseDrive() const {
 		return mReverseDrive;

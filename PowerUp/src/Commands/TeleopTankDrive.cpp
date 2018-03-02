@@ -49,6 +49,9 @@ void TeleopTankDrive::Execute() {
 			Robot::driveTrain->TankDrive(-driverXbox.GetY(frc::GenericHID::JoystickHand::kLeftHand),
 								-driverXbox.GetY(frc::GenericHID::JoystickHand::kRightHand));
 				break;
+		case velocityMode:
+			Robot::driveTrain->TankDriveVelocity(frc::GenericHID::JoystickHand::kLeftHand, frc::GenericHID::JoystickHand::kRightHand);
+			break;
 		default:
 			break;
 	}

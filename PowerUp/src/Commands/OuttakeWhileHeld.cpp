@@ -24,7 +24,7 @@ OuttakeWhileHeld::OuttakeWhileHeld(): frc::Command() {
 
 // Called just before this Command runs the first time
 void OuttakeWhileHeld::Initialize() {
-	Robot::intake->IntakeRev(intakeModeType::both, 0.6);
+	Robot::intake->IntakeRev();
 }
 
 // Called repeatedly when this Command is scheduled to run
