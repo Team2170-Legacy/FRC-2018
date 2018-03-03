@@ -123,7 +123,7 @@ AutonomousMotionProfile::AutonomousMotionProfile(const ProfileData* LeftWheel,
 	mLeftEndVelocity = LeftWheel->at(j-1).at(1);
 	mRightEndVelocity = RightWheel->at(j-1).at(1);
 
-	printf("Blended Motion Profile %d points\n", mLeftProfile.size());
+//	printf("Blended Motion Profile %d points\n", mLeftProfile.size());
 	mLeftWheel.reset(&mLeftProfile);
 	mRightWheel.reset(&mRightProfile);
 }
@@ -158,8 +158,8 @@ AutonomousMotionProfile::AutonomousMotionProfile(
 		mLeftProfile.push_back(rowData);
 	}
 
-	printf("%s loaded %u points\n",
-			LProfileName.c_str(), mLeftProfile.size());
+//	printf("%s loaded %u points\n",
+//			LProfileName.c_str(), mLeftProfile.size());
 
 	input.close();
 	input.open(RProfileName.c_str());
@@ -176,8 +176,8 @@ AutonomousMotionProfile::AutonomousMotionProfile(
 		mRightProfile.push_back(rowData);
 	}
 
-	printf("%s loaded %u points\n",
-			RProfileName.c_str(), mRightProfile.size());
+//	printf("%s loaded %u points\n",
+//			RProfileName.c_str(), mRightProfile.size());
 }
 
 
@@ -217,6 +217,6 @@ AutonomousMotionProfile::AutonomousMotionProfile(
 		mLeftProfile.push_back(rowData);
 	}
 
-	printf("%s loaded %u points\n",
-			ProfileName.c_str(), mLeftProfile.size());
+//	printf("%s loaded %u points\n",
+//			ProfileName.c_str(), mLeftProfile.size());
 }

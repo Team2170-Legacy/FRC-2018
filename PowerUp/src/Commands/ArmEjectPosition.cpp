@@ -33,21 +33,16 @@ void ArmEjectPosition::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool ArmEjectPosition::IsFinished() {
-	double armPos = Robot::arm->getArmPosition();
-
-	bool isAtPositionPos = Robot::arm->isAtPosition(Robot::arm->getArmEjectAngle());
-	bool isAtPositionNeg = Robot::arm->isAtPosition(-Robot::arm->getArmEjectAngle());
-
-	return isAtPositionPos || isAtPositionNeg;
+	return Robot::arm->isAtPosition();
 }
 
 // Called once after isFinished returns true
 void ArmEjectPosition::End() {
-
+	Robot::arm->SlewArmHold();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ArmEjectPosition::Interrupted() {
-
+	End();
 }

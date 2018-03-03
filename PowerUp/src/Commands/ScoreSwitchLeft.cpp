@@ -8,6 +8,7 @@
 #include "ScoreSwitchLeft.h"
 #include "../Automoves/RSML.h"
 #include "AutonomousMotionProfile.h"
+#include "ArmEjectPosition.h"
 #include "ScoreSwitch.h"
 
 ScoreSwitchLeft::ScoreSwitchLeft() {
@@ -27,6 +28,6 @@ ScoreSwitchLeft::ScoreSwitchLeft() {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-	AddParallel(new AutonomousMotionProfile(&AutoMove_RSML_L, &AutoMove_RSML_R));
+	AddSequential(new AutonomousMotionProfile(&AutoMove_RSML_L, &AutoMove_RSML_R));
 	AddSequential(new ScoreSwitch());
 }

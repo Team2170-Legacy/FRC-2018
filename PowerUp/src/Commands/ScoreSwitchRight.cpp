@@ -27,6 +27,6 @@ ScoreSwitchRight::ScoreSwitchRight() {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-	AddSequential(new AutonomousMotionProfile(&AutoMove_RSMR_L, &AutoMove_RSMR_R));
+	AddParallel(new AutonomousMotionProfile(&AutoMove_RSMR_L, &AutoMove_RSMR_R));
 	AddSequential(new ScoreSwitch());
 }

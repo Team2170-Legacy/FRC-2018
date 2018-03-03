@@ -284,9 +284,9 @@ bool DriveTrain::MotionProfileComplete() {
 	talonSRXMasterLeft->GetMotionProfileStatus(LeftStatus);
 	talonSRXMasterRight->GetMotionProfileStatus(RightStatus);
 
-	printf("Remaining top buffer points:  %d\n", LeftStatus.topBufferRem);
-	printf("Bottom buffer count:  %d\n", LeftStatus.btmBufferCnt);
-	printf("IsUnderrun status:  %d\n", LeftStatus.isUnderrun);
+//	printf("Remaining top buffer points:  %d\n", LeftStatus.topBufferRem);
+//	printf("Bottom buffer count:  %d\n", LeftStatus.btmBufferCnt);
+//	printf("IsUnderrun status:  %d\n", LeftStatus.isUnderrun);
 
 	// Start motion profile processing after 5 points are in talon buffer
 	if ((!mMotionProcessingActive) && (LeftStatus.btmBufferCnt > 5)) {

@@ -45,7 +45,7 @@ private:
 	const double wMax;			// OLD: 5 rad/sec		NEW: 2 rad/sec
 	const double Ts = 0.02;			// 50 Hz loop time
 	const double MaxAngle;
-	const double ArmEjectAngle = 45*DEG;
+	const double ArmEjectAngle = 30*DEG;
 	const double ArmFloorAngle = 40*DEG;
 	const double MaxCurrent;
 	double setArmPosition(double alphaFinalRad);

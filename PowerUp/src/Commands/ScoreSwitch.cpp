@@ -6,8 +6,8 @@
 /*----------------------------------------------------------------------------*/
 
 #include "ScoreSwitch.h"
-#include "ArmEjectPosition.h"
 #include "OuttakeOn.h"
+#include "ArmEjectPosition.h"
 
 ScoreSwitch::ScoreSwitch() {
 	// Add Commands here:
