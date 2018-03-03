@@ -69,7 +69,7 @@ void DriveTrain::InitMotors() {
 	talonSRXMasterLeft->SetInverted(false);
 	talonSRXMasterRight->SetInverted(false);
 	talonSRXMasterLeft->SetSensorPhase(false);
-	talonSRXMasterRight->SetSensorPhase(true);
+	talonSRXMasterRight->SetSensorPhase(false);
 
 	//Master left and master right set control modes
 	talonSRXMasterLeft->Set(ControlMode::Velocity, 0.0);

@@ -24,6 +24,6 @@ ArmToggleDirection::ArmToggleDirection(): InstantCommand() {
 
 // Called once when this command runs
 void ArmToggleDirection::Initialize() {
-	Robot::arm->setArmSwitchDir(!Robot::arm->getArmSwitchDir());
+//	Robot::arm->setArmSwitchDir(!Robot::arm->getArmSwitchDir());
 }
 

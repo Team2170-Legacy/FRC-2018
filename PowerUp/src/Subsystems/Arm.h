@@ -18,8 +18,8 @@
 #include <Timer.h>
 
 #define PI 3.14159265358979323
-#define DEG PI/180
-#define ENCODER_COUNTS_PER_REV 4096 * 3			// Native encoder counts * gearing ratio
+#define DEG (PI/180.)
+#define ENCODER_COUNTS_PER_REV (4096 * 3)			// Native encoder counts * gearing ratio
 #define ROTATION_DEG 360
 
 /**
@@ -45,9 +45,9 @@ private:
 	const double wMax;			// OLD: 5 rad/sec		NEW: 2 rad/sec
 	const double Ts = 0.02;			// 50 Hz loop time
 	const double MaxAngle;
-	const double ArmEjectAngle = 30*DEG;
-	const double ArmFloorAngle = 40*DEG;
 	const double MaxCurrent;
+	const double ArmEjectAngle;
+	const double ArmFloorAngle;
 	double setArmPosition(double alphaFinalRad);
 
 public:
