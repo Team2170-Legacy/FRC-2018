@@ -44,10 +44,10 @@ Arm::Arm() : frc::Subsystem("Arm"),
 	talonSRXArmMotor->Set(ControlMode::Position, mArmTargetPosition);
 
 	// Set up current limit
-	talonSRXArmMotor->ConfigPeakCurrentLimit(MaxCurrent, 10);
-	talonSRXArmMotor->ConfigPeakCurrentDuration(200, 10);
-	talonSRXArmMotor->ConfigContinuousCurrentLimit(MaxCurrent, 10);
-	talonSRXArmMotor->EnableCurrentLimit(true);
+//	talonSRXArmMotor->ConfigPeakCurrentLimit(MaxCurrent, 10);
+//	talonSRXArmMotor->ConfigPeakCurrentDuration(200, 10);
+//	talonSRXArmMotor->ConfigContinuousCurrentLimit(MaxCurrent, 10);
+//	talonSRXArmMotor->EnableCurrentLimit(true);
 
 	// CAN TALON Gains
 	// P: 6 or 8 		I: 0		D: 60

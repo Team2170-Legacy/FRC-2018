@@ -29,6 +29,8 @@ void TeleopTankDrive::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void TeleopTankDrive::Execute() {
+	double Velocity = 0;
+	double Arc = 0;
 
 	switch (driveMode) {
 		case tankDrive:
@@ -36,9 +38,14 @@ void TeleopTankDrive::Execute() {
 					-Robot::oi->getJoystickDriverRight()->GetY());
 				break;
 		case arcadeDrive:
-			Robot::driveTrain->CurvatureDrive(-driverXbox.GetY(frc::GenericHID::JoystickHand::kLeftHand),
-					driverXbox.GetX(frc::GenericHID::JoystickHand::kLeftHand),
-					driverXbox.GetBumper(frc::GenericHID::JoystickHand::kRightHand));
+			Velocity = -driverXbox.GetTriggerAxis(frc::GenericHID::JoystickHand::kLeftHand) +
+					driverXbox.GetTriggerAxis(frc::GenericHID::JoystickHand::kRightHand);
+			Arc = driverXbox.GetX(frc::GenericHID::JoystickHand::kLeftHand);
+			if (Velocity < 0.0) {
+				Arc = -Arc;
+			}
+		Robot::driveTrain->CurvatureDrive(Velocity,	Arc,
+						driverXbox.GetBumper(frc::GenericHID::JoystickHand::kRightHand));
 				break;
 		case curvatureDrive:
 			Robot::driveTrain->CurvatureDrive(-driverXbox.GetY(frc::GenericHID::JoystickHand::kLeftHand),
