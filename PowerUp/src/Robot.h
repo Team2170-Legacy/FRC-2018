@@ -49,5 +49,12 @@ public:
 	static std::shared_ptr<frc::Timer> BlendTimer;
 	
 	void UpdateSmartDash();
+
+	bool IsPracticeBot() const {
+		return isPracticeBot;
+	}
+
+private:
+	bool isPracticeBot = false;
 };
 #endif

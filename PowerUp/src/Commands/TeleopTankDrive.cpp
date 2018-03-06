@@ -40,7 +40,8 @@ void TeleopTankDrive::Execute() {
 		case arcadeDrive:
 			Velocity = -driverXbox.GetTriggerAxis(frc::GenericHID::JoystickHand::kLeftHand) +
 					driverXbox.GetTriggerAxis(frc::GenericHID::JoystickHand::kRightHand);
-			Arc = driverXbox.GetX(frc::GenericHID::JoystickHand::kLeftHand);
+			Velocity = -driverXbox.GetY(frc::GenericHID::JoystickHand::kLeftHand);
+			Arc = driverXbox.GetX(frc::GenericHID::JoystickHand::kRightHand);
 			if (Velocity < 0.0) {
 				Arc = -Arc;
 			}

@@ -13,6 +13,7 @@
 class DriveToSwitchScore : public frc::ConditionalCommand {
 public:
 	DriveToSwitchScore();
+	DriveToSwitchScore(frc::Command* left, frc::Command* right);
 
 protected:
 virtual bool Condition();

@@ -12,7 +12,12 @@
 #include "DriveToSwitchScore.h"
 
 
-DriveToSwitchScore::DriveToSwitchScore(): ConditionalCommand(new ScoreSwitchLeft, new ScoreSwitchRight) {
+DriveToSwitchScore::DriveToSwitchScore():
+	ConditionalCommand(new ScoreSwitchLeft, new ScoreSwitchRight) {
+}
+
+DriveToSwitchScore::DriveToSwitchScore(frc::Command* left, frc::Command* right):
+	ConditionalCommand(left, right) {
 }
 
 bool DriveToSwitchScore::Condition(){

@@ -69,7 +69,13 @@ void DriveTrain::InitMotors() {
 	talonSRXMasterLeft->SetInverted(false);
 	talonSRXMasterRight->SetInverted(false);
 	talonSRXMasterLeft->SetSensorPhase(false);
-	talonSRXMasterRight->SetSensorPhase(false);
+
+	if (Preferences::GetInstance()->GetBoolean("Practice Bot", false)) {
+		talonSRXMasterRight->SetSensorPhase(true);
+	}
+	else {
+		talonSRXMasterRight->SetSensorPhase(false);
+	}
 
 	//Master left and master right set control modes
 	talonSRXMasterLeft->Set(ControlMode::Velocity, 0.0);

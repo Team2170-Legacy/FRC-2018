@@ -6,7 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "ScoreSwitchRight.h"
-#include "../Automoves/RSMR.h"
+#include "../Automoves/RSMRS.h"
 #include "AutonomousMotionProfile.h"
 #include "ScoreSwitch.h"
 
@@ -27,6 +27,6 @@ ScoreSwitchRight::ScoreSwitchRight() {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-	AddParallel(new AutonomousMotionProfile(&AutoMove_RSMR_L, &AutoMove_RSMR_R));
+	AddSequential(new AutonomousMotionProfile(&AutoMove_RSMRS_L, &AutoMove_RSMRS_R));
 	AddSequential(new ScoreSwitch());
 }

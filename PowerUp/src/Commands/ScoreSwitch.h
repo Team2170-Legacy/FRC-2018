@@ -8,9 +8,11 @@
 #pragma once
 
 #include <Commands/CommandGroup.h>
+#include "../ProfileData.h"
 
 class ScoreSwitch : public frc::CommandGroup {
 public:
 	ScoreSwitch();
+	ScoreSwitch(const ProfileData* LProfileName, const ProfileData* RProfileName);
 };
 
