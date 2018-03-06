@@ -53,10 +53,12 @@ void Robot::RobotInit() {
 	chooser.AddDefault("A Do Nothing", new NoCommand());
 	chooser.AddObject("B Drive Straight",
 			new AutonomousMotionProfile(&AutoMove_Straight_L, &AutoMove_Straight_R));
-	chooser.AddObject("C Middle Start Score Switch",
-			new DriveToSwitchScore());
-	chooser.AddObject("D Middle Start Score Side",
-			new ScoreSwitch(&AutoMove_RSMLS_L, &AutoMove_RSMLS_R));
+	chooser.AddObject("C Middle Start Score Switch",new DriveToSwitchScore (
+			new ScoreSwitch(&AutoMove_RSML_L, &AutoMove_RSML_R),
+			new ScoreSwitch(&AutoMove_RSMR_L, &AutoMove_RSMR_R)));
+	chooser.AddObject("D Middle Start Score Side", new DriveToSwitchScore (
+			new ScoreSwitch(&AutoMove_RSMLS_L, &AutoMove_RSMLS_R),
+			new ScoreSwitch(&AutoMove_RSMRS_L, &AutoMove_RSMRS_R)));
 	chooser.AddObject("E Left Start Score Side",
 			new AutonomousCommand());
 	chooser.AddObject("F Left Start Score Side",
