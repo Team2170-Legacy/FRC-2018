@@ -56,14 +56,22 @@ void Robot::RobotInit() {
 	chooser.AddObject("C Middle Start Score Switch",new DriveToSwitchScore (
 			new ScoreSwitch(&AutoMove_RSML_L, &AutoMove_RSML_R),
 			new ScoreSwitch(&AutoMove_RSMR_L, &AutoMove_RSMR_R)));
-	chooser.AddObject("D Middle Start Score Side", new DriveToSwitchScore (
+	chooser.AddObject("D Middle Start Score From Side", new DriveToSwitchScore (
 			new ScoreSwitch(&AutoMove_RSMLS_L, &AutoMove_RSMLS_R),
 			new ScoreSwitch(&AutoMove_RSMRS_L, &AutoMove_RSMRS_R)));
-	chooser.AddObject("E Left Start Score Side",
-			new AutonomousCommand());
-	chooser.AddObject("F Left Start Score Side",
-			new AutonomousCommand());
-	chooser.AddObject("G Arc",
+	chooser.AddObject("E Left Start Score Switch",new DriveToSwitchScore (
+			new ScoreSwitch(&AutoMove_RSMLS_L, &AutoMove_RSMLS_R),
+			new ScoreSwitch(&AutoMove_RSMRS_L, &AutoMove_RSMRS_R)));
+	chooser.AddObject("F Left Start Score From Side",new DriveToSwitchScore (
+			new ScoreSwitch(&AutoMove_RSMLS_L, &AutoMove_RSMLS_R),
+			new ScoreSwitch(&AutoMove_RSMRS_L, &AutoMove_RSMRS_R)));
+	chooser.AddObject("G Right Start Score Switch",new DriveToSwitchScore (
+			new ScoreSwitch(&AutoMove_RSMLS_L, &AutoMove_RSMLS_R),
+			new ScoreSwitch(&AutoMove_RSMRS_L, &AutoMove_RSMRS_R)));
+	chooser.AddObject("H Right Start Score From Side",new DriveToSwitchScore (
+			new ScoreSwitch(&AutoMove_RSMLS_L, &AutoMove_RSMLS_R),
+			new ScoreSwitch(&AutoMove_RSMRS_L, &AutoMove_RSMRS_R)));
+	chooser.AddObject("I Arc",
 			new AutonomousMotionProfile(&AutoMove_Arc_L, &AutoMove_Arc_R));
 	SmartDashboard::PutData("Auto Modes", &chooser);
 
