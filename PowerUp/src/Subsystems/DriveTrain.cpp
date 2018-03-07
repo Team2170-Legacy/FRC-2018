@@ -400,6 +400,59 @@ void DriveTrain::SetVelocity(double velocity) {
 
 }
 
+void DriveTrain::ArcadeDriveVelocity(double xSpeed, double zRotation,
+                                    bool squaredInputs) {
+  static bool reported = false;
+  if (!reported) {
+    HAL_Report(HALUsageReporting::kResourceType_RobotDrive, 2,
+               HALUsageReporting::kRobotDrive_ArcadeStandard);
+    reported = true;
+  }
+
+//  xSpeed = frc::RobotDriveBase::Limit(xSpeed);
+//  xSpeed = ApplyDeadband(xSpeed, m_deadband);
+
+ // zRotation = Limit(zRotation);
+ // zRotation = ApplyDeadband(zRotation, m_deadband);
+
+  // Square the inputs (while preserving the sign) to increase fine control
+  // while permitting full power.
+  if (squaredInputs) {
+    xSpeed = std::copysign(xSpeed * xSpeed, xSpeed);
+    zRotation = std::copysign(zRotation * zRotation, zRotation);
+  }
+
+  double leftMotorOutput;
+  double rightMotorOutput;
+
+  double maxInput =
+      std::copysign(std::max(std::abs(xSpeed), std::abs(zRotation)), xSpeed);
+
+  if (xSpeed >= 0.0) {
+    // First quadrant, else second quadrant
+    if (zRotation >= 0.0) {
+      leftMotorOutput = maxInput;
+      rightMotorOutput = xSpeed - zRotation;
+    } else {
+      leftMotorOutput = xSpeed + zRotation;
+      rightMotorOutput = maxInput;
+    }
+  } else {
+    // Third quadrant, else fourth quadrant
+    if (zRotation >= 0.0) {
+      leftMotorOutput = xSpeed + zRotation;
+      rightMotorOutput = maxInput;
+    } else {
+      leftMotorOutput = maxInput;
+      rightMotorOutput = xSpeed - zRotation;
+    }
+  }
+
+  talonSRXMasterLeft->Set(ControlMode::Velocity, leftMotorOutput);
+  talonSRXMasterRight->Set(ControlMode::Velocity, -rightMotorOutput);
+
+//  m_safetyHelper.Feed();
+}
 
 //double DriveTrain::MapStick(double stick) {
 //	double NewStick = fabs(stick);

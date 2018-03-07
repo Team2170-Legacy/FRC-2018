@@ -86,7 +86,7 @@ public:
 	void DriveStraight(double Magnitude);
 	void SetVelocity(double velocity);
 	void TankDriveVelocity(double left, double right);
-
+	void ArcadeDriveVelocity(double xSpeed, double zRotation, bool squaredInputs);
 	bool isReverseDrive() const {
 		return mReverseDrive;
 	}
