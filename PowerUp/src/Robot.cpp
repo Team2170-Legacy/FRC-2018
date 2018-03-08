@@ -17,10 +17,22 @@
 #include "Commands/DriveToSwitchScore.h"
 #include "AutoMoves/Straight.h"
 #include "AutoMoves/Arc.h"
-#include "AutoMoves/RSML.h"
+
+#include "AutoMoves/RSMLF.h"
+#include "AutoMoves/RSMRF.h"
+#include "AutoMoves/RSLLF.h"
+#include "AutoMoves/RSLRF.h"
+#include "AutoMoves/RSRLF.h"
+#include "AutoMoves/RSRRF.h"
+
 #include "AutoMoves/RSMLS.h"
-#include "AutoMoves/RSMR.h"
 #include "AutoMoves/RSMRS.h"
+#include "AutoMoves/RSLLS.h"
+#include "AutoMoves/RSLRS.h"
+#include "AutoMoves/RSRLS.h"
+#include "AutoMoves/RSRRS.h"
+
+#include "AutoMoves/RSMR.h"
 #include "AutoMoves/RSRL.h"
 #include <iostream>
 
@@ -53,26 +65,24 @@ void Robot::RobotInit() {
 	chooser.AddDefault("A Do Nothing", new NoCommand());
 	chooser.AddObject("B Drive Straight",
 			new AutonomousMotionProfile(&AutoMove_Straight_L, &AutoMove_Straight_R));
-	chooser.AddObject("C Middle Start Score Switch",new DriveToSwitchScore (
-			new ScoreSwitch(&AutoMove_RSML_L, &AutoMove_RSML_R),
-			new ScoreSwitch(&AutoMove_RSMR_L, &AutoMove_RSMR_R)));
-	chooser.AddObject("D Middle Start Score From Side", new DriveToSwitchScore (
+	chooser.AddObject("C Middle Start Score Front",new DriveToSwitchScore (
+			new ScoreSwitch(&AutoMove_RSMLF_L, &AutoMove_RSMLF_R),
+			new ScoreSwitch(&AutoMove_RSMRF_L, &AutoMove_RSMRF_R)));
+	chooser.AddObject("D Middle Start Score Side", new DriveToSwitchScore (
 			new ScoreSwitch(&AutoMove_RSMLS_L, &AutoMove_RSMLS_R),
 			new ScoreSwitch(&AutoMove_RSMRS_L, &AutoMove_RSMRS_R)));
-	chooser.AddObject("E Left Start Score Switch",new DriveToSwitchScore (
-			new ScoreSwitch(&AutoMove_RSMLS_L, &AutoMove_RSMLS_R),
-			new ScoreSwitch(&AutoMove_RSMRS_L, &AutoMove_RSMRS_R)));
-	chooser.AddObject("F Left Start Score From Side",new DriveToSwitchScore (
-			new ScoreSwitch(&AutoMove_RSMLS_L, &AutoMove_RSMLS_R),
-			new ScoreSwitch(&AutoMove_RSMRS_L, &AutoMove_RSMRS_R)));
-	chooser.AddObject("G Right Start Score Switch",new DriveToSwitchScore (
-			new ScoreSwitch(&AutoMove_RSMLS_L, &AutoMove_RSMLS_R),
-			new ScoreSwitch(&AutoMove_RSMRS_L, &AutoMove_RSMRS_R)));
-	chooser.AddObject("H Right Start Score From Side",new DriveToSwitchScore (
-			new ScoreSwitch(&AutoMove_RSMLS_L, &AutoMove_RSMLS_R),
-			new ScoreSwitch(&AutoMove_RSMRS_L, &AutoMove_RSMRS_R)));
-	chooser.AddObject("I Arc",
-			new AutonomousMotionProfile(&AutoMove_Arc_L, &AutoMove_Arc_R));
+	chooser.AddObject("E Left Start Score Front",new DriveToSwitchScore (
+			new ScoreSwitch(&AutoMove_RSLLF_L, &AutoMove_RSLLF_R),
+			new ScoreSwitch(&AutoMove_RSLRF_L, &AutoMove_RSLRF_R)));
+	chooser.AddObject("F Left Start Score Side",new DriveToSwitchScore (
+			new ScoreSwitch(&AutoMove_RSLLS_L, &AutoMove_RSLLS_R),
+			new ScoreSwitch(&AutoMove_RSLRS_L, &AutoMove_RSLRS_R)));
+	chooser.AddObject("G Right Start Score Font",new DriveToSwitchScore (
+			new ScoreSwitch(&AutoMove_RSRLS_L, &AutoMove_RSRLS_R),
+			new ScoreSwitch(&AutoMove_RSRRS_L, &AutoMove_RSRRS_R)));
+	chooser.AddObject("H Right Start Score Side",new DriveToSwitchScore (
+			new ScoreSwitch(&AutoMove_RSRLS_L, &AutoMove_RSMLS_R),
+			new ScoreSwitch(&AutoMove_RSRRS_L, &AutoMove_RSRRS_R)));
 	SmartDashboard::PutData("Auto Modes", &chooser);
 
 	Robot::arm->resetArmEncoder();
