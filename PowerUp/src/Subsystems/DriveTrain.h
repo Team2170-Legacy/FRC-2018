@@ -46,6 +46,10 @@ private:
 	bool mReverseDrive = false;
 	const double kOpenLoopRamp;
 	const double m_StickDeadband = 0.02;
+	double m_quickStopThreshold = frc::DifferentialDrive::kDefaultQuickStopAlpha;
+	double m_quickStopAlpha = frc::DifferentialDrive::kDefaultQuickStopAlpha;
+	double m_quickStopAccumulator = 0.0;
+
 
 
 	void InitMotors();
@@ -87,6 +91,7 @@ public:
 	void SetVelocity(double velocity);
 	void TankDriveVelocity(double left, double right);
 	void ArcadeDriveVelocity(double xSpeed, double zRotation, bool squaredInputs);
+	void CurvatureDriveVelocity(double xSpeed, double zRotation, bool isQuickTurn);
 	bool isReverseDrive() const {
 		return mReverseDrive;
 	}

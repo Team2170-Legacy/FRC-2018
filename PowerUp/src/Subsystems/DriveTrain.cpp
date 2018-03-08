@@ -481,6 +481,87 @@ double DriveTrain::ApplyDeadband(double value, double deadband) {
   }
 }
 
+/**
+ * Curvature drive method for differential drive platform.
+ *
+ * The rotation argument controls the curvature of the robot's path rather than
+ * its rate of heading change. This makes the robot more controllable at high
+ * speeds. Also handles the robot's quick turn functionality - "quick turn"
+ * overrides constant-curvature turning for turn-in-place maneuvers.
+ *
+ * @param xSpeed      The robot's speed along the X axis [-1.0..1.0]. Forward is
+ *                    positive.
+ * @param zRotation   The robot's rotation rate around the Z axis [-1.0..1.0].
+ *                    Clockwise is positive.
+ * @param isQuickTurn If set, overrides constant-curvature turning for
+ *                    turn-in-place maneuvers.
+ */
+void DriveTrain::CurvatureDriveVelocity(double xSpeed, double zRotation,
+                                       bool isQuickTurn) {
+  xSpeed = Limit(xSpeed);
+  xSpeed = ApplyDeadband(xSpeed, m_StickDeadband);
+
+  zRotation = Limit(zRotation);
+  zRotation = ApplyDeadband(zRotation, m_StickDeadband);
+
+  double angularPower;
+  bool overPower;
+
+  if (isQuickTurn) {
+    if (std::abs(xSpeed) < m_quickStopThreshold) {
+      m_quickStopAccumulator = (1 - m_quickStopAlpha) * m_quickStopAccumulator +
+                               m_quickStopAlpha * Limit(zRotation) * 2;
+    }
+    overPower = true;
+    angularPower = zRotation;
+  } else {
+    overPower = false;
+    angularPower = std::abs(xSpeed) * zRotation - m_quickStopAccumulator;
+
+    if (m_quickStopAccumulator > 1) {
+      m_quickStopAccumulator -= 1;
+    } else if (m_quickStopAccumulator < -1) {
+      m_quickStopAccumulator += 1;
+    } else {
+      m_quickStopAccumulator = 0.0;
+    }
+  }
+
+  double leftMotorOutput = xSpeed + angularPower;
+  double rightMotorOutput = xSpeed - angularPower;
+
+  // If rotation is overpowered, reduce both outputs to within acceptable range
+  if (overPower) {
+    if (leftMotorOutput > 1.0) {
+      rightMotorOutput -= leftMotorOutput - 1.0;
+      leftMotorOutput = 1.0;
+    } else if (rightMotorOutput > 1.0) {
+      leftMotorOutput -= rightMotorOutput - 1.0;
+      rightMotorOutput = 1.0;
+    } else if (leftMotorOutput < -1.0) {
+      rightMotorOutput -= leftMotorOutput + 1.0;
+      leftMotorOutput = -1.0;
+    } else if (rightMotorOutput < -1.0) {
+      leftMotorOutput -= rightMotorOutput + 1.0;
+      rightMotorOutput = -1.0;
+    }
+  }
+
+  // Normalize the wheel speeds
+  double maxMagnitude =
+      std::max(std::abs(leftMotorOutput), std::abs(rightMotorOutput));
+  if (maxMagnitude > 1.0) {
+    leftMotorOutput /= maxMagnitude;
+    rightMotorOutput /= maxMagnitude;
+  }
+
+  talonSRXMasterLeft->Set(ControlMode::Velocity, leftMotorOutput * 900.0);
+  talonSRXMasterRight->Set(ControlMode::Velocity, -rightMotorOutput * 900.0);
+
+}
+
+
+
 //double DriveTrain::MapStick(double stick) {
 //	double NewStick = fabs(stick);
 //
