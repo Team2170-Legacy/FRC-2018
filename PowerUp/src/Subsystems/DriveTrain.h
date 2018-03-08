@@ -45,7 +45,7 @@ private:
 	bool mMotionProcessingActive = false;
 	bool mReverseDrive = false;
 	const double kOpenLoopRamp;
-
+	const double m_StickDeadband = 0.02;
 
 
 	void InitMotors();
@@ -58,8 +58,8 @@ private:
 	void SetMotorGains(int idx, int pidIdx);
 
 	double MapStick(double stick);
-
-
+	double ApplyDeadband(double value, double deadband);
+	double Limit(double value);
 
 
 

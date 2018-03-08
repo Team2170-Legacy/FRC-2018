@@ -402,18 +402,12 @@ void DriveTrain::SetVelocity(double velocity) {
 
 void DriveTrain::ArcadeDriveVelocity(double xSpeed, double zRotation,
                                     bool squaredInputs) {
-  static bool reported = false;
-  if (!reported) {
-    HAL_Report(HALUsageReporting::kResourceType_RobotDrive, 2,
-               HALUsageReporting::kRobotDrive_ArcadeStandard);
-    reported = true;
-  }
 
-//  xSpeed = frc::RobotDriveBase::Limit(xSpeed);
-//  xSpeed = ApplyDeadband(xSpeed, m_deadband);
+	xSpeed = Limit(xSpeed);
+	xSpeed = ApplyDeadband(xSpeed, m_StickDeadband);
 
- // zRotation = Limit(zRotation);
- // zRotation = ApplyDeadband(zRotation, m_deadband);
+	zRotation = Limit(zRotation);
+	zRotation = ApplyDeadband(zRotation, m_StickDeadband);
 
   // Square the inputs (while preserving the sign) to increase fine control
   // while permitting full power.
@@ -448,10 +442,43 @@ void DriveTrain::ArcadeDriveVelocity(double xSpeed, double zRotation,
     }
   }
 
-  talonSRXMasterLeft->Set(ControlMode::Velocity, leftMotorOutput);
-  talonSRXMasterRight->Set(ControlMode::Velocity, -rightMotorOutput);
+  talonSRXMasterLeft->Set(ControlMode::Velocity, leftMotorOutput * 900.0);
+  talonSRXMasterRight->Set(ControlMode::Velocity, -rightMotorOutput * 900.0);
+}
 
-//  m_safetyHelper.Feed();
+double DriveTrain::Limit(double value) {
+
+  if (value > 1.0) {
+    return 1.0;
+  }
+
+  if (value < -1.0) {
+    return -1.0;
+  }
+  return value;
+}
+
+
+
+/**
+ * Returns 0.0 if the given value is within the specified range around zero. The
+ * remaining range between the deadband and 1.0 is scaled from 0.0 to 1.0.
+ *
+ * @param value    value to clip
+ * @param deadband range around zero
+ */
+double DriveTrain::ApplyDeadband(double value, double deadband) {
+  if (std::abs(value) > deadband) {
+    if (value > 0.0) {
+      return (value - deadband) / (1.0 - deadband);
+    }
+    else {
+      return (value + deadband) / (1.0 - deadband);
+    }
+  }
+  else {
+    return 0.0;
+  }
 }
 
 //double DriveTrain::MapStick(double stick) {

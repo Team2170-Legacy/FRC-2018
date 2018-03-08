@@ -58,9 +58,14 @@ void TeleopTankDrive::Execute() {
 								-driverXbox.GetY(frc::GenericHID::JoystickHand::kRightHand));
 				break;
 		case velocityMode:
-			Robot::driveTrain->TankDriveVelocity(
-					-Robot::oi->getJoystickDriverLeft()->GetY(),
-					-Robot::oi->getJoystickDriverRight()->GetY());
+			Velocity = -driverXbox.GetTriggerAxis(frc::GenericHID::JoystickHand::kLeftHand) +
+					driverXbox.GetTriggerAxis(frc::GenericHID::JoystickHand::kRightHand);
+			Velocity = -driverXbox.GetY(frc::GenericHID::JoystickHand::kLeftHand);
+			Arc = driverXbox.GetX(frc::GenericHID::JoystickHand::kRightHand);
+			if (Velocity < 0.0) {
+				Arc = -Arc;
+			}
+			Robot::driveTrain->ArcadeDriveVelocity(Velocity, Arc, true);
 			break;
 		default:
 			break;
