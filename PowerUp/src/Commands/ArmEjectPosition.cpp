@@ -25,6 +25,7 @@ ArmEjectPosition::ArmEjectPosition(): frc::Command() {
 // Called just before this Command runs the first time
 void ArmEjectPosition::Initialize() {
 	Robot::arm->setArmTargetPosition(Robot::arm->getArmEjectAngle());
+	SetTimeout(2.0);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -33,7 +34,7 @@ void ArmEjectPosition::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool ArmEjectPosition::IsFinished() {
-	return Robot::arm->isAtPosition();
+	return (Robot::arm->isAtPosition() || IsTimedOut());
 }
 
 // Called once after isFinished returns true

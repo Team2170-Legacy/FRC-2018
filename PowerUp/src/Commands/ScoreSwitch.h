@@ -13,6 +13,6 @@
 class ScoreSwitch : public frc::CommandGroup {
 public:
 	ScoreSwitch();
-	ScoreSwitch(const ProfileData* LProfileName, const ProfileData* RProfileName);
+	ScoreSwitch(const ProfileData* LProfileName, const ProfileData* RProfileName, double Delay = 0.0);
 };
 

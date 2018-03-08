@@ -10,10 +10,11 @@
 
 
 #include "DriveToSwitchScore.h"
+#include "NoCommand.h"
 
 
 DriveToSwitchScore::DriveToSwitchScore():
-	ConditionalCommand(new ScoreSwitchLeft, new ScoreSwitchRight) {
+	ConditionalCommand(new NoCommand(), new NoCommand()) {
 }
 
 DriveToSwitchScore::DriveToSwitchScore(frc::Command* left, frc::Command* right):

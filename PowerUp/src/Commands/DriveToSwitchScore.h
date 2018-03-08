@@ -4,8 +4,6 @@
 #define DRIVETOSWITCH_H
 
 
-#include "ScoreSwitchLeft.h"
-#include "ScoreSwitchRight.h"
 #include "../Robot.h"
 
 #include "Commands/ConditionalCommand.h"
