@@ -77,7 +77,7 @@ void Robot::RobotInit() {
 	chooser.AddObject("F Left Start Score Side",new DriveToSwitchScore (
 			new ScoreSwitch(&AutoMove_RSLLS_L, &AutoMove_RSLLS_R),
 			new ScoreSwitch(&AutoMove_RSLRS_L, &AutoMove_RSLRS_R, StartDelay)));
-	chooser.AddObject("G Right Start Score Font",new DriveToSwitchScore (
+	chooser.AddObject("G Right Start Score Front",new DriveToSwitchScore (
 			new ScoreSwitch(&AutoMove_RSRLF_L, &AutoMove_RSRLF_R, StartDelay),
 			new ScoreSwitch(&AutoMove_RSRRF_L, &AutoMove_RSRRF_R)));
 	chooser.AddObject("H Right Start Score Side",new DriveToSwitchScore (
