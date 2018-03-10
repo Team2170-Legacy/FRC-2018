@@ -81,8 +81,9 @@ void Robot::RobotInit() {
 			new ScoreSwitch(&AutoMove_RSRLF_L, &AutoMove_RSRLF_R, StartDelay),
 			new ScoreSwitch(&AutoMove_RSRRF_L, &AutoMove_RSRRF_R)));
 	chooser.AddObject("H Right Start Score Side",new DriveToSwitchScore (
-			new ScoreSwitch(&AutoMove_RSRLS_L, &AutoMove_RSMLS_R, StartDelay),
+			new ScoreSwitch(&AutoMove_RSRLS_L, &AutoMove_RSRLS_R, StartDelay),
 			new ScoreSwitch(&AutoMove_RSRRS_L, &AutoMove_RSRRS_R)));
+
 	SmartDashboard::PutData("Auto Modes", &chooser);
 
 	Robot::arm->resetArmEncoder();

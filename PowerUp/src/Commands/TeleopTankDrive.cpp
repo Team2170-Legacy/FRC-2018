@@ -33,46 +33,59 @@ void TeleopTankDrive::Execute() {
 	double Arc = 0;
 
 	switch (driveMode) {
-		case tankDrive:
-			Robot::driveTrain->TankDrive(-Robot::oi->getJoystickDriverLeft()->GetY(),
-					-Robot::oi->getJoystickDriverRight()->GetY());
-				break;
-		case arcadeDrive:
-			Velocity = -driverXbox.GetTriggerAxis(frc::GenericHID::JoystickHand::kLeftHand) +
-					driverXbox.GetTriggerAxis(frc::GenericHID::JoystickHand::kRightHand);
-			Velocity = -driverXbox.GetY(frc::GenericHID::JoystickHand::kLeftHand);
-			Arc = driverXbox.GetX(frc::GenericHID::JoystickHand::kRightHand);
-			if (Velocity < 0.0) {
-				Arc = -Arc;
-			}
-		Robot::driveTrain->CurvatureDrive(Velocity,	Arc,
-						driverXbox.GetBumper(frc::GenericHID::JoystickHand::kRightHand));
-				break;
-		case curvatureDrive:
-			Robot::driveTrain->CurvatureDrive(-driverXbox.GetY(frc::GenericHID::JoystickHand::kLeftHand),
-					driverXbox.GetX(frc::GenericHID::JoystickHand::kLeftHand),
-					driverXbox.GetBumper(frc::GenericHID::JoystickHand::kRightHand));
-				break;
-		case xboxTankDrive:
-			Robot::driveTrain->TankDrive(-driverXbox.GetY(frc::GenericHID::JoystickHand::kLeftHand),
-								-driverXbox.GetY(frc::GenericHID::JoystickHand::kRightHand));
-				break;
-		case velocityMode:
-			Velocity = -driverXbox.GetTriggerAxis(frc::GenericHID::JoystickHand::kLeftHand) +
-					driverXbox.GetTriggerAxis(frc::GenericHID::JoystickHand::kRightHand);
-			Velocity = -driverXbox.GetY(frc::GenericHID::JoystickHand::kLeftHand);
-			Arc = driverXbox.GetX(frc::GenericHID::JoystickHand::kRightHand);
-			if (Velocity < 0.0) {
-				Arc = -Arc;
-			}
-			Robot::driveTrain->ArcadeDriveVelocity(Velocity, Arc, true);
-			break;
-		default:
-			break;
+	case tankDrive:
+		Robot::driveTrain->TankDrive(
+				-Robot::oi->getJoystickDriverLeft()->GetY(),
+				-Robot::oi->getJoystickDriverRight()->GetY());
+		break;
+	case arcadeDrive:
+		Velocity = -driverXbox.GetTriggerAxis(
+				frc::GenericHID::JoystickHand::kLeftHand)
+				+ driverXbox.GetTriggerAxis(
+						frc::GenericHID::JoystickHand::kRightHand);
+		Velocity = -driverXbox.GetY(frc::GenericHID::JoystickHand::kLeftHand);
+		Arc = driverXbox.GetX(frc::GenericHID::JoystickHand::kRightHand);
+		if (Velocity < 0.0) {
+			Arc = -Arc;
+		}
+		if (Robot::driveTrain->isReverseDrive()) {
+			Robot::driveTrain->CurvatureDrive(-Velocity, -Arc,
+					driverXbox.GetBumper(
+							frc::GenericHID::JoystickHand::kRightHand));
+		}
+		else {
+			Robot::driveTrain->CurvatureDrive(Velocity, Arc,
+					driverXbox.GetBumper(
+							frc::GenericHID::JoystickHand::kRightHand));
+		}
+		break;
+	case curvatureDrive:
+		Robot::driveTrain->CurvatureDrive(
+				-driverXbox.GetY(frc::GenericHID::JoystickHand::kLeftHand),
+				driverXbox.GetX(frc::GenericHID::JoystickHand::kLeftHand),
+				driverXbox.GetBumper(
+						frc::GenericHID::JoystickHand::kRightHand));
+		break;
+	case xboxTankDrive:
+		Robot::driveTrain->TankDrive(
+				-driverXbox.GetY(frc::GenericHID::JoystickHand::kLeftHand),
+				-driverXbox.GetY(frc::GenericHID::JoystickHand::kRightHand));
+		break;
+	case velocityMode:
+		Velocity = -driverXbox.GetTriggerAxis(
+				frc::GenericHID::JoystickHand::kLeftHand)
+				+ driverXbox.GetTriggerAxis(
+						frc::GenericHID::JoystickHand::kRightHand);
+		Velocity = -driverXbox.GetY(frc::GenericHID::JoystickHand::kLeftHand);
+		Arc = driverXbox.GetX(frc::GenericHID::JoystickHand::kRightHand);
+		if (Velocity < 0.0) {
+			Arc = -Arc;
+		}
+		Robot::driveTrain->ArcadeDriveVelocity(Velocity, Arc, true);
+		break;
+	default:
+		break;
 	}
-
-
-
 }
 
 // Make this return true when this Command no longer needs to run execute()
