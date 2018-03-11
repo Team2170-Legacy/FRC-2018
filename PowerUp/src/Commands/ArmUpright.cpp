@@ -24,51 +24,27 @@ ArmUpright::ArmUpright(): frc::Command() {
 
 // Called just before this Command runs the first time
 void ArmUpright::Initialize() {
-
+	Robot::arm->setArmTargetPosition(0.0);
+	SetTimeout(2.0);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ArmUpright::Execute() {
-	// Encoder: 1440 counts per revolution
-
-	bool limitSwitchFrontValue = Robot::arm->readLimitSwitchFront();
-	bool limitSwitchBackValue = Robot::arm->readLimitSwitchBack();
-
-	int kArmSpeed = 100;							// Verify and possibly change this value
-	int middleCount = 0;
-
-	if (limitSwitchFrontValue != true && limitSwitchBackValue != true) {
-			// if arm is forward of center arm axis, move arm backwards until centered
-			int encoderCounts = Robot::arm->readArmEncoder();
-
-			// Encoder +: Arm closer to front
-			// Encoder -: Arm closer to back
-			while (encoderCounts < middleCount) {
-				Robot::arm->setArmMotorSpeed(kArmSpeed);
-				encoderCounts = Robot::arm->readArmEncoder();
-			}
-			Robot::arm->stopArmMotor();
-
-			while (encoderCounts > middleCount) {
-				Robot::arm->setArmMotorSpeed(-kArmSpeed);
-			}
-			Robot::arm->stopArmMotor();
-			// if arm is backward of center arm axis, move arm forwards until centered
-	}
+	Robot::arm->setArmTargetPosition(0.0);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool ArmUpright::IsFinished() {
-    return false;
+	return (Robot::arm->isAtPosition() || IsTimedOut());
 }
 
 // Called once after isFinished returns true
 void ArmUpright::End() {
-
+	Robot::arm->SlewArmHold();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void ArmUpright::Interrupted() {
-
+	End();
 }

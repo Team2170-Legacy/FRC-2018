@@ -21,7 +21,7 @@ void ArmJoystickSlew::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void ArmJoystickSlew::Execute() {
 	double yChannel = -Robot::oi->getJoystickOperator()->GetY();
-	if ((fabs(yChannel) < 0.1)) {
+	if ((fabs(yChannel) < 0.15)) {
 		if (!motorStopped) {
 			Robot::arm->SlewArmHold();
 		}

@@ -49,7 +49,7 @@ void TeleopTankDrive::Execute() {
 			Arc = -Arc;
 		}
 		if (Robot::driveTrain->isReverseDrive()) {
-			Robot::driveTrain->CurvatureDrive(-Velocity, -Arc,
+			Robot::driveTrain->CurvatureDrive(-Velocity, Arc,
 					driverXbox.GetBumper(
 							frc::GenericHID::JoystickHand::kRightHand));
 		}

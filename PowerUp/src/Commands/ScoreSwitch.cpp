@@ -36,7 +36,7 @@ ScoreSwitch::ScoreSwitch(const ProfileData* LProfileName,
 	if (Delay > 0.0) {
 		AddSequential(new TimedCommand(Delay));
 	}
+	AddParallel(new ArmEjectPosition());
 	AddSequential(new AutonomousMotionProfile(LProfileName, RProfileName));
-	AddSequential(new ArmEjectPosition());
 	AddSequential(new OuttakeOn(1.0));			// Outtake on for 1 second
 }
