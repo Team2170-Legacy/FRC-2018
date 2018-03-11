@@ -45,7 +45,8 @@ private:
 	bool mMotionProcessingActive = false;
 	bool mReverseDrive = false;
 	const double kOpenLoopRamp;
-	const double m_StickDeadband = 0.02;
+	const double m_StickDeadband;
+	const double MaxVelocity;		// encoder ticks per 100 msec (raw CAN Talon units)
 	double m_quickStopThreshold = frc::DifferentialDrive::kDefaultQuickStopAlpha;
 	double m_quickStopAlpha = frc::DifferentialDrive::kDefaultQuickStopAlpha;
 	double m_quickStopAccumulator = 0.0;

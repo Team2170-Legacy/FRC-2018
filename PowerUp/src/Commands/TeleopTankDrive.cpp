@@ -81,7 +81,16 @@ void TeleopTankDrive::Execute() {
 		if (Velocity < 0.0) {
 			Arc = -Arc;
 		}
-		Robot::driveTrain->ArcadeDriveVelocity(Velocity, Arc, true);
+		if (Robot::driveTrain->isReverseDrive()) {
+			Robot::driveTrain->CurvatureDriveVelocity(-Velocity, Arc,
+					driverXbox.GetBumper(
+							frc::GenericHID::JoystickHand::kRightHand));
+		}
+		else {
+			Robot::driveTrain->CurvatureDriveVelocity(Velocity, Arc,
+					driverXbox.GetBumper(
+							frc::GenericHID::JoystickHand::kRightHand));
+		}
 		break;
 	default:
 		break;

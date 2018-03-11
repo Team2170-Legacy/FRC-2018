@@ -86,7 +86,6 @@ void Robot::RobotInit() {
 
 	SmartDashboard::PutData("Auto Modes", &chooser);
 
-	Robot::arm->resetArmEncoder();
 	LiveWindow::GetInstance()->DisableAllTelemetry();
 
 	isPracticeBot = Preferences::GetInstance()->GetBoolean("Practice Bot", false);

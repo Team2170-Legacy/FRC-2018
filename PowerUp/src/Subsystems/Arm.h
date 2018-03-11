@@ -49,6 +49,7 @@ private:
 	const double ArmEjectAngle;
 	const double ArmFloorAngle;
 	double setArmPosition(double alphaFinalRad);
+	void resetArmEncoder();
 
 public:
 	Arm();
@@ -59,7 +60,6 @@ public:
 	bool readLimitSwitchBack();
 
 	int readArmEncoder();
-	void resetArmEncoder();
 
 	double getArmPosition();
 
