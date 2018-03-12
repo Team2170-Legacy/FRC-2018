@@ -106,12 +106,14 @@ void DriveTrain::TankDrive(double leftSpeed, double rightSpeed) {
 
 void DriveTrain::CurvatureDrive(double xSpeed, double zRotation, bool isQuickTurn){
 
-	differentialDrive1->CurvatureDrive(xSpeed, zRotation, isQuickTurn);
+//	differentialDrive1->CurvatureDrive(xSpeed, zRotation, isQuickTurn);
+	differentialDrive1->CurvatureDrive(MapStick(xSpeed), MapStick(zRotation), isQuickTurn);
 }
 
 void DriveTrain::ArcadeDrive(double xSpeed, double zRotation, bool squaredInputs){
 
-	differentialDrive1->ArcadeDrive(xSpeed, zRotation,squaredInputs);
+//	differentialDrive1->ArcadeDrive(xSpeed, zRotation,squaredInputs);
+	differentialDrive1->ArcadeDrive(MapStick(xSpeed), MapStick(zRotation),squaredInputs);
 }
 
 void DriveTrain::TankDriveVelocity(double left, double right){
@@ -563,22 +565,22 @@ void DriveTrain::CurvatureDriveVelocity(double xSpeed, double zRotation,
 
 
 
-//double DriveTrain::MapStick(double stick) {
-//	double NewStick = fabs(stick);
-//
-//	if (NewStick < kStickBreak) {
-//		NewStick = (NewStick / kStickBreak) * kThrottleBreak;
-//	} else {
-//		NewStick = kThrottleBreak
-//				+ ((1 - NewStick) / (1 - kStickBreak)) * (1 - kThrottleBreak);
-//	}
-//
-//	if (stick < 0.0) {
-//		NewStick = -NewStick;
-//	}
-//
-//	return NewStick;
-//}
+double DriveTrain::MapStick(double stick) {
+	double NewStick = fabs(stick);
+
+	if (NewStick < kStickBreak) {
+		NewStick = (NewStick / kStickBreak) * kThrottleBreak;
+	} else {
+		NewStick = kThrottleBreak
+				+ ((1 - NewStick) / (1 - kStickBreak)) * (1 - kThrottleBreak);
+	}
+
+	if (stick < 0.0) {
+		NewStick = -NewStick;
+	}
+
+	return NewStick;
+}
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

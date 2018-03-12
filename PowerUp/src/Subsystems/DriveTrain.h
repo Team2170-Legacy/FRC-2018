@@ -50,6 +50,8 @@ private:
 	double m_quickStopThreshold = frc::DifferentialDrive::kDefaultQuickStopAlpha;
 	double m_quickStopAlpha = frc::DifferentialDrive::kDefaultQuickStopAlpha;
 	double m_quickStopAccumulator = 0.0;
+	const double kThrottleBreak = 0.5;
+	const double kStickBreak = 0.75;
 
 
 
