@@ -230,6 +230,7 @@ void DriveTrain::SetChassisMode(ControlMode mode) {
 }
 
 void DriveTrain::SetVelocityMode() {
+	SetMotorGains(1, 0);
 	talonSRXMasterLeft->Set(ControlMode::Velocity,0.0);
 	talonSRXMasterRight->Set(ControlMode::Velocity,0.0);
 
