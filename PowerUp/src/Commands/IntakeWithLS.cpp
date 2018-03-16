@@ -14,24 +14,22 @@ IntakeWithLS::IntakeWithLS() {
 	Requires(Robot::intake.get());
 }
 
+IntakeWithLS::IntakeWithLS(double Timeout) {
+	// Use Requires() here to declare subsystem dependencies
+	// eg. Requires(Robot::chassis.get());
+	Requires(Robot::intake.get());
+	SetTimeout(Timeout);
+}
+
+
 // Called just before this Command runs the first time
 void IntakeWithLS::Initialize() {
-
+	Robot::intake->IntakeFwd();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void IntakeWithLS::Execute() {
-	bool lsL = Robot::intake->getIntakeLSLeft();
-	bool lsR = Robot::intake->getIntakeLSRight();
 
-	if (!lsL && !lsR)
-		Robot::intake->IntakeFwd(intakeModeType::both, 0.6);
-	else if (!lsL && lsR)
-		Robot::intake->IntakeFwd(intakeModeType::left, 0.6);
-	else if (lsL && !lsR)
-		Robot::intake->IntakeFwd(intakeModeType::right, 0.6);
-	else
-		Robot::intake->IntakeOff(intakeModeType::both);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -39,7 +37,7 @@ bool IntakeWithLS::IsFinished() {
 	bool lsL = Robot::intake->getIntakeLSLeft();
 	bool lsR = Robot::intake->getIntakeLSRight();
 
-	return lsL && lsR;
+	return (lsL || lsR || IsTimedOut());
 }
 
 // Called once after isFinished returns true

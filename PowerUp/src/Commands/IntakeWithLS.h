@@ -13,6 +13,7 @@
 class IntakeWithLS : public frc::Command {
 public:
 	IntakeWithLS();
+	IntakeWithLS(double Timeout);
 	void Initialize() override;
 	void Execute() override;
 	bool IsFinished() override;
