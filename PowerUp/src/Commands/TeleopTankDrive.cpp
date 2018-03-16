@@ -24,6 +24,12 @@ driveMode(Preferences::GetInstance()->GetInt("Drive Mode", tankDrive)), driverXb
 
 // Called just before this Command runs the first time
 void TeleopTankDrive::Initialize() {
+	if (driveMode == velocityMode) {
+		Robot::driveTrain->SetChassisMode(ControlMode::Velocity);
+	}
+	else {
+		Robot::driveTrain->SetChassisMode(ControlMode::PercentOutput);
+	}
 
 }
 
