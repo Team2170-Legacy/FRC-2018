@@ -25,13 +25,11 @@ AutonomousCommand::AutonomousCommand(): frc::Command() {
 
 // Called just before this Command runs the first time
 void AutonomousCommand::Initialize() {
-	Robot::driveTrain->SetChassisMode(ControlMode::Velocity);
 	SetTimeout(10.0);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutonomousCommand::Execute() {
-	Robot::driveTrain->SetVelocity(600.0);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -41,7 +39,6 @@ bool AutonomousCommand::IsFinished() {
 
 // Called once after isFinished returns true
 void AutonomousCommand::End() {
-	Robot::driveTrain->SetVelocity(0.0);
 }
 
 // Called when another command which requires one or more of the same
