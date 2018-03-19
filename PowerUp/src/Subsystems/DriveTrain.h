@@ -47,6 +47,7 @@ private:
 	const double kOpenLoopRamp;
 	const double m_StickDeadband;
 	const double MaxVelocity;		// encoder ticks per 100 msec (raw CAN Talon units)
+	const int MagicAccel;
 	double m_quickStopThreshold = frc::DifferentialDrive::kDefaultQuickStopAlpha;
 	double m_quickStopAlpha = frc::DifferentialDrive::kDefaultQuickStopAlpha;
 	double m_quickStopAccumulator = 0.0;
@@ -61,6 +62,7 @@ private:
 	void SetClosedLoopMode();
 	void SetMotionProfileMode();
 	void SetVoltagePercentMode();
+	void SetMotionMagicMode();
 
 	void SetMotorGains(int idx, int pidIdx);
 
