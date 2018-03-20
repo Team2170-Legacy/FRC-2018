@@ -44,9 +44,15 @@ private:
 	const double kDriveMaxVelocity = 1.0;
 	bool mMotionProcessingActive = false;
 	bool mReverseDrive = false;
+
+	// constants created in constructor
 	const double kOpenLoopRamp;
 	const double m_StickDeadband;
 	const double MaxVelocity;		// encoder ticks per 100 msec (raw CAN Talon units)
+	const double mAxleTrack;
+	const double mWheelSize;
+	const double mCntsPerRev;
+
 	double m_quickStopThreshold = frc::DifferentialDrive::kDefaultQuickStopAlpha;
 	double m_quickStopAlpha = frc::DifferentialDrive::kDefaultQuickStopAlpha;
 	double m_quickStopAccumulator = 0.0;
