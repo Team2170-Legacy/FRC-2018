@@ -26,7 +26,7 @@ DriveTrain::DriveTrain() :
 				Preferences::GetInstance()->GetDouble("Drivetrain Ramp", 0.0)), m_StickDeadband(
 				Preferences::GetInstance()->GetDouble("Drive Deadband", 0.02)), MaxVelocity(
 				Preferences::GetInstance()->GetDouble("Max Velocity", 825.0)), MagicAccel(
-				Preferences::GetInstance()->GetDouble("Magic Accel", 1000))mAxleTrack(
+				Preferences::GetInstance()->GetDouble("Magic Accel", 1000)), mAxleTrack(
 				Preferences::GetInstance()->GetDouble("Axle Track", 30.0)), mWheelSize(
 				Preferences::GetInstance()->GetDouble("Wheel Size", 5.0)), mCntsPerRev(
 				Preferences::GetInstance()->GetDouble("Drive Cnts Per Rev", 4096.0)){
