@@ -15,6 +15,7 @@
 #include "Commands/ScoreSwitch.h"
 #include "Commands/AutonomousMotionProfile.h"
 #include "Commands/DriveToSwitchScore.h"
+#include "Commands/ScoreSwitchDouble.h"
 #include "AutoMoves/Straight.h"
 #include "AutoMoves/Arc.h"
 
@@ -93,6 +94,7 @@ void Robot::RobotInit() {
 	chooser.AddObject("J Right Corner Score Side Back",new DriveToSwitchScore (
 			new ScoreSwitch(&AutoMove_RSRCLB_L, &AutoMove_RSRCLB_R),
 			new ScoreSwitch(&AutoMove_RSRCRS_L, &AutoMove_RSRCRS_R)));
+	chooser.AddObject("K Test Second Cube",new ScoreSwitchDouble());
 
 
 	SmartDashboard::PutData("Auto Modes", &chooser);
