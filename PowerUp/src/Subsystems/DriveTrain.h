@@ -49,6 +49,7 @@ private:
 	const double kOpenLoopRamp;
 	const double m_StickDeadband;
 	const double MaxVelocity;		// encoder ticks per 100 msec (raw CAN Talon units)
+	const int MagicAccel;
 	const double mAxleTrack;
 	const double mWheelSize;
 	const double mCntsPerRev;
@@ -67,6 +68,7 @@ private:
 	void SetClosedLoopMode();
 	void SetMotionProfileMode();
 	void SetVoltagePercentMode();
+	void SetMotionMagicMode();
 
 	void SetMotorGains(int idx, int pidIdx);
 

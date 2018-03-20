@@ -25,7 +25,8 @@ DriveTrain::DriveTrain() :
 		frc::Subsystem("DriveTrain"), kOpenLoopRamp(
 				Preferences::GetInstance()->GetDouble("Drivetrain Ramp", 0.0)), m_StickDeadband(
 				Preferences::GetInstance()->GetDouble("Drive Deadband", 0.02)), MaxVelocity(
-				Preferences::GetInstance()->GetDouble("Max Velocity", 825.0)), mAxleTrack(
+				Preferences::GetInstance()->GetDouble("Max Velocity", 825.0)), MagicAccel(
+				Preferences::GetInstance()->GetDouble("Magic Accel", 1000))mAxleTrack(
 				Preferences::GetInstance()->GetDouble("Axle Track", 30.0)), mWheelSize(
 				Preferences::GetInstance()->GetDouble("Wheel Size", 5.0)), mCntsPerRev(
 				Preferences::GetInstance()->GetDouble("Drive Cnts Per Rev", 4096.0)){
@@ -93,6 +94,10 @@ void DriveTrain::InitMotors() {
 	talonSRXMasterLeft->ConfigOpenloopRamp(kOpenLoopRamp, 10);
 	talonSRXMasterRight->ConfigOpenloopRamp(kOpenLoopRamp, 10);
 
+	talonSRXMasterLeft->ConfigMotionAcceleration(MagicAccel, 10);
+	talonSRXMasterRight->ConfigMotionAcceleration(MagicAccel, 10);
+	talonSRXMasterLeft->ConfigMotionCruiseVelocity(MaxVelocity, 10);
+	talonSRXMasterRight->ConfigMotionCruiseVelocity(MaxVelocity, 10);
 
 	talonSRXMasterLeft->ChangeMotionControlFramePeriod(5);
 	talonSRXMasterRight->ChangeMotionControlFramePeriod(5);
@@ -226,6 +231,9 @@ void DriveTrain::SetChassisMode(ControlMode mode) {
 	case ControlMode::Velocity:
 		SetVelocityMode();
 		break;
+	case ControlMode::MotionMagic:
+		SetMotionMagicMode();
+		break;
 	case ControlMode::PercentOutput:
 	default:
 		SetVoltagePercentMode();
@@ -253,6 +261,14 @@ void DriveTrain::SetMotionProfileMode() {
 	talonSRXMasterRight->Set(ControlMode::MotionProfile, SetValueMotionProfile::Disable);
 	talonSRXMasterRight->ConfigMotionProfileTrajectoryPeriod(10, 0);
 	talonSRXMasterRight->SetStatusFramePeriod(StatusFrameEnhanced::Status_10_MotionMagic, 10, 0);
+}
+
+void DriveTrain::SetMotionMagicMode() {
+	SetMotorGains(0, 0);
+	talonSRXMasterLeft->Set(ControlMode::MotionMagic,
+			talonSRXMasterLeft->GetSelectedSensorPosition(0));
+	talonSRXMasterRight->Set(ControlMode::MotionMagic,
+			talonSRXMasterRight->GetSelectedSensorPosition(0));
 }
 
 void DriveTrain::SetMotorGains(int idx, int pidIdx) {
@@ -586,7 +602,4 @@ double DriveTrain::MapStick(double stick) {
 
 	return NewStick;
 }
-
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
 
