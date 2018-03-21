@@ -7,15 +7,14 @@
 
 #pragma once
 
-#include <Commands/Command.h>
+#include "Commands/InstantCommand.h"
 
-class LaunchCube : public frc::Command {
+class IntakeOn : public frc::InstantCommand {
 public:
-	LaunchCube();
+	IntakeOn();
+	IntakeOn(bool Enable);
 	void Initialize() override;
-	void Execute() override;
-	bool IsFinished() override;
-	void End() override;
-	void Interrupted() override;
+private:
+	bool mEnable = false;
 };
 

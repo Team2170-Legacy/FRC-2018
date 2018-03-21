@@ -9,9 +9,8 @@
 
 #include <Commands/CommandGroup.h>
 
-class ScoreSwitchDouble : public frc::CommandGroup {
+class PickupCube : public frc::CommandGroup {
 public:
-	ScoreSwitchDouble();
-	ScoreSwitchDouble(frc::Command* left, frc::Command* right);
+	PickupCube();
 };
 

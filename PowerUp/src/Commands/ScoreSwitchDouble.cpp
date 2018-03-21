@@ -7,6 +7,10 @@
 
 #include "ScoreSwitchDouble.h"
 #include "AutonomousMotionProfile.h"
+#include "DriveToSwitchScore.h"
+#include "PickupCube.h"
+#include "OuttakeOn.h"
+#include "ArmSetPosition.h"
 #include "../AutoMoves/SecondCubeLeftSwitch.h"
 #include "../AutoMoves/SecondCubeLeftSwitchFoward.h"
 
@@ -28,9 +32,42 @@ ScoreSwitchDouble::ScoreSwitchDouble() {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-	AddSequential(new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitch_L,
-			&AutoMove_SecondCubeLeftSwitch_R));
-	AddSequential(new WaitCommand(1.0));
-	AddSequential(new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitchFoward_L,
-					&AutoMove_SecondCubeLeftSwitchFoward_R));
+	AddParallel(new ArmSetPosition(Robot::arm->getArmFloorAngle()));
+	AddSequential(new DriveToSwitchScore(
+			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitch_L,
+				&AutoMove_SecondCubeLeftSwitch_R),
+			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitch_L,
+				&AutoMove_SecondCubeLeftSwitch_R)));
+	// Pick up second cube
+	AddSequential(new PickupCube());
+	// Advance to fence of switch
+	AddSequential(new DriveToSwitchScore(
+			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitchFoward_L,
+				&AutoMove_SecondCubeLeftSwitchFoward_R),
+			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitchFoward_L,
+				&AutoMove_SecondCubeLeftSwitchFoward_R)));
+	// Deposit cube
+	AddSequential(new OuttakeOn(1.0));			// Outtake on for 1 second
+}
+
+ScoreSwitchDouble::ScoreSwitchDouble(frc::Command* left, frc::Command* right) {
+	// Score first cube on side of active switch
+	AddSequential(new DriveToSwitchScore(left, right));
+	// Position to pick up second cube
+	AddParallel(new ArmSetPosition(Robot::arm->getArmFloorAngle()));
+	AddSequential(new DriveToSwitchScore(
+			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitch_L,
+				&AutoMove_SecondCubeLeftSwitch_R),
+			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitch_L,
+				&AutoMove_SecondCubeLeftSwitch_R)));
+	// Pick up second cube
+	AddSequential(new PickupCube());
+	// Advance to fence of switch
+	AddSequential(new DriveToSwitchScore(
+			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitchFoward_L,
+				&AutoMove_SecondCubeLeftSwitchFoward_R),
+			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitchFoward_L,
+				&AutoMove_SecondCubeLeftSwitchFoward_R)));
+	// Deposit cube
+	AddSequential(new OuttakeOn(1.0));			// Outtake on for 1 second
 }

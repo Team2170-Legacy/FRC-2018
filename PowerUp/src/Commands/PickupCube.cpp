@@ -5,12 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "ScoreSwitch.h"
-#include "OuttakeOn.h"
+#include "PickupCube.h"
+#include "IntakeWithLS.h"
+#include "IntakeOpen.h"
+#include "IntakeClose.h"
+#include "IntakeOn.h"
 #include "ArmEjectPosition.h"
-#include "AutonomousMotionProfile.h"
 
-ScoreSwitch::ScoreSwitch() {
+PickupCube::PickupCube() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
@@ -27,16 +29,8 @@ ScoreSwitch::ScoreSwitch() {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
+	AddSequential(new IntakeOn(true));
+	AddSequential(new IntakeClose());
+	AddSequential(new IntakeWithLS(1.0));
 	AddSequential(new ArmEjectPosition());
-	AddSequential(new OuttakeOn(1.0));			// Outtake on for 1 second
-}
-
-ScoreSwitch::ScoreSwitch(const ProfileData* LProfileName,
-		const ProfileData* RProfileName, double Delay) {
-	if (Delay > 0.0) {
-		AddSequential(new WaitCommand(Delay));
-	}
-	AddParallel(new ArmEjectPosition());
-	AddSequential(new AutonomousMotionProfile(LProfileName, RProfileName));
-	AddSequential(new OuttakeOn(1.0));			// Outtake on for 1 second
 }
