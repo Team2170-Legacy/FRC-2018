@@ -7,8 +7,6 @@
 
 #include "ArmSetPosition.h"
 
-
-
 ArmSetPosition::ArmSetPosition(double positionRad) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
@@ -24,6 +22,7 @@ ArmSetPosition::ArmSetPosition(int positionDeg) {
 // Called just before this Command runs the first time
 void ArmSetPosition::Initialize() {
 	Robot::arm->setArmTargetPosition(armTargetPosition);
+	SetTimeout(2.0);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -32,15 +31,13 @@ void ArmSetPosition::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool ArmSetPosition::IsFinished() {
-	return Robot::arm->isAtPosition();
+	return (Robot::arm->isAtPosition() || IsTimedOut());
 }
 
 // Called once after isFinished returns true
 void ArmSetPosition::End() {
 	Robot::arm->SlewArmHold();
 }
-
-
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
