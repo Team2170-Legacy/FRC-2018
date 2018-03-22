@@ -24,6 +24,7 @@ void FilteredInput::PIDSet(double val) {
 	m_Value = val;
 }
 
+// Same as PIDSet but not as confusing when reading code IMHO
 void FilteredInput::Update(double val) {
 	PIDSet(val);
 }

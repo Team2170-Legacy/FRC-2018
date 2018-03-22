@@ -10,6 +10,7 @@
 
 #include "WPILib.h"
 
+// PIDSource wrapper to support filtering of a double value
 class FilteredInput : public PIDSource {
 public:
 	FilteredInput();
