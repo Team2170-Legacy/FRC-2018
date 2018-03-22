@@ -1,0 +1,23 @@
+/*
+ * FilteredInput.h
+ *
+ *  Created on: Mar 21, 2018
+ *      Author: nollchr
+ */
+
+#ifndef SRC_FILTEREDINPUT_H_
+#define SRC_FILTEREDINPUT_H_
+
+#include "WPILib.h"
+
+class FilteredInput : public PIDSource {
+public:
+	FilteredInput();
+	virtual ~FilteredInput();
+	double PIDGet();
+	void PIDSet(double val);
+private:
+	double m_Value;
+};
+
+#endif /* SRC_FILTEREDINPUT_H_ */

@@ -15,6 +15,7 @@
 
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
+#include "../FilteredInput.h"
 
 /**
  *
@@ -49,6 +50,8 @@ private:
 			};
 
 	XboxController driverXbox;	// Xbox driver always USB 0
+	std::shared_ptr<FilteredInput> FilteredThrottle;
+	std::shared_ptr<LinearDigitalFilter> ThrottleFilter;
 };
 
 #endif
