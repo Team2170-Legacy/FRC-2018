@@ -16,6 +16,7 @@ public:
 	virtual ~FilteredInput();
 	double PIDGet();
 	void PIDSet(double val);
+	void Update(double val);
 private:
 	double m_Value;
 };

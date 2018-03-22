@@ -50,7 +50,7 @@ private:
 			};
 
 	XboxController driverXbox;	// Xbox driver always USB 0
-	std::shared_ptr<FilteredInput> FilteredThrottle;
+	std::shared_ptr<FilteredInput> ThrottleInput;
 	std::shared_ptr<LinearDigitalFilter> ThrottleFilter;
 };
 

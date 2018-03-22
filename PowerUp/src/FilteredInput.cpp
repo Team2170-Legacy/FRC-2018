@@ -23,3 +23,7 @@ double FilteredInput::PIDGet() {
 void FilteredInput::PIDSet(double val) {
 	m_Value = val;
 }
+
+void FilteredInput::Update(double val) {
+	PIDSet(val);
+}
