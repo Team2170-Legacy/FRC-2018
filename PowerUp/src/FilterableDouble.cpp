@@ -1,30 +1,30 @@
 /*
- * FilteredInput.cpp
+ * FilterableDouble.cpp
  *
  *  Created on: Mar 21, 2018
  *      Author: nollchr
  */
 
-#include "FilteredInput.h"
+#include "FilterableDouble.h"
 
-FilteredInput::FilteredInput() {
+FilterableDouble::FilterableDouble() {
 	// TODO Auto-generated constructor stub
 	m_Value = 0.0;
 }
 
-FilteredInput::~FilteredInput() {
+FilterableDouble::~FilterableDouble() {
 	// TODO Auto-generated destructor stub
 }
 
-double FilteredInput::PIDGet() {
+double FilterableDouble::PIDGet() {
 	return m_Value;
 }
 
-void FilteredInput::PIDSet(double val) {
+void FilterableDouble::PIDSet(double val) {
 	m_Value = val;
 }
 
 // Same as PIDSet but not as confusing when reading code IMHO
-void FilteredInput::Update(double val) {
+void FilterableDouble::Update(double val) {
 	PIDSet(val);
 }
