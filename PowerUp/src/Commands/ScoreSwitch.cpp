@@ -38,5 +38,5 @@ ScoreSwitch::ScoreSwitch(const ProfileData* LProfileName,
 	}
 	AddParallel(new ArmEjectPosition());
 	AddSequential(new AutonomousMotionProfile(LProfileName, RProfileName));
-	AddSequential(new OuttakeOn(1.0));			// Outtake on for 1 second
+	AddSequential(new OuttakeOn(0.7));			// Outtake on for 1 second
 }

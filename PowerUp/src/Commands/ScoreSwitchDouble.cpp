@@ -10,6 +10,8 @@
 #include "DriveToSwitchScore.h"
 #include "PickupCube.h"
 #include "OuttakeOn.h"
+#include "IntakeOn.h"
+#include "IntakeOpen.h"
 #include "ArmSetPosition.h"
 #include "../AutoMoves/SecondCubeLeftSwitch.h"
 #include "../AutoMoves/SecondCubeLeftSwitchFoward.h"
@@ -32,12 +34,15 @@ ScoreSwitchDouble::ScoreSwitchDouble() {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-	AddParallel(new ArmSetPosition(Robot::arm->getArmFloorAngle()));
+	AddSequential(new IntakeOpen());
 	AddSequential(new DriveToSwitchScore(
 			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitch_L,
 				&AutoMove_SecondCubeLeftSwitch_R),
 			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitch_L,
 				&AutoMove_SecondCubeLeftSwitch_R)));
+
+	AddSequential(new ArmSetPosition(90));
+	AddSequential(new IntakeOn(true));
 	// Pick up second cube
 	AddSequential(new PickupCube());
 	// Advance to fence of switch

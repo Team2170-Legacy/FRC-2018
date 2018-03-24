@@ -67,6 +67,9 @@ void Arm::InitDefaultCommand() {
 
 void Arm::Periodic() {
     // Put code here to be run every loop
+	// Limit arm target position to Min/Max
+	mArmTargetPosition = fmin(mArmTargetPosition, MaxAngle*DEG);
+	mArmTargetPosition = fmax(mArmTargetPosition, -MaxAngle*DEG);
 	if (Robot::arm->getArmSwitchDir()) {
 		setArmPosition(-mArmTargetPosition);
 	}
@@ -127,10 +130,6 @@ double Arm::getArmMotorTemp() {
 }
 
 double Arm::setArmPosition(double alphaDesiredRad) {
-	// Put CAN TALON in position mode
-	//int armEncoder = readArmEncoder();
-	//talonSRXArmMotor->Set(ControlMode::Position, armEncoder);
-
 	// Perform calculations
 	double alphaDesiredMaxRad = MaxAngle*DEG;
 	double alphaDesiredMinRad = -MaxAngle*DEG;
@@ -152,34 +151,15 @@ double Arm::setArmPosition(double alphaDesiredRad) {
 	}
 
 	double alphaDesired_CAN_TALON = currentAlpha + (w * Ts);		// [radians]
-	// Using actual elapsed time instead of Ts since our experiment shows that sample time is 4000 Hz
-	//double alphaDesired_CAN_TALON = currentAlpha + (w * elapsedTime);		// [radians]
-
-#if 0
-	//std::string Debug = alphaDesiredRad + "\t" + currentAlpha + "\t" + w + "\t" + alphaDesired_CAN_TALON;
-	std::printf("Debug: %7.3f\t %7.3f\t %7.3f\t %7.3f\t %7.3f\n", alphaDesiredRad, currentAlpha, e_alpha, w, alphaDesired_CAN_TALON);
-//	std::cout << (int)(alphaDesiredRad * 100) / 100.0 <<
-//			"\t" << (int)(currentAlpha * 100) / 100.0 <<
-//			"\t" << (int)(w * 100)/ 100.0 <<
-//			"\t" << (int)(alphaDesired_CAN_TALON * 100) / 100.0 << std::endl;
-#endif
-	// Now have CAN TALON go to that position
-	//double calculatedPosition = alphaDesired_CAN_TALON
-
-	// Code below side steps our velocity control and lets the CAN Talon control position
-	//double alphaDesired_CAN_TALON = alphaDesiredRad;				// [radians]
-
-	// native units for encoder angle are: counts (??)
 	double alphaDesired_CAN_TALON_native = alphaDesired_CAN_TALON / (2*PI) * ENCODER_COUNTS_PER_REV;
-	//std::cout << alphaDesired_CAN_TALON_native << std::endl;
-
-	//std::cout << "Elapsed Time: " << elapsedTime << std::endl;
 
 	// Limit switches  actions
-	//double yChannel = Robot::oi->getJoystickOperator()->GetY();
 	bool limitSwitchF = Robot::arm->readLimitSwitchFront();
 	bool limitSwitchR = Robot::arm->readLimitSwitchBack();
-	bool stopFlag = (alphaDesiredRad > currentAlpha && limitSwitchF) || (alphaDesiredRad < currentAlpha && limitSwitchR);
+	bool stopFlag = ((alphaDesiredRad > currentAlpha) && limitSwitchF) ||
+			((alphaDesiredRad < currentAlpha) && limitSwitchR);
+
+	SmartDashboard::PutNumber("Arm Setpoint [degrees]", alphaDesired_CAN_TALON/DEG);
 
 	if (stopFlag)
 		Robot::arm->SlewArmHold();
