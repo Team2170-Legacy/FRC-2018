@@ -64,6 +64,9 @@ public:
 	void IntakeRev(intakeModeType intakeMode, double speed);
 	void IntakeOff();
 	void IntakeOff(intakeModeType intakeMode);
+	void ClimberRaise();
+	void ClimberLower();
+	void ClimberStop();
 
 	bool getIntakeLSLeft();
 	bool getIntakeLSRight();

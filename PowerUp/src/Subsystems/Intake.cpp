@@ -120,3 +120,15 @@ void Intake::IntakeOff(intakeModeType intakeMode) {
 		rightIntakeWheel->Set(0.0);
 	}
 }
+
+void Intake::ClimberRaise() {
+	climberDoubleSolenoid->Set(DoubleSolenoid::Value::kReverse);
+}
+
+void Intake::ClimberLower() {
+	climberDoubleSolenoid->Set(DoubleSolenoid::Value::kForward);
+}
+
+void Intake::ClimberStop() {
+	climberDoubleSolenoid->Set(DoubleSolenoid::Value::kOff);
+}
