@@ -36,6 +36,7 @@ Intake::Intake() :
     climberDoubleSolenoid = RobotMap::climberDoubleSolenoid;
 	compressor->Start();
 	CloseIntake();
+	ClimberLower();
 }
 
 void Intake::InitDefaultCommand() {
