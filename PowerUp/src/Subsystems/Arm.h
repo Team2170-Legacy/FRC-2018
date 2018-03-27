@@ -73,6 +73,7 @@ public:
 	double getArmMotorTemp();
 
 	void setArmTargetPosition(double value);
+	double getArmTargetPosition();
 	bool isAtPosition(double positionRad);
 	bool isAtPosition();
 	void setArmSwitchDir(bool value);

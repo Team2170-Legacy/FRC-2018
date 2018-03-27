@@ -154,6 +154,7 @@ void Robot::UpdateSmartDash() {
 	SmartDashboard::PutBoolean("Limit Switch Back", Robot::arm->readLimitSwitchBack());
 	SmartDashboard::PutNumber("Arm Encoder Count", Robot::arm->readArmEncoder());
 	SmartDashboard::PutNumber("Arm Position [degrees]", Robot::arm->getArmPosition()/DEG);
+	SmartDashboard::PutNumber("Arm Target [degrees]", Robot::arm->getArmTargetPosition()/DEG);
 	SmartDashboard::PutBoolean("Intake Left LS", Robot::intake->getIntakeLSLeft());
 	SmartDashboard::PutBoolean("Intake Right LS", Robot::intake->getIntakeLSRight());
 

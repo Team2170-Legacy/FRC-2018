@@ -312,3 +312,7 @@ void Arm::SlewArm(double slew) {
 	mArmTargetPosition += (slew * kSlewSpeed);
 
 }
+
+double Arm::getArmTargetPosition() {
+	return mArmTargetPosition;
+}

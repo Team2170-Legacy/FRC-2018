@@ -34,10 +34,9 @@ void IntakeWithLS::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool IntakeWithLS::IsFinished() {
-	bool lsL = Robot::intake->getIntakeLSLeft();
-	bool lsR = Robot::intake->getIntakeLSRight();
-
-	return (lsL || lsR || IsTimedOut());
+	return (Robot::intake->getIntakeLSLeft() ||
+			Robot::intake->getIntakeLSRight() ||
+			IsTimedOut());
 }
 
 // Called once after isFinished returns true
