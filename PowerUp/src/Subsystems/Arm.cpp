@@ -159,8 +159,6 @@ double Arm::setArmPosition(double alphaDesiredRad) {
 	bool stopFlag = ((alphaDesiredRad > currentAlpha) && limitSwitchF) ||
 			((alphaDesiredRad < currentAlpha) && limitSwitchR);
 
-	SmartDashboard::PutNumber("Arm Setpoint [degrees]", alphaDesired_CAN_TALON/DEG);
-
 	if (stopFlag)
 		Robot::arm->SlewArmHold();
 	else

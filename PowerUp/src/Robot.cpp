@@ -146,17 +146,11 @@ void Robot::TeleopPeriodic() {
 START_ROBOT_CLASS(Robot);
 
 void Robot::UpdateSmartDash() {
-	double velocity = Robot::arm->getArmMotorVelocity();
-	double velocityRadSec = Robot::arm->NativeUnitsToRadSec(velocity);
-	SmartDashboard::PutNumber("Arm Speed [rad/sec]", velocityRadSec);
 	SmartDashboard::PutBoolean("Limit Switch Front", Robot::arm->readLimitSwitchFront());
 	SmartDashboard::PutBoolean("Reverse Direction", Robot::driveTrain->isReverseDrive());
 	SmartDashboard::PutBoolean("Limit Switch Back", Robot::arm->readLimitSwitchBack());
-	SmartDashboard::PutNumber("Arm Encoder Count", Robot::arm->readArmEncoder());
 	SmartDashboard::PutNumber("Arm Position [degrees]", Robot::arm->getArmPosition()/DEG);
-	SmartDashboard::PutNumber("Arm Target [degrees]", Robot::arm->getArmTargetPosition()/DEG);
 	SmartDashboard::PutBoolean("Intake Left LS", Robot::intake->getIntakeLSLeft());
 	SmartDashboard::PutBoolean("Intake Right LS", Robot::intake->getIntakeLSRight());
-
 }
 
