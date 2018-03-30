@@ -51,6 +51,7 @@ private:
 	XboxController driverXbox;	// Xbox driver always USB 0
 	std::shared_ptr<FilterableDouble> ThrottleInput;
 	std::shared_ptr<LinearDigitalFilter> ThrottleFilter;
+	LinearDigitalFilter SpeedFilter = LinearDigitalFilter::SinglePoleIIR(ThrottleInput, 0.02, 0.190);
 };
 
 #endif
