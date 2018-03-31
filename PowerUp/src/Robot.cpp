@@ -95,6 +95,10 @@ void Robot::RobotInit() {
 			new ScoreSwitch(&AutoMove_RSRCLB_L, &AutoMove_RSRCLB_R),
 			new ScoreSwitch(&AutoMove_RSRCRS_L, &AutoMove_RSRCRS_R)));
 	chooser.AddObject("K Test Second Cube",new ScoreSwitchDouble());
+	chooser.AddObject("L Double Right Start",
+			new ScoreSwitchDouble(new ScoreSwitch(&AutoMove_RSRCLB_L, &AutoMove_RSRCLB_R),
+					new ScoreSwitch(&AutoMove_RSRCRS_L, &AutoMove_RSRCRS_R)));
+
 
 
 	SmartDashboard::PutData("Auto Modes", &chooser);

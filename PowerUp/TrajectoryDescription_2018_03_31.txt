@@ -1,0 +1,13 @@
+TrajectoryDescription_2018_03_31.txt
+
+Longest Duration Combination
+Right Corner to Switch Left Side to Left Cube from the side to Switch Fence from the back
+RSRCLB.h
+SecondCubeLeftSwitchv2.h
+SecondCubeLeftSwitchForwardv2.h
+
+Medium Duration
+Left Corner to Switch Left Side to Left Cube from the side to Switch Fence from the back
+RSLCLS.h
+SecondCubeLeftSwitchv2.h
+SecondCubeLeftSwitchForwardv2.h

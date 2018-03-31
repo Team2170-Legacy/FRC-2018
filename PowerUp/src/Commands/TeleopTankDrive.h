@@ -48,10 +48,10 @@ private:
 	const DriveMode driveMode;
 
 	XboxController driverXbox;	// Xbox driver always USB 0
-	std::shared_ptr<FilterableDouble> VelocityInput;
+	FilterableDouble VelocityInput;
 	LinearDigitalFilter VelocityFilter =
-			LinearDigitalFilter::SinglePoleIIR(VelocityInput, 0.02,
-					Preferences::GetInstance()->GetDouble("Throttle TC", 0.190));
+			LinearDigitalFilter::SinglePoleIIR(VelocityInput,
+					Preferences::GetInstance()->GetDouble("Throttle TC", 0.190), 0.02);
 };
 
 #endif

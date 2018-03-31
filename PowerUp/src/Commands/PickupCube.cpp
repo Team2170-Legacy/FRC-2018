@@ -32,5 +32,5 @@ PickupCube::PickupCube() {
 	AddSequential(new IntakeOn(true));
 	AddSequential(new IntakeClose());
 	AddSequential(new IntakeWithLS(2.0));
-	AddSequential(new ArmEjectPosition());
+	AddSequential(new ArmEjectPosition(true));
 }
