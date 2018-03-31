@@ -35,7 +35,9 @@
 
 #include "AutoMoves/RSLCLS.h"
 #include "AutoMoves/RSLCRB.h"
+#include "AutoMoves/RSLCRBv2.h"
 #include "AutoMoves/RSRCLB.h"
+#include "AutoMoves/RSRCLBv2.h"
 #include "AutoMoves/RSRCRS.h"
 #include <iostream>
 
@@ -96,7 +98,7 @@ void Robot::RobotInit() {
 			new ScoreSwitch(&AutoMove_RSRCRS_L, &AutoMove_RSRCRS_R)));
 	chooser.AddObject("K Test Second Cube",new ScoreSwitchDouble());
 	chooser.AddObject("L Double Right Start",
-			new ScoreSwitchDouble(new ScoreSwitch(&AutoMove_RSRCLB_L, &AutoMove_RSRCLB_R),
+			new ScoreSwitchDouble(new ScoreSwitch(&AutoMove_RSRCLBv2_L, &AutoMove_RSRCLBv2_R),
 					new ScoreSwitch(&AutoMove_RSRCRS_L, &AutoMove_RSRCRS_R)));
 
 

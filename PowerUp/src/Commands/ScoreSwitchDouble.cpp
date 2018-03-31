@@ -61,7 +61,7 @@ ScoreSwitchDouble::ScoreSwitchDouble(frc::Command* left, frc::Command* right) {
 	AddSequential(new DriveToSwitchScore(left, right));
 
 	// Position to pick up second cube
-	AddSequential(new IntakeOpen());
+	AddParallel(new IntakeOpen());
 	AddParallel(new ArmSetPosition(-90));
 	AddSequential(new DriveToSwitchScore(
 			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitchv2_L,
@@ -70,7 +70,6 @@ ScoreSwitchDouble::ScoreSwitchDouble(frc::Command* left, frc::Command* right) {
 			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitchv2_L,
 				&AutoMove_SecondCubeLeftSwitchv2_R)));
 
-	AddSequential(new IntakeOn(true));
 	// Pick up second cube
 	AddSequential(new PickupCube());
 	// Advance to fence of switch
@@ -80,5 +79,5 @@ ScoreSwitchDouble::ScoreSwitchDouble(frc::Command* left, frc::Command* right) {
 			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitchForwardv2_L,
 				&AutoMove_SecondCubeLeftSwitchForwardv2_R)));
 	// Deposit cube
-	AddSequential(new OuttakeOn(1.0));			// Outtake on for 1 second
+	AddSequential(new OuttakeOn(0.5));			// Outtake on
 }
