@@ -43,8 +43,7 @@ void AutonomousMotionProfile::Initialize() {
 	else {
 		Robot::driveTrain->FillProfileBuffer(mLeftWheel);
 	}
-	double ServiceRate = mLeftWheel->at(0).at(2);
-	talonService.StartPeriodic(ServiceRate / 2000.0);	// 1/2 period of motion profile
+	talonService.StartPeriodic(TRAJECTORY_PERIOD / 2000.0);	// 1/2 period of motion profile
 }
 
 // Called repeatedly when this Command is scheduled to run

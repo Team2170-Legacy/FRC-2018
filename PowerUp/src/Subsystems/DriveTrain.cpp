@@ -101,6 +101,9 @@ void DriveTrain::InitMotors() {
 
 	talonSRXMasterLeft->ChangeMotionControlFramePeriod(5);
 	talonSRXMasterRight->ChangeMotionControlFramePeriod(5);
+
+	talonSRXMasterLeft->ConfigMotionProfileTrajectoryPeriod(TRAJECTORY_PERIOD, 10);
+	talonSRXMasterRight->ConfigMotionProfileTrajectoryPeriod(TRAJECTORY_PERIOD, 10);
 }
 
 void DriveTrain::TankDrive(double leftSpeed, double rightSpeed) {
@@ -161,8 +164,7 @@ void DriveTrain::FillProfileBuffer(
 
 		pt.position = LeftWheel->at(i).at(0);
 		pt.velocity = LeftWheel->at(i).at(1);
-		pt.timeDur = TrajectoryDuration_20ms;
-//		pt.timeDur = (TrajectoryDuration)LeftWheel->at(i).at(2);
+		pt.timeDur = TrajectoryDuration_0ms;
 		if ((error = talonSRXMasterLeft->PushMotionProfileTrajectory(pt))) {
 			printf("left %d\n", error);
 		}
@@ -201,15 +203,13 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
 
 		pt.position = LeftWheel->at(i).at(0);
 		pt.velocity = LeftWheel->at(i).at(1);
-//		pt.timeDur = (TrajectoryDuration)LeftWheel->at(i).at(2);
-		pt.timeDur = TrajectoryDuration_20ms;
+		pt.timeDur = TrajectoryDuration_0ms;
 		talonSRXMasterLeft->PushMotionProfileTrajectory(pt);
 
 		// Use right wheel profile for right side
 		pt.position = -RightWheel->at(i).at(0);
 		pt.velocity = -RightWheel->at(i).at(1);
-//		pt.timeDur = (TrajectoryDuration)RightWheel->at(i).at(2);
-		pt.timeDur = TrajectoryDuration_20ms;
+		pt.timeDur = TrajectoryDuration_0ms;
 		talonSRXMasterRight->PushMotionProfileTrajectory(pt);
 		pt.zeroPos = false;
 	}
