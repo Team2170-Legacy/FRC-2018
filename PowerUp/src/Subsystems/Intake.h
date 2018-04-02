@@ -40,6 +40,10 @@ private:
 	const double kIntakeSpeed;
 	const double kOuttakeSpeed;
 	std::shared_ptr<frc::DoubleSolenoid> climberDoubleSolenoid;
+	std::shared_ptr<frc::SpeedController> climberMotor;
+
+	double mClimbSpeed = Preferences::GetInstance()->GetDouble("Climb Speed", 0.5);
+
 
 public:
 	Intake();
@@ -67,6 +71,9 @@ public:
 	void ScissorRaise();
 	void ScissorLower();
 	void ScissorStop();
+	void ClimbUp();
+	void ClimbDown();
+	void ClimbStop();
 
 	bool getIntakeLSLeft();
 	bool getIntakeLSRight();
