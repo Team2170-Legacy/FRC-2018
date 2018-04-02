@@ -36,7 +36,7 @@ Intake::Intake() :
     climberDoubleSolenoid = RobotMap::climberDoubleSolenoid;
 	compressor->Start();
 	CloseIntake();
-	ClimberLower();
+	ScissorLower();
 }
 
 void Intake::InitDefaultCommand() {
@@ -122,14 +122,14 @@ void Intake::IntakeOff(intakeModeType intakeMode) {
 	}
 }
 
-void Intake::ClimberRaise() {
+void Intake::ScissorRaise() {
 	climberDoubleSolenoid->Set(DoubleSolenoid::Value::kReverse);
 }
 
-void Intake::ClimberLower() {
+void Intake::ScissorLower() {
 	climberDoubleSolenoid->Set(DoubleSolenoid::Value::kForward);
 }
 
-void Intake::ClimberStop() {
+void Intake::ScissorStop() {
 	climberDoubleSolenoid->Set(DoubleSolenoid::Value::kOff);
 }
