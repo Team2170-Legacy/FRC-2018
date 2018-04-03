@@ -71,6 +71,7 @@ public:
 	void ScissorRaise();
 	void ScissorLower();
 	void ScissorStop();
+	bool IsScissorDown();
 	void ClimbUp();
 	void ClimbDown();
 	void ClimbStop();

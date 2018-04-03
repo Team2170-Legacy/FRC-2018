@@ -98,6 +98,11 @@ void Intake::ClimbStop() {
 	climberMotor->Set(0.0);
 }
 
+bool Intake::IsScissorDown() {
+	return (climberDoubleSolenoid->Get() ==
+			DoubleSolenoid::Value::kReverse);
+}
+
 bool Intake::getIntakeLSRight() {
 	return lSRight->Get();
 }
