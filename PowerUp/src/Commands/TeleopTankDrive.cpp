@@ -81,6 +81,11 @@ void TeleopTankDrive::Execute() {
 		Velocity = VelocityFilter.PIDGet();
 
 		Arc = driverXbox.GetX(frc::GenericHID::JoystickHand::kRightHand);
+
+		// Filter direction (arc)
+		DirectionInput.Update(Arc);
+		Arc = DirectionFilter.PIDGet();
+
 		if (Velocity < 0.0) {
 			Arc = -Arc;
 		}

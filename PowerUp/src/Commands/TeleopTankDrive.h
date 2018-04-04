@@ -52,6 +52,10 @@ private:
 	LinearDigitalFilter VelocityFilter =
 			LinearDigitalFilter::SinglePoleIIR(VelocityInput,
 					Preferences::GetInstance()->GetDouble("Throttle TC", 0.190), 0.02);
+	FilterableDouble DirectionInput;
+	LinearDigitalFilter DirectionFilter =
+			LinearDigitalFilter::SinglePoleIIR(DirectionInput,
+					Preferences::GetInstance()->GetDouble("Throttle TC", 0.190), 0.02);
 };
 
 #endif
