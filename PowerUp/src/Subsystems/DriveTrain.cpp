@@ -164,7 +164,7 @@ void DriveTrain::FillProfileBuffer(
 
 		pt.position = LeftWheel->at(i).at(0);
 		pt.velocity = LeftWheel->at(i).at(1);
-		pt.timeDur = TrajectoryDuration_0ms;
+		pt.timeDur = TrajectoryDuration_10ms;
 		if ((error = talonSRXMasterLeft->PushMotionProfileTrajectory(pt))) {
 			printf("left %d\n", error);
 		}
@@ -203,13 +203,13 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
 
 		pt.position = LeftWheel->at(i).at(0);
 		pt.velocity = LeftWheel->at(i).at(1);
-		pt.timeDur = TrajectoryDuration_0ms;
+		pt.timeDur = TrajectoryDuration_10ms;
 		talonSRXMasterLeft->PushMotionProfileTrajectory(pt);
 
 		// Use right wheel profile for right side
 		pt.position = -RightWheel->at(i).at(0);
 		pt.velocity = -RightWheel->at(i).at(1);
-		pt.timeDur = TrajectoryDuration_0ms;
+		pt.timeDur = TrajectoryDuration_10ms;
 		talonSRXMasterRight->PushMotionProfileTrajectory(pt);
 		pt.zeroPos = false;
 	}
