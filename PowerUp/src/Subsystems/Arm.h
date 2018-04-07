@@ -50,6 +50,12 @@ private:
 	const double ArmFloorAngle;
 	double setArmPosition(double alphaFinalRad);
 	void resetArmEncoder();
+	const double OCTime =
+			Preferences::GetInstance()->GetDouble("OC Time", .2);
+	const double CurrentFoldback =
+			Preferences::GetInstance()->GetDouble("Current Fold", 15.0);
+	const double bCurrentLimit =
+			Preferences::GetInstance()->GetBoolean("Current Limit", false);
 
 public:
 	Arm();

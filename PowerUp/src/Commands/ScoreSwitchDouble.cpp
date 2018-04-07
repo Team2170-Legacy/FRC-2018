@@ -17,6 +17,8 @@
 #include "../AutoMoves/SecondCubeLeftSwitchFoward.h"
 #include "../AutoMoves/SecondCubeLeftSwitchv2.h"
 #include "../AutoMoves/SecondCubeLeftSwitchForwardv2.h"
+#include "../AutoMoves/SecondCubeRightSwitchv2.h"
+#include "../AutoMoves/SecondCubeRightSwitchForwardv2.h"
 
 ScoreSwitchDouble::ScoreSwitchDouble() {
 	// Add Commands here:
@@ -50,8 +52,8 @@ ScoreSwitchDouble::ScoreSwitchDouble() {
 	AddSequential(new DriveToSwitchScore(
 			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitchForwardv2_L,
 				&AutoMove_SecondCubeLeftSwitchForwardv2_R),
-			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitchForwardv2_L,
-				&AutoMove_SecondCubeLeftSwitchForwardv2_R)));
+			new AutonomousMotionProfile(&AutoMove_SecondCubeRightSwitchForwardv2_L,
+				&AutoMove_SecondCubeRightSwitchForwardv2_R)));
 	// Deposit cube
 	AddSequential(new OuttakeOn(1.0));			// Outtake on for 1 second
 }
@@ -66,9 +68,8 @@ ScoreSwitchDouble::ScoreSwitchDouble(frc::Command* left, frc::Command* right) {
 	AddSequential(new DriveToSwitchScore(
 			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitchv2_L,
 				&AutoMove_SecondCubeLeftSwitchv2_R),
-				// TODO update for Right
-			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitchv2_L,
-				&AutoMove_SecondCubeLeftSwitchv2_R)));
+			new AutonomousMotionProfile(&AutoMove_SecondCubeRightSwitchv2_L,
+				&AutoMove_SecondCubeRightSwitchv2_R)));
 
 	// Pick up second cube
 	AddSequential(new PickupCube());
