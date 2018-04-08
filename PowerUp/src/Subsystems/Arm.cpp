@@ -66,16 +66,16 @@ void Arm::InitDefaultCommand() {
 }
 
 void Arm::Periodic() {
-    // Put code here to be run every loop
+	double NewCmd;
+
 	// Limit arm target position to Min/Max
 	mArmTargetPosition = fmin(mArmTargetPosition, MaxAngle*DEG);
 	mArmTargetPosition = fmax(mArmTargetPosition, -MaxAngle*DEG);
-	if (Robot::arm->getArmSwitchDir()) {
-		setArmPosition(-mArmTargetPosition);
-	}
-	else {
-		setArmPosition(mArmTargetPosition);
-	}
+
+	NewPosition.Update(mArmTargetPosition);
+	NewCmd = CommandFilter.PIDGet();
+
+	setArmPosition(NewCmd);
 }
 
 // Put methods for controlling this subsystem

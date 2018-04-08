@@ -92,11 +92,11 @@ void Robot::RobotInit() {
 			new ScoreSwitch(&AutoMove_RSRRS_L, &AutoMove_RSRRS_R)));
 	chooser.AddObject("I Left Corner Score Side Back",new DriveToSwitchScore (
 			new ScoreSwitch(&AutoMove_RSLCLS_L, &AutoMove_RSLCLS_R),
-			new ScoreSwitch(&AutoMove_RSLCRB_L, &AutoMove_RSLCRB_R)));
+			new ScoreSwitch(&AutoMove_RSLCRBv2_L, &AutoMove_RSLCRBv2_R)));
 	chooser.AddObject("J Right Corner Score Side Back",new DriveToSwitchScore (
-			new ScoreSwitch(&AutoMove_RSRCLB_L, &AutoMove_RSRCLB_R),
+			new ScoreSwitch(&AutoMove_RSRCLBv2_L, &AutoMove_RSRCLBv2_R),
 			new ScoreSwitch(&AutoMove_RSRCRS_L, &AutoMove_RSRCRS_R)));
-	chooser.AddObject("L Double Left Start",
+	chooser.AddObject("K Double Left Start",
 			new ScoreSwitchDouble(new ScoreSwitch(&AutoMove_RSLCLS_L, &AutoMove_RSLCLS_R),
 					new ScoreSwitch(&AutoMove_RSLCRBv2_L, &AutoMove_RSLCRBv2_R)));
 	chooser.AddObject("L Double Right Start",

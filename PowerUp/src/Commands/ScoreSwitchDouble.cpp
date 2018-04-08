@@ -42,8 +42,8 @@ ScoreSwitchDouble::ScoreSwitchDouble() {
 	AddSequential(new DriveToSwitchScore(
 			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitchv2_L,
 				&AutoMove_SecondCubeLeftSwitchv2_R),
-			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitchv2_L,
-				&AutoMove_SecondCubeLeftSwitchv2_R)));
+			new AutonomousMotionProfile(&AutoMove_SecondCubeRightSwitchv2_L,
+				&AutoMove_SecondCubeRightSwitchv2_R)));
 
 	AddSequential(new IntakeOn(true));
 	// Pick up second cube

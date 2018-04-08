@@ -23,10 +23,12 @@ ArmSetPosition::ArmSetPosition(int positionDeg) {
 void ArmSetPosition::Initialize() {
 	Robot::arm->setArmTargetPosition(armTargetPosition);
 	SetTimeout(5.0);
+
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ArmSetPosition::Execute() {
+	Robot::arm->setArmTargetPosition(armTargetPosition);
 }
 
 // Make this return true when this Command no longer needs to run execute()

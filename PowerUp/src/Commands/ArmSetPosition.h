@@ -9,6 +9,7 @@
 
 #include <Commands/Command.h>
 #include "../Robot.h"
+#include "../FilterableDouble.h"
 
 class ArmSetPosition : public frc::Command {
 public:

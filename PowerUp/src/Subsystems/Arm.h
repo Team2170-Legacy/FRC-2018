@@ -16,7 +16,7 @@
 #include "ctre/Phoenix.h"
 #include <cmath>
 #include <Timer.h>
-
+#include "../FilterableDouble.h"
 #define PI 3.14159265358979323
 #define DEG (PI/180.)
 #define ENCODER_COUNTS_PER_REV (4096 * 3)			// Native encoder counts * gearing ratio
@@ -56,6 +56,11 @@ private:
 			Preferences::GetInstance()->GetDouble("Current Fold", 15.0);
 	const double bCurrentLimit =
 			Preferences::GetInstance()->GetBoolean("Current Limit", false);
+
+	FilterableDouble NewPosition;
+	LinearDigitalFilter CommandFilter =
+			LinearDigitalFilter::SinglePoleIIR(NewPosition,
+					Preferences::GetInstance()->GetDouble("Arm TC", 2.0), 0.02);
 
 public:
 	Arm();
