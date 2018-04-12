@@ -15,9 +15,9 @@
 #include "ArmSetPosition.h"
 #include "../AutoMoves/SecondCubeLeftSwitch.h"
 #include "../AutoMoves/SecondCubeLeftSwitchFoward.h"
-#include "../AutoMoves/SecondCubeLeftSwitchv2.h"
+#include "../AutoMoves/SecondCubeLeftSwitchv3.h"
 #include "../AutoMoves/SecondCubeLeftSwitchForwardv2.h"
-#include "../AutoMoves/SecondCubeRightSwitchv2.h"
+#include "../AutoMoves/SecondCubeRightSwitchv3.h"
 #include "../AutoMoves/SecondCubeRightSwitchForwardv2.h"
 
 ScoreSwitchDouble::ScoreSwitchDouble() {
@@ -40,10 +40,10 @@ ScoreSwitchDouble::ScoreSwitchDouble() {
 	AddSequential(new IntakeOpen());
 	AddParallel(new ArmSetPosition(-90));
 	AddSequential(new DriveToSwitchScore(
-			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitchv2_L,
-				&AutoMove_SecondCubeLeftSwitchv2_R),
-			new AutonomousMotionProfile(&AutoMove_SecondCubeRightSwitchv2_L,
-				&AutoMove_SecondCubeRightSwitchv2_R)));
+			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitchv3_L,
+				&AutoMove_SecondCubeLeftSwitchv3_R),
+			new AutonomousMotionProfile(&AutoMove_SecondCubeRightSwitchv3_L,
+				&AutoMove_SecondCubeRightSwitchv3_R)));
 
 	AddSequential(new IntakeOn(true));
 	// Pick up second cube
@@ -66,10 +66,10 @@ ScoreSwitchDouble::ScoreSwitchDouble(frc::Command* left, frc::Command* right) {
 	AddParallel(new IntakeOpen());
 	AddParallel(new ArmSetPosition(-90));
 	AddSequential(new DriveToSwitchScore(
-			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitchv2_L,
-				&AutoMove_SecondCubeLeftSwitchv2_R),
-			new AutonomousMotionProfile(&AutoMove_SecondCubeRightSwitchv2_L,
-				&AutoMove_SecondCubeRightSwitchv2_R)));
+			new AutonomousMotionProfile(&AutoMove_SecondCubeLeftSwitchv3_L,
+				&AutoMove_SecondCubeLeftSwitchv3_R),
+			new AutonomousMotionProfile(&AutoMove_SecondCubeRightSwitchv3_L,
+				&AutoMove_SecondCubeRightSwitchv3_R)));
 
 	// Pick up second cube
 	AddSequential(new PickupCube());
