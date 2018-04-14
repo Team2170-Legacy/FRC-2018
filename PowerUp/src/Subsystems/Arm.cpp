@@ -87,7 +87,8 @@ bool Arm::readLimitSwitchFront() {
 }
 
 bool Arm::readLimitSwitchBack() {
-	return limitSwitchBack->Get();
+//	return limitSwitchBack->Get();
+	return(false);
 	// Inversed due to Digital Output voltage pull-up (5V)
 }
 
