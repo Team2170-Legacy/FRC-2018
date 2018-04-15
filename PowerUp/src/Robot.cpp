@@ -94,18 +94,21 @@ void Robot::RobotInit() {
 	chooser.AddObject("H Right Start Score Side",new DriveToSwitchScore (
 			new ScoreSwitch(&AutoMove_RSRLS_L, &AutoMove_RSRLS_R, StartDelay),
 			new ScoreSwitch(&AutoMove_RSRRS_L, &AutoMove_RSRRS_R)));
-	chooser.AddObject("I Left Corner Score Side Back",new DriveToSwitchScore (
-			new ScoreSwitch(&AutoMove_RSLCLS_L, &AutoMove_RSLCLS_R),
-			new ScoreSwitch(&AutoMove_RSLCRBv2_L, &AutoMove_RSLCRBv2_R)));
-	chooser.AddObject("J Right Corner Score Side Back",new DriveToSwitchScore (
-			new ScoreSwitch(&AutoMove_RSRCLBv2_L, &AutoMove_RSRCLBv2_R),
-			new ScoreSwitch(&AutoMove_RSRCRS_L, &AutoMove_RSRCRS_R)));
+//	chooser.AddObject("I Left Corner Score Side Back",new DriveToSwitchScore (
+//			new ScoreSwitch(&AutoMove_RSLCLS_L, &AutoMove_RSLCLS_R),
+//			new ScoreSwitch(&AutoMove_RSLCRBv2_L, &AutoMove_RSLCRBv2_R)));
+//	chooser.AddObject("J Right Corner Score Side Back",new DriveToSwitchScore (
+//			new ScoreSwitch(&AutoMove_RSRCLBv2_L, &AutoMove_RSRCLBv2_R),
+//			new ScoreSwitch(&AutoMove_RSRCRS_L, &AutoMove_RSRCRS_R)));
 	chooser.AddObject("K Double Left Start",
-			new ScoreSwitchDouble(new ScoreSwitch(&AutoMove_RSLCLS_L, &AutoMove_RSLCLS_R),
-					new ScoreSwitch(&AutoMove_RSLCRBv2_L, &AutoMove_RSLCRBv2_R)));
+			new DriveToSwitchScore(new ScoreSwitchDouble(
+					new ScoreSwitch(&AutoMove_RSLCLS_L, &AutoMove_RSLCLS_R), new NoCommand()),
+					new AutonomousMotionProfile(&AutoMove_Straight_L, &AutoMove_Straight_R)));
 	chooser.AddObject("L Double Right Start",
-			new ScoreSwitchDouble(new ScoreSwitch(&AutoMove_RSRCLBv2_L, &AutoMove_RSRCLBv2_R),
-					new ScoreSwitch(&AutoMove_RSRCRS_L, &AutoMove_RSRCRS_R)));
+			new DriveToSwitchScore(
+					new AutonomousMotionProfile(&AutoMove_Straight_L, &AutoMove_Straight_R),
+			new ScoreSwitchDouble(new NoCommand(),
+					new ScoreSwitch(&AutoMove_RSRCRS_L, &AutoMove_RSRCRS_R))));
 	chooser.AddObject("M Test Second Cube",new ScoreSwitchDouble());
 	chooser.AddObject("T1 Test Mode 1",
 			new AutonomousMotionProfile(&AutoMove_Test01_L, &AutoMove_Test01_R));

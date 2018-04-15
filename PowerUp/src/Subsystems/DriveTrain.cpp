@@ -142,12 +142,14 @@ void DriveTrain::TankDriveVelocity(double left, double right){
 void DriveTrain::FillProfileBuffer(
 		std::shared_ptr<const ProfileData> LeftWheel) {
 	size_t i;
-	TrajectoryPoint pt;
+	phoenix::motion::TrajectoryPoint pt;
 	phoenix::ErrorCode error;
 
 	pt.zeroPos = true;
 	pt.isLastPoint = false;
+	pt.auxiliaryPos = 0.0;
 	pt.profileSlotSelect0 = 0;
+	pt.profileSlotSelect1 = 0;
 
 	talonSRXMasterRight->Set(ControlMode::MotionProfile, SetValueMotionProfile::Disable);
 	talonSRXMasterRight->Set(ControlMode::MotionProfile, SetValueMotionProfile::Disable);
@@ -186,7 +188,9 @@ void DriveTrain::FillProfileBuffer(std::shared_ptr<const ProfileData> LeftWheel,
 
 	pt.zeroPos = true;
 	pt.isLastPoint = false;
+	pt.auxiliaryPos = 0.0;
 	pt.profileSlotSelect0 = 0;
+	pt.profileSlotSelect1 = 0;
 
 	talonSRXMasterRight->Set(ControlMode::MotionProfile, SetValueMotionProfile::Disable);
 	talonSRXMasterRight->Set(ControlMode::MotionProfile, SetValueMotionProfile::Disable);
