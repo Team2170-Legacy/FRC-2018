@@ -30,7 +30,7 @@ bool ClimbDownWhileHeld::IsFinished() {
 
 // Called once after isFinished returns true
 void ClimbDownWhileHeld::End() {
-	Robot::intake->ClimbDown();
+	Robot::intake->ClimbStop();
 }
 
 // Called when another command which requires one or more of the same

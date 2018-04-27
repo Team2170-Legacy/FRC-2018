@@ -100,7 +100,7 @@ void Intake::ClimbStop() {
 
 bool Intake::IsScissorDown() {
 	return (climberDoubleSolenoid->Get() ==
-			DoubleSolenoid::Value::kReverse);
+			DoubleSolenoid::Value::kForward);
 }
 
 bool Intake::getIntakeLSRight() {

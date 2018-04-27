@@ -20,6 +20,6 @@ void ScissorControl::Initialize() {
 		Robot::intake->ScissorRaise();
 	}
 	else {
-		Robot::intake->ScissorRaise();
+		Robot::intake->ScissorLower();
 	}
 }

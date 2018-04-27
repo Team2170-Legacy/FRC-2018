@@ -42,7 +42,7 @@ private:
 	std::shared_ptr<frc::DoubleSolenoid> climberDoubleSolenoid;
 	std::shared_ptr<frc::SpeedController> climberMotor;
 
-	double mClimbSpeed = Preferences::GetInstance()->GetDouble("Climb Speed", 0.5);
+	double mClimbSpeed = Preferences::GetInstance()->GetDouble("Climb Speed", 1.0);
 
 
 public:
