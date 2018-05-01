@@ -555,6 +555,12 @@ void DriveTrain::CurvatureDriveVelocity(double xSpeed, double zRotation,
     }
   }
 
+  if (fabs(xSpeed) < 0.05) {
+	  talonSRXMasterLeft->SetIntegralAccumulator(0.0, 1, 10);
+	  talonSRXMasterRight->SetIntegralAccumulator(0.0, 1, 10);
+	  talonSRXMasterLeft->SetIntegralAccumulator(0.0, 0, 10);
+	  talonSRXMasterRight->SetIntegralAccumulator(0.0, 0, 10);
+  }
   double leftMotorOutput = xSpeed + angularPower;
   double rightMotorOutput = xSpeed - angularPower;
 
